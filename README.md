@@ -28,4 +28,3 @@
    NOTE: Change the value of your .env key "LOG_CHANNEL" to "daily".
 
 Also, don't forget to run composer update.
-   
