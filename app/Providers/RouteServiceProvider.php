@@ -2,11 +2,8 @@
 
 namespace App\Providers;
 
-use Illuminate\Cache\RateLimiting\Limit;
-use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -26,7 +23,9 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string|null
      */
-    // protected $namespace = 'App\\Http\\Controllers';
+    protected $sFrontControllerNamespace = 'App\Http\Controllers\Front';
+    protected $sAdminControllerNamespace = 'App\Http\Controllers\Admin';
+    protected $sAPIControllerNamespace = 'App\Http\Controllers\API';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -35,29 +34,50 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->configureRateLimiting();
-
-        $this->routes(function () {
-            Route::prefix('api')
-                ->middleware('api')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/api.php'));
-
-            Route::middleware('web')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/web.php'));
-        });
+        parent::boot();
     }
 
     /**
-     * Configure the rate limiters for the application.
-     *
-     * @return void
+     * Configures all the mapped routes
      */
-    protected function configureRateLimiting()
+    public function map()
     {
-        RateLimiter::for('api', function (Request $request) {
-            return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
-        });
+        $oRoute = Route::domain(config('app.app_route'))->middleware('web');
+        $this->mapFrontRoutes($oRoute);
+        $this->mapAdminRoutes($oRoute);
+        $this->mapAPIRoutes($oRoute);
+    }
+
+    /**
+     * Map the front routes
+     * @param \Illuminate\Routing\RouteRegistrar $oRoute
+     */
+    protected function mapFrontRoutes(\Illuminate\Routing\RouteRegistrar $oRoute)
+    {
+        $oRoute
+            ->namespace($this->sFrontControllerNamespace)
+            ->group(base_path('routes/Front.php'));
+    }
+
+    /**
+     * Map the admin routes
+     * @param \Illuminate\Routing\RouteRegistrar $oRoute
+     */
+    protected function mapAdminRoutes(\Illuminate\Routing\RouteRegistrar $oRoute)
+    {
+        $oRoute
+            ->namespace($this->sAdminControllerNamespace)
+            ->group(base_path('routes/admin.php'));
+    }
+
+    /**
+     * Map the API routes
+     * @param \Illuminate\Routing\RouteRegistrar $oRoute
+     */
+    protected function mapAPIRoutes(\Illuminate\Routing\RouteRegistrar $oRoute)
+    {
+        $oRoute
+            ->namespace($this->sAPIControllerNamespace)
+            ->group(base_path('routes/api.php'));
     }
 }

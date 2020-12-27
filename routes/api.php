@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// Add an appropriate middleware for API @TODO
+
+Route::prefix('v1')->group(function () {
+
+    /**
+     * API Route group for post management
+     */
+    Route::prefix('posts')->group(function () {
+        Route::get('test', 'PostApiController@test');
+    });
+
 });

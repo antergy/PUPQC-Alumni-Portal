@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| Admin Web Routes
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
@@ -13,6 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Add an appropriate middleware for API @TODO
+
+Route::prefix('admin')->group(function () {
+
+    /**
+     * Admin route group for post management
+     */
+    Route::prefix('posts')->group(function () {
+        Route::get('test', 'PostAdminController@test');
+    });
+
 });
