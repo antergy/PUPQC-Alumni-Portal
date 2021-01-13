@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRCoursesTable extends Migration
+class CreateRCourses extends Migration
 {
     /**
      * Run the migrations.
@@ -16,7 +16,7 @@ class CreateRCoursesTable extends Migration
         Schema::disableForeignKeyConstraints();
         Schema::create('r_courses', function (Blueprint $table) {
             $table->id('course_id')->autoIncrement();
-            $table->string('course_desc', 225);
+            $table->string('course_desc', 100);
             $table->string('course_acronym', 20);
             $table->timestamps();
         });

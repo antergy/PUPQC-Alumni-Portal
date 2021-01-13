@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTAccountsTable extends Migration
+class CreateTAccounts extends Migration
 {
     /**
      * Run the migrations.
@@ -16,16 +16,15 @@ class CreateTAccountsTable extends Migration
         Schema::disableForeignKeyConstraints();
         Schema::create('t_accounts', function (Blueprint $table) {
             $table->id('acc_id')->autoIncrement();
-            $table->string('acc_username', 50);
-            $table->string('acc_password', 50);
-            $table->string('acc_name', 100);
-            $table->string('acc_email', 100);
-            $table->string('acc_picture', 225)
-                ->default('default_image.jpg');
-            $table->unsignedBigInteger('acc_type_id');
+            $table->longText('acc_username')->unique();
+            $table->longText('acc_password');
+            $table->longText('acc_name');
+            $table->longText('acc_email')->unique();
+            $table->longText('acc_picture')->default('DEF-PIC');
+            $table->unsignedBigInteger('acc_type');
             $table->integer('acc_status')->default(1);
 
-            $table->foreign('acc_type_id')->references('at_id')->on('r_account_types');
+            $table->foreign('acc_type')->references('at_id')->on('r_account_types');
             $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();

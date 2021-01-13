@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRWorkfieldsTable extends Migration
+class CreateRProfessionalExams extends Migration
 {
     /**
      * Run the migrations.
@@ -14,11 +14,9 @@ class CreateRWorkfieldsTable extends Migration
     public function up()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::create('r_workfields', function (Blueprint $table) {
-            $table->id('wf_id')->autoIncrement();
-            $table->string('wf_desc', 225);
-            $table->unsignedBigInteger('wf_course_id')->unsigned();
-            $table->foreign('wf_course_id')->references('course_id')->on('r_courses');
+        Schema::create('r_professional_exams', function (Blueprint $table) {
+            $table->id('profex_id')->autoIncrement();
+            $table->string('profex_desc', 225);
             $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();
@@ -31,6 +29,6 @@ class CreateRWorkfieldsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('r_workfields');
+        Schema::dropIfExists('r_professional_exams');
     }
 }

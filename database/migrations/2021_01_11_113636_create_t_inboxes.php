@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTInboxesTable extends Migration
+class CreateTInboxes extends Migration
 {
     /**
      * Run the migrations.
@@ -19,6 +19,7 @@ class CreateTInboxesTable extends Migration
             $table->longText('in_message');
             $table->unsignedBigInteger('in_acc_id_from');
             $table->unsignedBigInteger('in_acc_id_to');
+
             $table->foreign('in_acc_id_from')->references('acc_id')->on('t_accounts');
             $table->foreign('in_acc_id_to')->references('acc_id')->on('t_accounts');
             $table->timestamps();

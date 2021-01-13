@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTCommentsTable extends Migration
+class CreateTComments extends Migration
 {
     /**
      * Run the migrations.
@@ -19,6 +19,7 @@ class CreateTCommentsTable extends Migration
             $table->longText('cm_desc');
             $table->unsignedBigInteger('cm_post_id');
             $table->unsignedBigInteger('cm_acc_id');
+
             $table->foreign('cm_post_id')->references('p_id')->on('t_posts');
             $table->foreign('cm_acc_id')->references('acc_id')->on('t_accounts');
             $table->timestamps();

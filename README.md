@@ -1,16 +1,28 @@
 
 ## PUPQC Alumni Portal 
-### Version 1.0
+### Version 1.0 Updates
 
-Initial Setup Contains:
-1. Database migration is complete, just run ```php artisan migrate:fresh```
-2. Routing setup for front, admin, API is complete, just add your addtional custom routes.
-3. Format for providing response from back-end to front-end is provided, see ```ResponseLib.php``` (The ResponseLib will also be used for API controllers)
-4. run ```composer update``` before using/running the app. If you don't have composer, download and install it first.
-5. Vue is already integrated in laravel (blade.php) See ```main.blade.php``` in view directory.
-- To run vue in laravel, you must install first the node.js  ```https://nodejs.org/dist/v14.15.3/node-v14.15.3-x64.msi``` (64-bit installer)
-- Go to project directory, and run ```npm install```
-- After running ```npm install``` and the installation is finished, run ```npm install vue```
-- After that, to test if the vue is working, try to create a component and integrate it to a blade, then run ```npm run dev``` (For 1 time compilation) or ```npm run watch``` for continuous compilation of assets (js, css, view files) for every changes.
-
-#### NOTE: ```.env``` (local) is in the ```.env.example``` file, while the vhost used for xampp is in the ```sample vhost.txt```
+#### feature/system_administrator (Updates)
+1. Database migrations are updated based on the latest data dictionary (version 2.1)
+   - .sql file of the database is included in this branch
+   - data dictionary .docx file v2.1 is included in this branch
+2. Create API controllers and repositories for system admin sub-modules:
+       * - Course Management
+       * - Account Type Management
+       * - Post Type Management
+       * - Educational Attainment Management
+       * - Honors Received Management
+       * - Professional Exam Management
+       * - First Job Timeframe Management
+       * - First Job Discover Management
+       * - Job Level Management
+       * - Self Employed Salary Management
+       * - Unemployment Reason Management
+       * - Industry Management
+       * - Competency Management
+       * - Impact of Education Management
+3. Created a guzzle request library for the front and admin controllers
+4. Created a single hub controller for system admin processes in admin component
+5. API and Admin routes are updated.
+6. Created a logging system for both API and Admin components (Config and Library)
+   NOTE: Change the value of your .env key "LOG_CHANNEL" to "daily".

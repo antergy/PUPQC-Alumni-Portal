@@ -21,8 +21,34 @@
   <component name="ChangeListManager">
     <list default="true" id="17467bac-b45e-433c-8227-c182f30fc3ba" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/pupqc_alumni_portal.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pupqc_alumni_portal.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/SystemAdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/SystemAdminController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Controller.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/VerifyCsrfToken.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/VerifyCsrfToken.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Libraries/Common/GuzzleLib.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Libraries/Common/GuzzleLib.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Libraries/Common/LogLib.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Libraries/Common/LogLib.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Libraries/Common/ResponseLib.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Libraries/Common/ResponseLib.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/logging.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/logging.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_24_064643_create_t_accounts_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_24_065845_create_r_courses_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_24_070557_create_r_account_types_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_24_070610_create_r_post_types_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_24_070629_create_r_workfields_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_24_080845_create_t_alumni_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_24_080909_create_t_alumni_work_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_24_080923_create_t_posts_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_24_080936_create_t_likes_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_24_080957_create_t_comments_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_24_081015_create_t_inboxes_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_24_081031_create_t_visit_logs_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,6 +178,9 @@
       <path value="$PROJECT_DIR$/vendor/vlucas/phpdotenv" />
       <path value="$PROJECT_DIR$/vendor/swiftmailer/swiftmailer" />
       <path value="$PROJECT_DIR$/vendor/doctrine/inflector" />
+      <path value="$PROJECT_DIR$/vendor/nikic/fast-route" />
+      <path value="$PROJECT_DIR$/vendor/laravel/lumen-framework" />
+      <path value="$PROJECT_DIR$/vendor/laravel/lumen" />
     </include_path>
   </component>
   <component name="ProjectId" id="1luZbtoBZe69HoerPqyanqzB2Bk" />
@@ -163,13 +192,16 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/routes" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="terminal" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.PHP" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Projects\External Projects\PUPQC Alumni Portal\System\pupqc_alumni_portal" />
+      <recent name="D:\Projects\External Projects\PUPQC Alumni Portal\System\pupqc_alumni_portal\app\Http\Rules\API" />
+      <recent name="D:\Projects\External Projects\PUPQC Alumni Portal\System\pupqc_alumni_portal\database\migrations" />
       <recent name="D:\Projects\External Projects\PUPQC Alumni Portal\System\pupqc_alumni_portal\routes" />
     </key>
   </component>
@@ -191,7 +223,12 @@
       <workItem from="1608545708724" duration="1150000" />
       <workItem from="1608685352739" duration="3537000" />
       <workItem from="1608786064512" duration="13444000" />
-      <workItem from="1609035941617" duration="2361000" />
+      <workItem from="1609035941617" duration="2944000" />
+      <workItem from="1609122421948" duration="599000" />
+      <workItem from="1609815702433" duration="10086000" />
+      <workItem from="1609892478116" duration="16271000" />
+      <workItem from="1610064454459" duration="10467000" />
+      <workItem from="1610352593976" duration="37526000" />
     </task>
     <servers />
   </component>
@@ -211,29 +248,49 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="582" y="207" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1609036355147">
+    <state x="348" y="87" key="#PHP_CodeSniffer" timestamp="1610069139392">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="582" y="207" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.864@0.0.1536.864" timestamp="1609036355147" />
-    <state x="548" y="173" key="FileChooserDialogImpl" timestamp="1608687718076">
+    <state x="348" y="87" key="#PHP_CodeSniffer/0.0.1536.864@0.0.1536.864" timestamp="1610069139392" />
+    <state x="582" y="207" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1610439881746">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="548" y="173" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1608687718076" />
-    <state x="390" y="155" key="NewPhpClassDialog" timestamp="1609036212216">
+    <state x="582" y="207" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.864@0.0.1536.864" timestamp="1610439881746" />
+    <state x="499" y="187" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1610444727842">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="390" y="155" key="NewPhpClassDialog/0.0.1536.864@0.0.1536.864" timestamp="1609036212216" />
-    <state x="277" y="77" key="SettingsEditor" timestamp="1608687720638">
+    <state x="499" y="187" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1536.864@0.0.1536.864" timestamp="1610444727842" />
+    <state x="637" y="182" key="EnvironmentVariablesDialog" timestamp="1609815954516">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="277" y="77" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1608687720638" />
-    <state x="424" y="197" key="run.anything.popup" timestamp="1608686613879">
+    <state x="637" y="182" key="EnvironmentVariablesDialog/0.0.1536.864@0.0.1536.864" timestamp="1609815954516" />
+    <state x="548" y="173" key="FileChooserDialogImpl" timestamp="1610069138345">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="424" y="197" key="run.anything.popup/0.0.1536.864@0.0.1536.864" timestamp="1608686613879" />
-    <state x="431" y="181" width="672" height="678" key="search.everywhere.popup" timestamp="1608451357250">
+    <state x="548" y="173" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1610069138345" />
+    <state x="390" y="155" key="NewPhpClassDialog" timestamp="1610443095908">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="431" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1608451357250" />
+    <state x="390" y="155" key="NewPhpClassDialog/0.0.1536.864@0.0.1536.864" timestamp="1610443095908" />
+    <state x="604" y="355" key="NewPhpFileDialog" timestamp="1609932922307">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="604" y="355" key="NewPhpFileDialog/0.0.1536.864@0.0.1536.864" timestamp="1609932922307" />
+    <state x="277" y="77" key="SettingsEditor" timestamp="1610069259204">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="277" y="77" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1610069259204" />
+    <state x="496" y="85" width="844" height="779" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1610070367823">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="496" y="85" width="844" height="779" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1536.864@0.0.1536.864" timestamp="1610070367823" />
+    <state x="424" y="197" key="run.anything.popup" timestamp="1610505727006">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="424" y="197" key="run.anything.popup/0.0.1536.864@0.0.1536.864" timestamp="1610505727005" />
+    <state x="431" y="181" width="672" height="678" key="search.everywhere.popup" timestamp="1610364064985">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="431" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1610364064985" />
   </component>
 </project>

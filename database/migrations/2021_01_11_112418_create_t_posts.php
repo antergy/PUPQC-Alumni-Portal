@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTPostsTable extends Migration
+class CreateTPosts extends Migration
 {
     /**
      * Run the migrations.
@@ -16,8 +16,8 @@ class CreateTPostsTable extends Migration
         Schema::disableForeignKeyConstraints();
         Schema::create('t_posts', function (Blueprint $table) {
             $table->id('p_id')->autoIncrement();
-            $table->string('p_title', 225);
-            $table->longText('p_desc');
+            $table->longtext('p_title');
+            $table->longtext('p_desc');
             $table->string('p_picture', 225)->nullable();
             $table->unsignedBigInteger('p_acc_id');
             $table->unsignedBigInteger('p_type_id');

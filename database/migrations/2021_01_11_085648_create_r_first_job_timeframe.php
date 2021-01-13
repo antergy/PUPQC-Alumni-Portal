@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRPostTypesTable extends Migration
+class CreateRFirstJobTimeframe extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,9 @@ class CreateRPostTypesTable extends Migration
     public function up()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::create('r_post_types', function (Blueprint $table) {
-            $table->id('pt_id')->autoIncrement();
-            $table->string('pt_desc', 50);
+        Schema::create('r_first_job_timeframe', function (Blueprint $table) {
+            $table->id('fjtf_id')->autoIncrement();
+            $table->string('fjtf_desc', 225);
             $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();
@@ -29,6 +29,6 @@ class CreateRPostTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('r_post_types');
+        Schema::dropIfExists('r_first_job_timeframe');
     }
 }

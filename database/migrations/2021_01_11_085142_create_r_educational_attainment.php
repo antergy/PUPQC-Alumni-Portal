@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRAccountTypesTable extends Migration
+class CreateREducationalAttainment extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,9 @@ class CreateRAccountTypesTable extends Migration
     public function up()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::create('r_account_types', function (Blueprint $table) {
-            $table->id('at_id')->autoIncrement();
-            $table->string('at_desc', 50);
+        Schema::create('r_educational_attainment', function (Blueprint $table) {
+            $table->id('educ_attain_id')->autoIncrement();
+            $table->string('educ_attain_desc', 225);
             $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();
@@ -29,6 +29,6 @@ class CreateRAccountTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('r_account_types');
+        Schema::dropIfExists('r_educational_attainment');
     }
 }
