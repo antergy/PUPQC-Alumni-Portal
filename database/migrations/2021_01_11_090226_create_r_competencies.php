@@ -17,7 +17,8 @@ class CreateRCompetencies extends Migration
         Schema::create('r_competencies', function (Blueprint $table) {
             $table->id('competency_id')->autoIncrement();
             $table->longText('competency_desc');
-            $table->timestamps();
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
         Schema::enableForeignKeyConstraints();
     }

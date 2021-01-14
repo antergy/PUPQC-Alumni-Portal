@@ -25,7 +25,8 @@ class CreateTAccounts extends Migration
             $table->integer('acc_status')->default(1);
 
             $table->foreign('acc_type')->references('at_id')->on('r_account_types');
-            $table->timestamps();
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
         Schema::enableForeignKeyConstraints();
     }

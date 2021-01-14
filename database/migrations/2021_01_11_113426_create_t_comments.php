@@ -22,7 +22,8 @@ class CreateTComments extends Migration
 
             $table->foreign('cm_post_id')->references('p_id')->on('t_posts');
             $table->foreign('cm_acc_id')->references('acc_id')->on('t_accounts');
-            $table->timestamps();
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
         Schema::enableForeignKeyConstraints();
     }

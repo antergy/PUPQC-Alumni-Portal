@@ -17,7 +17,8 @@ class CreateRUnemploymentReason extends Migration
         Schema::create('r_unemployment_reason', function (Blueprint $table) {
             $table->id('ur_id')->autoIncrement();
             $table->string('ur_desc', 225);
-            $table->timestamps();
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
         Schema::enableForeignKeyConstraints();
     }

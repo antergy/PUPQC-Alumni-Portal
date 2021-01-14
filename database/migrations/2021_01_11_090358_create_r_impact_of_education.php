@@ -17,7 +17,8 @@ class CreateRImpactOfEducation extends Migration
         Schema::create('r_impact_of_education', function (Blueprint $table) {
             $table->id('ioe_id')->autoIncrement();
             $table->longText('ioe_desc');
-            $table->timestamps();
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
         Schema::enableForeignKeyConstraints();
     }

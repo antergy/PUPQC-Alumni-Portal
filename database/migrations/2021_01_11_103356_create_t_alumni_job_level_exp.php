@@ -22,7 +22,8 @@ class CreateTAlumniJobLevelExp extends Migration
 
             $table->foreign('ajle_alumni_id')->references('al_id')->on('t_alumni');
             $table->foreign('ajle_job_level_id')->references('jlc_id')->on('r_job_level_classification');
-            $table->timestamps();
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
         Schema::enableForeignKeyConstraints();
     }

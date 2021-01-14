@@ -26,7 +26,8 @@ class CreateTAlumniWorkExperience extends Migration
 
             $table->foreign('awe_alumni_id')->references('al_id')->on('t_alumni');
             $table->foreign('awe_industry_nature')->references('industry_id')->on('r_industry');
-            $table->timestamps();
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
         Schema::enableForeignKeyConstraints();
     }

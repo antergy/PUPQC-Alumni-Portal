@@ -19,7 +19,8 @@ class CreateTVisitLogs extends Migration
             $table->unsignedBigInteger('vs_acc_id');
 
             $table->foreign('vs_acc_id')->references('acc_id')->on('t_accounts');
-            $table->timestamps();
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
         Schema::enableForeignKeyConstraints();
     }

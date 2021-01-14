@@ -20,35 +20,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="17467bac-b45e-433c-8227-c182f30fc3ba" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/pupqc_alumni_portal.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pupqc_alumni_portal.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/SystemAdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/SystemAdminController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Controller.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/VerifyCsrfToken.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/VerifyCsrfToken.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Libraries/Common/GuzzleLib.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Libraries/Common/GuzzleLib.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Libraries/Common/LogLib.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Libraries/Common/LogLib.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Libraries/Common/ResponseLib.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Libraries/Common/ResponseLib.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/logging.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/logging.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_24_064643_create_t_accounts_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_24_065845_create_r_courses_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_24_070557_create_r_account_types_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_24_070610_create_r_post_types_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_24_070629_create_r_workfields_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_24_080845_create_t_alumni_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_24_080909_create_t_alumni_work_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_24_080923_create_t_posts_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_24_080936_create_t_likes_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_24_080957_create_t_comments_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_24_081015_create_t_inboxes_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_24_081031_create_t_visit_logs_table.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_084428_create_r_account_types.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_11_084428_create_r_account_types.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_084712_create_r_post_types.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_11_084712_create_r_post_types.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_084842_create_r_courses.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_11_084842_create_r_courses.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_085142_create_r_educational_attainment.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_11_085142_create_r_educational_attainment.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_085324_create_r_honors_received.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_11_085324_create_r_honors_received.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_085534_create_r_professional_exams.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_11_085534_create_r_professional_exams.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_085648_create_r_first_job_timeframe.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_11_085648_create_r_first_job_timeframe.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_085701_create_r_first_job_discover.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_11_085701_create_r_first_job_discover.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_085906_create_r_job_level_classification.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_11_085906_create_r_job_level_classification.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_090027_create_r_self_employed_salary.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_11_090027_create_r_self_employed_salary.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_090045_create_r_unemployment_reason.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_11_090045_create_r_unemployment_reason.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_090211_create_r_industry.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_11_090211_create_r_industry.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_090226_create_r_competencies.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_11_090226_create_r_competencies.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_090358_create_r_impact_of_education.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_11_090358_create_r_impact_of_education.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_095426_create_t_accounts.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_11_095426_create_t_accounts.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_100559_create_t_alumni.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_11_100559_create_t_alumni.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_103356_create_t_alumni_job_level_exp.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_11_103356_create_t_alumni_job_level_exp.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_103433_create_t_alumni_unemployed_reason.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_11_103433_create_t_alumni_unemployed_reason.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_103500_create_t_alumni_work_experience.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_11_103500_create_t_alumni_work_experience.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_103543_create_t_alumni_competencies.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_11_103543_create_t_alumni_competencies.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_103555_create_t_alumni_impact_education.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_11_103555_create_t_alumni_impact_education.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_103646_create_t_alumni_shared_contact.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_11_103646_create_t_alumni_shared_contact.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_112418_create_t_posts.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_11_112418_create_t_posts.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_113146_create_t_likes.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_11_113146_create_t_likes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_113426_create_t_comments.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_11_113426_create_t_comments.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_113636_create_t_inboxes.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_11_113636_create_t_inboxes.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_114421_create_t_visit_logs.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_11_114421_create_t_visit_logs.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -256,10 +255,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="582" y="207" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.864@0.0.1536.864" timestamp="1610439881746" />
-    <state x="499" y="187" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1610444727842">
+    <state x="499" y="187" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1610588321789">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="499" y="187" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1536.864@0.0.1536.864" timestamp="1610444727842" />
+    <state x="499" y="187" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1536.864@0.0.1536.864" timestamp="1610588321789" />
     <state x="637" y="182" key="EnvironmentVariablesDialog" timestamp="1609815954516">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -268,10 +267,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="548" y="173" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1610069138345" />
-    <state x="390" y="155" key="NewPhpClassDialog" timestamp="1610443095908">
+    <state x="390" y="155" key="NewPhpClassDialog" timestamp="1610588303462">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="390" y="155" key="NewPhpClassDialog/0.0.1536.864@0.0.1536.864" timestamp="1610443095908" />
+    <state x="390" y="155" key="NewPhpClassDialog/0.0.1536.864@0.0.1536.864" timestamp="1610588303462" />
     <state x="604" y="355" key="NewPhpFileDialog" timestamp="1609932922307">
       <screen x="0" y="0" width="1536" height="864" />
     </state>

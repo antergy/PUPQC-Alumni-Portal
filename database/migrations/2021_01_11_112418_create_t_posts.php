@@ -26,7 +26,8 @@ class CreateTPosts extends Migration
             $table->foreign('p_acc_id')->references('acc_id')->on('t_accounts');
             $table->foreign('p_type_id')->references('pt_id')->on('r_post_types');
             $table->foreign('p_course_id')->references('course_id')->on('r_courses');
-            $table->timestamps();
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
         Schema::enableForeignKeyConstraints();
     }

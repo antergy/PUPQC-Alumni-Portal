@@ -17,7 +17,8 @@ class CreateRAccountTypes extends Migration
         Schema::create('r_account_types', function (Blueprint $table) {
             $table->id('at_id')->autoIncrement();
             $table->longText('at_desc');
-            $table->timestamps();
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
         Schema::enableForeignKeyConstraints();
     }

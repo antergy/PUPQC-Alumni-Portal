@@ -17,7 +17,8 @@ class CreateREducationalAttainment extends Migration
         Schema::create('r_educational_attainment', function (Blueprint $table) {
             $table->id('educ_attain_id')->autoIncrement();
             $table->string('educ_attain_desc', 225);
-            $table->timestamps();
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
         Schema::enableForeignKeyConstraints();
     }
