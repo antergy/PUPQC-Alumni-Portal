@@ -26,3 +26,6 @@
 5. API and Admin routes are updated.
 6. Created a logging system for both API and Admin components (Config and Library)
    NOTE: Change the value of your .env key "LOG_CHANNEL" to "daily".
+
+Also, don't forget to run composer update.
+   
