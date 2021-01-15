@@ -16,6 +16,7 @@ class CreateTInboxes extends Migration
         Schema::disableForeignKeyConstraints();
         Schema::create('t_inboxes', function (Blueprint $table) {
             $table->id('in_id')->autoIncrement();
+            $table->longText('in_subject');
             $table->longText('in_message');
             $table->unsignedBigInteger('in_acc_id_from');
             $table->unsignedBigInteger('in_acc_id_to');

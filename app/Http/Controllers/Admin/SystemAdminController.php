@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Core\Admin\CoreAdminService;
 use App\Http\Controllers\Controller;
 use App\Libraries\Common\LogLib;
 use App\Libraries\Common\ResponseLib;
@@ -23,12 +24,20 @@ class SystemAdminController extends Controller
     public $oRequest;
 
     /**
+     * Holds the instance of core admin service
+     * @var CoreAdminService
+     */
+    public $oCoreService;
+
+    /**
      * SystemAdminController constructor.
      * @param Request $oRequest
+     * @param CoreAdminService $oCoreService
      */
-    public function __construct(Request $oRequest)
+    public function __construct(Request $oRequest, CoreAdminService $oCoreService)
     {
         $this->oRequest = $oRequest;
+        $this->oCoreService = $oCoreService;
     }
 
     /**
@@ -49,7 +58,7 @@ class SystemAdminController extends Controller
             $sMethod = $sAction === 'read' ? 'GET' : 'POST';
 
             /** 3. Execute request */
-            $mResult = $this->sendGuzzleRequest($sApiRoute, $sMethod, $aParams);
+            $mResult = $this->oCoreService->sendGuzzleRequest($sApiRoute, $sMethod, $aParams);
 
             return ResponseLib::formatSuccessResponse($mResult['data'], $mResult['message']);
         } catch (\Throwable $oException) {

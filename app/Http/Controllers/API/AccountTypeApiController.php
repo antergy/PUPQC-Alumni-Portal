@@ -49,11 +49,9 @@ class AccountTypeApiController extends CoreApiController
             $this->oRepository->searchParams($aWhere);
             $aSelect = $aSearch;
             array_unshift($aSelect, $this->oRepository->sPrimaryKey);
-
             $aResponse = $this->oRepository->getAll($aSelect);
-            $aDecryptedResponse = $this->oRepository->decryptValues((json_decode(json_encode($aResponse), true)), $this->oRepository->aEncryptedKeys);
 
-            return ResponseLib::formatSuccessResponse($aDecryptedResponse, ResponseLib::SUCCESS_RETRIEVE_MESSAGE);
+            return ResponseLib::formatSuccessResponse($aResponse, ResponseLib::SUCCESS_RETRIEVE_MESSAGE);
         } catch (QueryException $oException) {
             return ResponseLib::formatErrorResponse($oException);
         }
@@ -71,7 +69,6 @@ class AccountTypeApiController extends CoreApiController
         try {
             $aRequest = $this->validate($this->oRequest, $oRules->aAccountTypeCreate);
             $aData = ArrayLib::filterKeys($aRequest, $this->oRepository->aSearch);
-            $aData = $this->oRepository->encryptValues($aData, $this->oRepository->aEncryptedKeys);
             $aResponse = $this->oRepository->createRecord($aData);
 
             return ResponseLib::formatSuccessResponse($aResponse, ResponseLib::SUCCESS_CREATE_MESSAGE);
@@ -93,7 +90,6 @@ class AccountTypeApiController extends CoreApiController
             $aRequest = $this->validate($this->oRequest, $oRules->aAccountTypeCreate);
             $iId = $this->oRequest->input($this->oRepository->sPrimaryKey);
             $aData = ArrayLib::filterKeys($aRequest, $this->oRepository->aSearch);
-            $aData = $this->oRepository->encryptValues($aData, $this->oRepository->aEncryptedKeys);
             $aResponse = $this->oRepository->updateRecord($iId, $aData);
 
             return ResponseLib::formatSuccessResponse($aResponse, ResponseLib::SUCCESS_UPDATE_MESSAGE);

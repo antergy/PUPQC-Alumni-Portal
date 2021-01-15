@@ -88,5 +88,15 @@ class VerifyCsrfToken extends Middleware
         'v1/ioe/create',
         'v1/ioe/update',
         'v1/ioe/delete',
+
+        // Account Management routes (temp exclusion)
+        'v1/account/create',
+        'v1/account/update',
+        'v1/account/delete',
+
+        // Account Management admin route (temp exclusion)
+        'admin/account/create',
+        'admin/account/update',
+        'admin/account/deactivate',
     ];
 }

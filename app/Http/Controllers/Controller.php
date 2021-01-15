@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Libraries\Common\GuzzleLib;
-use App\Libraries\Common\LogLib;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -23,40 +21,24 @@ class Controller extends BaseController
     /**
      * Gets the requested action based on the request URL
      *
+     * @param int $iKey
      * @return array|mixed
      */
-    protected function getAction()
+    protected function getAction($iKey = 3)
     {
-        $sRequestURL = $this->oRequest->getRequestUri();
-        return data_get(explode('/', $sRequestURL), 4);
+        $sRequestURL = $this->oRequest->path();
+        return data_get(explode('/', $sRequestURL), $iKey);
     }
 
     /**
      * Gets the requested module based on the request URL
      *
+     * @param int $iKey
      * @return array|mixed
      */
-    protected function getModule()
+    protected function getModule($iKey = 2)
     {
-        $sRequestURL = $this->oRequest->getRequestUri();
-        return data_get(explode('/', $sRequestURL), 3);
-    }
-
-    /**
-     * Sends a guzzle request
-     *
-     * @param string $sApiModule
-     * @param string $sAction
-     * @param array $aParams
-     * @return array|mixed
-     */
-    protected function sendGuzzleRequest($sApiRoute, $sMethod, $aParams)
-    {
-        $sHost = config('app.app_route');
-        $sApiUrl = "{$sHost}{$sApiRoute}";
-        $aParams = ['json' => array_merge($aParams, ['trace_id' => LogLib::$sTraceId])];
-
-        $mResult = GuzzleLib::guzzleRequest($sApiUrl, $sMethod, $aParams);
-        return $mResult;
+        $sRequestURL = $this->oRequest->path();
+        return data_get(explode('/', $sRequestURL), $iKey);
     }
 }

@@ -25,6 +25,16 @@ Route::prefix('admin')->group(function () {
     });
 
     /**
+     * Route group for account management
+     */
+    Route::prefix('account')->group(function () {
+        Route::get('read', 'AccountAdminController@manageRequest');
+        Route::post('create', 'AccountAdminController@manageRequest');
+        Route::post('update', 'AccountAdminController@manageRequest');
+        Route::post('deactivate', 'AccountAdminController@manageRequest');
+    });
+
+    /**
      * Set the Admin route group for the following sub-modules
      * in system admin under system route group:
      *
@@ -63,9 +73,9 @@ Route::prefix('admin')->group(function () {
         foreach ($aModules as $sModule) {
             Route::prefix($sModule)->group(function () {
                 Route::get('read', 'SystemAdminController@manageRequest');
-                Route::get('create', 'SystemAdminController@manageRequest');
-                Route::get('update', 'SystemAdminController@manageRequest');
-                Route::get('delete', 'SystemAdminController@manageRequest');
+                Route::post('create', 'SystemAdminController@manageRequest');
+                Route::post('update', 'SystemAdminController@manageRequest');
+                Route::post('delete', 'SystemAdminController@manageRequest');
             });
         }
     });

@@ -34,13 +34,4 @@ class AccountTypeRepository extends CoreApiRepository
         'at_id',
         'at_desc'
     ];
-
-    /**
-     * Columns that are encrypted
-     *
-     * @var string[]
-     */
-    public $aEncryptedKeys = [
-        'at_desc'
-    ];
 }

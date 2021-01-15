@@ -44,13 +44,13 @@ abstract class CoreApiRepository
      * Holds the value of created_at column
      * @var string
      */
-    public $sCreatedDateColumn;
+    public $sCreatedDateColumn = 'created_at';
 
     /**
      * Holds the value of updated_at column
      * @var string
      */
-    public $sUpdatedDateColumn;
+    public $sUpdatedDateColumn = 'updated_at';
 
     /**
      * CoreApiRepository constructor.
@@ -199,6 +199,8 @@ abstract class CoreApiRepository
      */
     public function updateRecord($iPrimaryKey, $aData)
     {
+        $sUpdatedDateValue = date('Y-m-d H:i:s');
+        $aData = array_merge($aData, [$this->sUpdatedDateColumn => $sUpdatedDateValue]);
         $iUpdate = $this->oModel->where($this->sPrimaryKey, $iPrimaryKey)->update($aData);
         $this->logInfo([$iUpdate]);
 

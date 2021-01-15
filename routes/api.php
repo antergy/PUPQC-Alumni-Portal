@@ -25,6 +25,16 @@ Route::prefix('v1')->group(function () {
     });
 
     /**
+     * API Route group for account management
+     */
+    Route::prefix('account')->group(function ()  {
+        Route::get('read', "AccountApiController@getAll");
+        Route::post('create', "AccountApiController@create");
+        Route::post('update', "AccountApiController@update");
+        Route::post('delete', "AccountApiController@delete");
+    });
+
+    /**
      * Set the API route group for the following sub-modules in system admin:
      *
      * - Course Management
