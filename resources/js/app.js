@@ -1,8 +1,13 @@
 
 require('./bootstrap');
-window.Vue = require('vue');
-Vue.component('test', require('./components/test_component').default);
+
+import Vue from 'vue'
+import vueRouter from './plugins/router'
+import vuetify from './plugins/vuetify'
+import './components/index'
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    vuetify,
+    router: vueRouter.router
 });

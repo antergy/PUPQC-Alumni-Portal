@@ -16,8 +16,9 @@ use Illuminate\Support\Facades\Route;
 // Add an appropriate middleware for API @TODO
 
 Route::get('/', 'HomePageController@viewMainPage');
-
-
 Route::post('/login', 'LoginPageController@login');
 Route::post('/register', 'RegistrationPageController@register');
+Route::get('/vue/{vue_capture?}', function () {
+    return view('vue.index');
+   })->where('vue_capture', '[\/\w\.-]*');
 
