@@ -157,4 +157,39 @@ class AccountManagementService extends CoreAdminService
 
         return $this->sendGuzzleRequest($sApiRoute, 'POST', $aAllowedParams);
     }
+
+    /**
+     * Validates account id
+     *
+     * @param int $iAccountId
+     * @return array
+     */
+    public function validateAccountId($iAccountId)
+    {
+        $bResult = true;
+        $sMessage = "The account id is validated.";
+
+        if ($iAccountId === '' || $iAccountId === null) {
+            /** Check if the given account id is empty or null */
+            $bResult = false;
+            $sMessage = "There is no given account id.";
+        } else if (is_numeric($iAccountId) === false) {
+            /** Check if the given account id is a number */
+            $bResult = false;
+            $sMessage = "The given account id is invalid.";
+        } else {
+            /** Check if the given account exists in the database */
+            $aParams = ['acc_id' => $iAccountId];
+            $aResult = $this->getAccounts($aParams);
+            if (empty($aResult['data']) === true) {
+                $bResult = false;
+                $sMessage = "The account doesn't exist.";
+            }
+        }
+
+        return [
+            'data'    => $bResult,
+            'message' => $sMessage
+        ];
+    }
 }

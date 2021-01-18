@@ -79,6 +79,9 @@ class LogLib
         $sRequestURL = sprintf('Request URL: %s;', $sApiUrl);
 
         /** 2. Initialize the variables for secondary log information */
+        if (array_key_exists('json', $aParameters) === true) {
+            unset($aParameters['json']['trace_id']); // Remove trace id in logging
+        }
         $sRequestParameters = sprintf("Request Parameters: %s;", \GuzzleHttp\json_encode($aParameters));
         $sResult = sprintf("Result: %s;", json_encode($aResult));
         $sProcessMessage = "Message: {$sMessage}";

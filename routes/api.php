@@ -35,6 +35,14 @@ Route::prefix('v1')->group(function () {
     });
 
     /**
+     * API Route group for visit logs management
+     */
+    Route::prefix('visit_logs')->group(function ()  {
+        Route::get('read', "VisitLogsApiController@getAll");
+        Route::post('create', "VisitLogsApiController@create");
+    });
+
+    /**
      * Set the API route group for the following sub-modules in system admin:
      *
      * - Course Management

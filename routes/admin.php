@@ -35,6 +35,13 @@ Route::prefix('admin')->group(function () {
     });
 
     /**
+     * Route group for account management
+     */
+    Route::prefix('visit_logs')->group(function () {
+        Route::get('read', 'VisitLogAdminController@retrieveLogs');
+    });
+
+    /**
      * Set the Admin route group for the following sub-modules
      * in system admin under system route group:
      *

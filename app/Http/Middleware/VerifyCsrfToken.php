@@ -98,5 +98,11 @@ class VerifyCsrfToken extends Middleware
         'admin/account/create',
         'admin/account/update',
         'admin/account/deactivate',
+
+        // Visit Logs Management API routes (temp exclusion)
+        'v1/visit_logs/create',
+
+        // Visit Logs Management Admin routes (temp exclusion)
+        'admin/visit_logs/create',
     ];
 }
