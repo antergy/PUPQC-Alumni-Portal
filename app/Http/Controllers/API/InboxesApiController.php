@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Core\API\CoreApiController;
-use App\Http\Repositories\VisitLogsRepository;
-use App\Http\Rules\API\VisitLogsRules;
+use App\Http\Repositories\InboxRepository;
+use App\Http\Rules\API\InboxRules;
 use App\Libraries\API\ArrayLib;
 use App\Libraries\API\WhereLib;
 use App\Libraries\Common\LogLib;
@@ -14,28 +14,28 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
 /**
- * Class VisitLogsApiController
+ * Class InboxesApiController
  * @package App\Http\Controllers\API
  * @author  Cristian O. Balatbat <ian26balatbat@gmail.com>
- * @since   01/15/2021
+ * @since   01/19/2021
  * @version 1.0
  */
-class VisitLogsApiController extends CoreApiController
+class InboxesApiController extends CoreApiController
 {
     /**
-     * VisitLogsApiController constructor.
+     * InboxesApiController constructor.
      * @param Request $oRequest
-     * @param VisitLogsRepository $oVisitLogsRepository
+     * @param InboxRepository $oInboxRepository
      */
-    public function __construct(Request $oRequest, VisitLogsRepository $oVisitLogsRepository)
+    public function __construct(Request $oRequest, InboxRepository $oInboxRepository)
     {
         $this->oRequest = $oRequest;
         LogLib::$sTraceId = $this->oRequest->input(LogLib::TRACE_ID, LogLib::DEFAULT_TRACE_ID);
-        $this->oRepository = $oVisitLogsRepository;
+        $this->oRepository = $oInboxRepository;
     }
 
     /**
-     * Retrieves visit logs record(s)
+     * Retrieves inbox record(s)
      *
      * @return array
      */
@@ -68,29 +68,51 @@ class VisitLogsApiController extends CoreApiController
 
             /** Execute get query */
             $aResponse = $this->oRepository->getAll($aSelect);
+            $aDecryptedResponse = $this->oRepository->decryptValues((json_decode(json_encode($aResponse), true)), $this->oRepository->aEncryptedKeys);
 
-            return ResponseLib::formatSuccessResponse($aResponse, ResponseLib::SUCCESS_RETRIEVE_MESSAGE);
+            return ResponseLib::formatSuccessResponse($aDecryptedResponse, ResponseLib::SUCCESS_RETRIEVE_MESSAGE);
         } catch (QueryException $oException) {
             return ResponseLib::formatErrorResponse($oException);
         }
     }
 
     /**
-     * Creates a visit log record
+     * Creates a inbox record
      *
-     * @param VisitLogsRules $oRules
+     * @param InboxRules $oRules
      * @return array
      * @throws QueryException|ValidationException
      */
-    public function create(VisitLogsRules $oRules)
+    public function create(InboxRules $oRules)
     {
         try {
-            $aRequest = $this->validate($this->oRequest, $oRules->aVisitLogsCreate);
+            $aRequest = $this->validate($this->oRequest, $oRules->aMessageCreate);
             $aData = ArrayLib::filterKeys($aRequest, $this->oRepository->aSearch);
+            $aData = $this->oRepository->encryptValues($aData, $this->oRepository->aEncryptedKeys);
             $aResponse = $this->oRepository->createRecord($aData);
 
             return ResponseLib::formatSuccessResponse($aResponse, ResponseLib::SUCCESS_CREATE_MESSAGE);
         } catch (QueryException | ValidationException $oException) {
+            return ResponseLib::formatErrorResponse($oException);
+        }
+    }
+
+    /**
+     * Deletes a inbox record
+     *
+     * @return array
+     */
+    public function delete()
+    {
+        try {
+            $iId = $this->oRequest->input($this->oRepository->sPrimaryKey);
+            $mResponse = $this->oRepository->deleteRecord($iId);
+            $sMessage = ResponseLib::SUCCESS_DELETE_MESSAGE;
+            if ($mResponse === 0) {
+                $sMessage = ResponseLib::NO_RECORD_DELETE_MESSAGE;
+            }
+            return ResponseLib::formatSuccessResponse($mResponse, $sMessage);
+        } catch (QueryException $oException) {
             return ResponseLib::formatErrorResponse($oException);
         }
     }

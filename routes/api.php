@@ -43,6 +43,15 @@ Route::prefix('v1')->group(function () {
     });
 
     /**
+     * API Route group for message / inboxes management
+     */
+    Route::prefix('message')->group(function ()  {
+        Route::get('read', "InboxesApiController@getAll");
+        Route::post('create', "InboxesApiController@create");
+        Route::post('delete', "InboxesApiController@delete");
+    });
+
+    /**
      * Set the API route group for the following sub-modules in system admin:
      *
      * - Course Management

@@ -104,5 +104,13 @@ class VerifyCsrfToken extends Middleware
 
         // Visit Logs Management Admin routes (temp exclusion)
         'admin/visit_logs/create',
+
+        // Inbox Management API routes (temp exclusion)
+        'v1/message/create',
+        'v1/message/delete',
+
+        // Inbox Management Admin routes (temp exclusion)
+        'admin/message/create',
+        'admin/message/delete',
     ];
 }

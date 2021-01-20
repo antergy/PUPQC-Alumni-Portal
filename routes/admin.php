@@ -42,6 +42,15 @@ Route::prefix('admin')->group(function () {
     });
 
     /**
+     * Route group for inbox management
+     */
+    Route::prefix('message')->group(function () {
+        Route::get('read', 'InboxAdminController@manageRequest');
+        Route::post('create', 'InboxAdminController@manageRequest');
+        Route::post('delete', 'InboxAdminController@manageRequest');
+    });
+
+    /**
      * Set the Admin route group for the following sub-modules
      * in system admin under system route group:
      *
