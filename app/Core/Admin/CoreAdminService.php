@@ -16,14 +16,19 @@ use App\Libraries\Common\LogLib;
 class CoreAdminService
 {
     /**
-     * Sends a guzzle request
+     * Constant for the API version
+     */
+    const API_VERSION = 'v1';
+
+    /**
+     * Sends a internal api guzzle request
      *
      * @param string $sApiModule
      * @param string $sAction
      * @param array $aParams
      * @return array|mixed
      */
-    public function sendGuzzleRequest($sApiRoute, $sMethod, $aParams)
+    public function sendInternalApiRequest($sApiRoute, $sMethod, $aParams)
     {
         $sHost = config('app.app_route');
         $sApiUrl = "{$sHost}{$sApiRoute}";

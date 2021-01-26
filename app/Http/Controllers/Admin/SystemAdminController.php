@@ -58,7 +58,7 @@ class SystemAdminController extends Controller
             $sMethod = $sAction === 'read' ? 'GET' : 'POST';
 
             /** 3. Execute request */
-            $mResult = $this->oCoreService->sendGuzzleRequest($sApiRoute, $sMethod, $aParams);
+            $mResult = $this->oCoreService->sendInternalApiRequest($sApiRoute, $sMethod, $aParams);
 
             return ResponseLib::formatSuccessResponse($mResult['data'], $mResult['message']);
         } catch (\Throwable $oException) {

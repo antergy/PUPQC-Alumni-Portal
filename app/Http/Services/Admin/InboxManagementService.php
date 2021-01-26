@@ -53,7 +53,7 @@ class InboxManagementService extends CoreAdminService
     {
         $sApiRoute = sprintf('/v1/%s/read', self::API_MODULE);
 
-        return $this->sendGuzzleRequest($sApiRoute, 'GET', $aParams);
+        return $this->sendInternalApiRequest($sApiRoute, 'GET', $aParams);
     }
 
     /**
@@ -69,7 +69,7 @@ class InboxManagementService extends CoreAdminService
             $mResult = $aValidationResult;
         } else {
             $sApiRoute = sprintf('/v1/%s/create', self::API_MODULE);
-            $mResult = $this->sendGuzzleRequest($sApiRoute, 'POST', $aParams);
+            $mResult = $this->sendInternalApiRequest($sApiRoute, 'POST', $aParams);
         }
 
         return $mResult;
@@ -85,6 +85,6 @@ class InboxManagementService extends CoreAdminService
     {
         $sApiRoute = sprintf('/v1/%s/delete', self::API_MODULE);
 
-        return $this->sendGuzzleRequest($sApiRoute, 'POST', $aParams);
+        return $this->sendInternalApiRequest($sApiRoute, 'POST', $aParams);
     }
 }

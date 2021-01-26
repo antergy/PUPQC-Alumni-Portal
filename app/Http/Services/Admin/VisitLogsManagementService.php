@@ -33,7 +33,7 @@ class VisitLogsManagementService extends CoreAdminService
     {
         $sApiRoute = sprintf('/v1/%s/read', self::API_MODULE);
 
-        return $this->sendGuzzleRequest($sApiRoute, 'GET', $aParams);
+        return $this->sendInternalApiRequest($sApiRoute, 'GET', $aParams);
     }
 
     /**
@@ -57,6 +57,6 @@ class VisitLogsManagementService extends CoreAdminService
         $aParams = [self::VISIT_ACC_ID => $iAccountId];
         $sApiRoute = sprintf('/v1/%s/create', self::API_MODULE);
 
-        return $this->sendGuzzleRequest($sApiRoute, 'POST', $aParams);
+        return $this->sendInternalApiRequest($sApiRoute, 'POST', $aParams);
     }
 }

@@ -51,6 +51,31 @@ Route::prefix('admin')->group(function () {
     });
 
     /**
+     * Route group for post management
+     */
+    Route::prefix('posts')->group(function () {
+        Route::get('read', 'PostAdminController@readPosts');
+        Route::get('readDetails', 'PostAdminController@getDetailedPost');
+        Route::post('create', 'PostAdminController@createPost');
+        Route::post('update', 'PostAdminController@updatePost');
+        Route::post('delete', 'PostAdminController@deletePost');
+
+        /** Route group for post's likes management */
+        Route::prefix('likes')->group(function () {
+            Route::get('read', 'PostAdminController@getLikes');
+            Route::post('manage', 'PostAdminController@manageLikes');
+        });
+
+        /** Route group for post's comment management */
+        Route::prefix('comments')->group(function () {
+            Route::get('read', 'PostAdminController@getComments');
+            Route::post('create', 'PostAdminController@manageComments');
+            Route::post('update', 'PostAdminController@manageComments');
+            Route::post('delete', 'PostAdminController@manageComments');
+        });
+    });
+
+    /**
      * Set the Admin route group for the following sub-modules
      * in system admin under system route group:
      *

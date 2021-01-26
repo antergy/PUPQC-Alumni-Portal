@@ -222,6 +222,21 @@ abstract class CoreApiRepository
     }
 
     /**
+     * Method for bulk delete
+     *
+     * @param string $sColumn
+     * @param int $iReferenceId
+     * @return mixed
+     */
+    public function bulkDelete($sColumn, $iReferenceId)
+    {
+        $aQuery = $this->oModel->where($sColumn, $iReferenceId)->delete();
+        $this->logInfo([]);
+
+        return $aQuery;
+    }
+
+    /**
      * Method for custom orderBy
      *
      * @param string $sDirection

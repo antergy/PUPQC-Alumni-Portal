@@ -114,7 +114,7 @@ class AccountManagementService extends CoreAdminService
     {
         $sApiRoute = sprintf('/v1/%s/read', self::API_MODULE);
 
-        return $this->sendGuzzleRequest($sApiRoute, 'GET', $aParams);
+        return $this->sendInternalApiRequest($sApiRoute, 'GET', $aParams);
     }
 
     /**
@@ -127,7 +127,7 @@ class AccountManagementService extends CoreAdminService
     {
         $sApiRoute = sprintf('/v1/%s/create', self::API_MODULE);
 
-        return $this->sendGuzzleRequest($sApiRoute, 'POST', $aParams);
+        return $this->sendInternalApiRequest($sApiRoute, 'POST', $aParams);
     }
 
     /**
@@ -140,7 +140,7 @@ class AccountManagementService extends CoreAdminService
     {
         $sApiRoute = sprintf('/v1/%s/update', self::API_MODULE);
 
-        return $this->sendGuzzleRequest($sApiRoute, 'POST', $aParams);
+        return $this->sendInternalApiRequest($sApiRoute, 'POST', $aParams);
     }
 
     /**
@@ -155,7 +155,7 @@ class AccountManagementService extends CoreAdminService
         $aAllowedParams = array_merge(['acc_status' => 3], ArrayLib::filterKeys($aParams, $aAllowedFields));
         $sApiRoute = sprintf('/v1/%s/update', self::API_MODULE);
 
-        return $this->sendGuzzleRequest($sApiRoute, 'POST', $aAllowedParams);
+        return $this->sendInternalApiRequest($sApiRoute, 'POST', $aAllowedParams);
     }
 
     /**

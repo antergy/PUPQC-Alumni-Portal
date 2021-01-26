@@ -21,7 +21,7 @@ class CreateTPosts extends Migration
             $table->string('p_picture', 225)->nullable();
             $table->unsignedBigInteger('p_acc_id');
             $table->unsignedBigInteger('p_type_id');
-            $table->unsignedBigInteger('p_course_id');
+            $table->unsignedBigInteger('p_course_id')->nullable();
 
             $table->foreign('p_acc_id')->references('acc_id')->on('t_accounts');
             $table->foreign('p_type_id')->references('pt_id')->on('r_post_types');

@@ -18,13 +18,6 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->group(function () {
 
     /**
-     * API Route group for post management
-     */
-    Route::prefix('posts')->group(function () {
-        Route::get('test', 'PostApiController@test');
-    });
-
-    /**
      * API Route group for account management
      */
     Route::prefix('account')->group(function ()  {
@@ -49,6 +42,35 @@ Route::prefix('v1')->group(function () {
         Route::get('read', "InboxesApiController@getAll");
         Route::post('create', "InboxesApiController@create");
         Route::post('delete', "InboxesApiController@delete");
+    });
+
+    /**
+     * API Route group for post management
+     * - Includes likes and comments management
+     */
+    Route::prefix('posts')->group(function () {
+        $sParentNamespace = 'Post_Management';
+
+        Route::get('read', "{$sParentNamespace}\PostApiController@getAll");
+        Route::post('create', "{$sParentNamespace}\PostApiController@create");
+        Route::post('update', "{$sParentNamespace}\PostApiController@update");
+        Route::post('delete', "{$sParentNamespace}\PostApiController@delete");
+
+        Route::prefix('likes')->group(function () use ($sParentNamespace) {
+            Route::get('count', "{$sParentNamespace}\LikeApiController@getCount");
+            Route::get('read', "{$sParentNamespace}\LikeApiController@getAll");
+            Route::post('create', "{$sParentNamespace}\LikeApiController@create");
+            Route::post('update', "{$sParentNamespace}\LikeApiController@update");
+            Route::post('deleteByPost', "{$sParentNamespace}\LikeApiController@bulkDelete");
+        });
+
+        Route::prefix('comments')->group(function () use ($sParentNamespace) {
+            Route::get('read', "{$sParentNamespace}\CommentApiController@getAll");
+            Route::post('create', "{$sParentNamespace}\CommentApiController@create");
+            Route::post('update', "{$sParentNamespace}\CommentApiController@update");
+            Route::post('delete', "{$sParentNamespace}\CommentApiController@delete");
+            Route::post('deleteByPost', "{$sParentNamespace}\CommentApiController@bulkDelete");
+        });
     });
 
     /**

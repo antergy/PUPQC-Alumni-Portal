@@ -112,5 +112,32 @@ class VerifyCsrfToken extends Middleware
         // Inbox Management Admin routes (temp exclusion)
         'admin/message/create',
         'admin/message/delete',
+
+        // Post Management API routes (temp exclusion)
+        'v1/posts/create',
+        'v1/posts/update',
+        'v1/posts/delete',
+        // Likes Management API routes (temp exclusion)
+        'v1/posts/likes/create',
+        'v1/posts/likes/update',
+        'v1/posts/likes/delete',
+        'v1/posts/likes/deleteByPost',
+        // Comments Management API routes (temp exclusion)
+        'v1/posts/comments/create',
+        'v1/posts/comments/update',
+        'v1/posts/comments/delete',
+        'v1/posts/comments/deleteByPost',
+
+        // Post Management Admin routes (temp exclusion)
+        'admin/posts/create',
+        'admin/posts/update',
+        'admin/posts/delete',
+        // Likes Management Admin routes (temp exclusion)
+        'admin/posts/likes/manage',
+        'admin/posts/likes/delete',
+        // Comments Management Admin routes (temp exclusion)
+        'admin/posts/comments/create',
+        'admin/posts/comments/update',
+        'admin/posts/comments/delete',
     ];
 }
