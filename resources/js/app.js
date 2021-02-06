@@ -3,11 +3,14 @@ require('./bootstrap');
 
 import Vue from 'vue'
 import vueRouter from './plugins/router'
-import vuetify from './plugins/vuetify'
-import './components/index'
+import uiKit from './plugins/uiKit'
+import './plugins/fontawesome'
+import "tailwindcss/tailwind.css"
 
 const app = new Vue({
     el: '#app',
-    vuetify,
-    router: vueRouter.router
+    router: vueRouter.router,
+    mounted () {
+        uiKit()
+    }
 });

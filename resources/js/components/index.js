@@ -1,12 +1,7 @@
-import Vue from 'vue'
 import Navigation from './layout/Navigation/Navigation.vue'
 
-const componentList = [
+const aComponentList = [
     { component: Navigation, name: 'Navigation' }
 ]
 
-export default () => {
-    componentList.forEach(componentItem => {
-        Vue.component(componentItem.name, componentItem.component)
-    })
-}
+export default aComponentList
