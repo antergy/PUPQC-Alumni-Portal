@@ -1,0 +1,80 @@
+.login {
+  @apply flex h-full w-full bg-gray-200 font-sans justify-center items-center;
+
+  &__panel {
+    @apply flex flex-col w-4/5 bg-gray-100 justify-between shadow-lg rounded-lg overflow-hidden;
+  }
+
+  &__content {
+    @apply flex flex-col my-2 px-10;
+  }
+
+  &__container {
+    @apply py-4;
+  }
+
+  &__input {
+    @apply px-2 py-1 border border-gray-300 rounded outline-none;
+
+    &-group {
+      @apply flex flex-col my-2;
+    }
+
+    &-label {
+      @apply text-base font-medium my-1;
+    }
+  }
+
+  &__button {
+    @apply w-full bg-red-900 rounded-full py-1 text-white font-semibold;
+  }
+
+  &__label {
+    @apply font-semibold;
+  }
+
+  &__header,
+  &__footer {
+    @apply py-4 flex;
+  }
+
+  &__header {
+    @apply justify-start bg-red-900;
+
+    &-label {
+      @apply text-xl text-white px-4 font-semibold;
+    }
+  }
+
+  &__footer {
+    @apply justify-center;
+
+    &-label {
+      @apply text-gray-400 text-sm text-center;
+    }
+  }
+}
+
+@screen md {
+  .login {
+    &__panel {
+      @apply w-2/3;
+    }
+  }
+}
+
+@screen lg {
+  .login {
+    &__panel {
+      @apply w-2/5;
+    }
+  }
+}
+
+@screen xl {
+  .login {
+    &__panel {
+      @apply w-1/5;
+    }
+  }
+}
