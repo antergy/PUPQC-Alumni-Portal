@@ -76,6 +76,17 @@ Route::prefix('admin')->group(function () {
     });
 
     /**
+     * Route group for alumni management
+     */
+    Route::prefix('alumni')->group(function () {
+        Route::get('read', 'AlumniAdminController@getAllAlumni');
+        Route::get('readDetails', 'AlumniAdminController@getAlumniDetails');
+//        Route::post('create', 'PostAdminController@createPost');
+//        Route::post('update', 'PostAdminController@updatePost');
+//        Route::post('delete', 'PostAdminController@deletePost');
+    });
+
+    /**
      * Set the Admin route group for the following sub-modules
      * in system admin under system route group:
      *
