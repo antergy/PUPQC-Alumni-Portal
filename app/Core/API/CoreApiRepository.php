@@ -323,7 +323,7 @@ abstract class CoreApiRepository
                 try {
                     $aValues[$mKey] = Crypt::decrypt($mValue);
                 } catch (DecryptException $e) {
-                    $aValues[$mKey] = Crypt::decrypt($mValue, false);
+                    $aValues[$mKey] = $mValue;
                 }
             }
             array_push($aDecryptedValues, $aValues);

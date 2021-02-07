@@ -139,5 +139,43 @@ class VerifyCsrfToken extends Middleware
         'admin/posts/comments/create',
         'admin/posts/comments/update',
         'admin/posts/comments/delete',
+
+
+        // Alumni Management API routes (temp exclusion)
+        'v1/alumni/create',
+        'v1/alumni/update',
+        'v1/alumni/delete',
+
+        // Alumni Shared Contacts Management API routes (temp exclusion)
+        'v1/alumni/shared_contacts/create',
+        'v1/alumni/shared_contacts/update',
+        'v1/alumni/shared_contacts/delete',
+        'v1/alumni/shared_contacts/deleteByAlumni',
+
+        // Alumni impact of education Management API routes (temp exclusion)
+        'v1/alumni/ioe/create',
+        'v1/alumni/ioe/deleteByAlumni',
+
+        // Alumni Work Exp Management API routes (temp exclusion)
+        'v1/alumni/work_exp/create',
+        'v1/alumni/work_exp/update',
+        'v1/alumni/work_exp/delete',
+        'v1/alumni/work_exp/deleteByAlumni',
+
+        // Alumni Unemployed Reason Management API routes (temp exclusion)
+        'v1/alumni/unemploy_reason/create',
+        'v1/alumni/unemploy_reason/update',
+        'v1/alumni/unemploy_reason/delete',
+        'v1/alumni/unemploy_reason/deleteByAlumni',
+
+        // Alumni Job Level Classification Management API routes (temp exclusion)
+        'v1/alumni/ajle/create',
+        'v1/alumni/ajle/update',
+        'v1/alumni/ajle/delete',
+        'v1/alumni/ajle/deleteByAlumni',
+
+        // Alumni Competencies Management API routes (temp exclusion)
+        'v1/alumni/competency/create',
+        'v1/alumni/competency/deleteByAlumni',
     ];
 }

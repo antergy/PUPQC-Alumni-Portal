@@ -74,6 +74,68 @@ Route::prefix('v1')->group(function () {
     });
 
     /**
+     * API Route group for alumni management; also includes the following sub-modules:
+     *
+     * - Alumni Job Level Classification
+     * - Alumni Competencies
+     * - Alumni Work Experience
+     * - Alumni Impact of Education
+     * - Alumni Unemployment Reason
+     * - Alumni Shared Contacts
+     */
+    Route::prefix('alumni')->group(function () {
+        $sParentNamespace = 'Alumni_Management';
+        Route::get('read', "{$sParentNamespace}\AlumniApiController@getAll");
+        Route::post('create', "{$sParentNamespace}\AlumniApiController@create");
+        Route::post('update', "{$sParentNamespace}\AlumniApiController@update");
+        Route::post('delete', "{$sParentNamespace}\AlumniApiController@delete");
+
+        Route::prefix('competency')->group(function () use ($sParentNamespace) {
+            Route::get('read', "{$sParentNamespace}\AlumniCompetencyApiController@getAll");
+            Route::post('create', "{$sParentNamespace}\AlumniCompetencyApiController@create");
+            Route::post('deleteByAlumni', "{$sParentNamespace}\AlumniCompetencyApiController@bulkDelete");
+        });
+
+        Route::prefix('ajle')->group(function () use ($sParentNamespace) {
+            Route::get('read', "{$sParentNamespace}\AlumniJobLevelApiController@getAll");
+            Route::post('create', "{$sParentNamespace}\AlumniJobLevelApiController@create");
+            Route::post('update', "{$sParentNamespace}\AlumniJobLevelApiController@update");
+            Route::post('delete', "{$sParentNamespace}\AlumniJobLevelApiController@delete");
+            Route::post('deleteByAlumni', "{$sParentNamespace}\AlumniJobLevelApiController@bulkDelete");
+        });
+
+        Route::prefix('unemploy_reason')->group(function () use ($sParentNamespace) {
+            Route::get('read', "{$sParentNamespace}\AlumniUnemployedReasonApiController@getAll");
+            Route::post('create', "{$sParentNamespace}\AlumniUnemployedReasonApiController@create");
+            Route::post('update', "{$sParentNamespace}\AlumniUnemployedReasonApiController@update");
+            Route::post('delete', "{$sParentNamespace}\AlumniUnemployedReasonApiController@delete");
+            Route::post('deleteByAlumni', "{$sParentNamespace}\AlumniUnemployedReasonApiController@bulkDelete");
+        });
+
+        Route::prefix('work_exp')->group(function () use ($sParentNamespace) {
+            Route::get('read', "{$sParentNamespace}\AlumniWorkExpApiController@getAll");
+            Route::post('create', "{$sParentNamespace}\AlumniWorkExpApiController@create");
+            Route::post('update', "{$sParentNamespace}\AlumniWorkExpApiController@update");
+            Route::post('delete', "{$sParentNamespace}\AlumniWorkExpApiController@delete");
+            Route::post('deleteByAlumni', "{$sParentNamespace}\AlumniWorkExpApiController@bulkDelete");
+        });
+
+        Route::prefix('ioe')->group(function () use ($sParentNamespace) {
+            Route::get('read', "{$sParentNamespace}\AlumniImpactEducationApiController@getAll");
+            Route::post('create', "{$sParentNamespace}\AlumniImpactEducationApiController@create");
+            Route::post('deleteByAlumni', "{$sParentNamespace}\AlumniImpactEducationApiController@bulkDelete");
+        });
+
+        Route::prefix('shared_contacts')->group(function () use ($sParentNamespace) {
+            Route::get('read', "{$sParentNamespace}\AlumniSharedContactApiController@getAll");
+            Route::post('create', "{$sParentNamespace}\AlumniSharedContactApiController@create");
+            Route::post('update', "{$sParentNamespace}\AlumniSharedContactApiController@update");
+            Route::post('delete', "{$sParentNamespace}\AlumniSharedContactApiController@delete");
+            Route::post('deleteByAlumni', "{$sParentNamespace}\AlumniSharedContactApiController@bulkDelete");
+        });
+    });
+
+    /**
      * Set the API route group for the following sub-modules in system admin:
      *
      * - Course Management
