@@ -81,6 +81,7 @@ Route::prefix('admin')->group(function () {
     Route::prefix('alumni')->group(function () {
         Route::get('read', 'AlumniAdminController@getAllAlumni');
         Route::get('readDetails', 'AlumniAdminController@getAlumniDetails');
+        Route::get('readReflectDetails', 'AlumniAdminController@getAlumniReflectionDetails');
 //        Route::post('create', 'PostAdminController@createPost');
 //        Route::post('update', 'PostAdminController@updatePost');
 //        Route::post('delete', 'PostAdminController@deletePost');

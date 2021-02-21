@@ -41,6 +41,11 @@ class AlumniAdminController extends Controller
         LogLib::initTraceId('alumni');
     }
 
+    /**
+     * Retrieve alumni list
+     *
+     * @return array
+     */
     public function getAllAlumni()
     {
         try {
@@ -56,6 +61,12 @@ class AlumniAdminController extends Controller
         }
     }
 
+    /**
+     * Retrieve alumni details
+     * - Includes work experience, unemployment reason, and shared contacts
+     *
+     * @return array
+     */
     public function getAlumniDetails()
     {
         try {
@@ -74,18 +85,51 @@ class AlumniAdminController extends Controller
         }
     }
 
+    /**
+     * Retrieve alumni reflection details
+     * - Includes competencies and impact of education
+     *
+     * @return array
+     */
+    public function getAlumniReflectionDetails()
+    {
+        try {
+            /** Prepare the parameters, request route and method to be used */
+            $iAlumniId = $this->oAlumniAdminService->getAlumniId($this->oRequest);
+            if ($iAlumniId === false) {
+                return ResponseLib::formatSuccessResponse(false, 'Alumni id is required');
+            }
+
+            /** Execute request */
+            $mResult = $this->oAlumniAdminService->getAlumniReflectionDetails($iAlumniId);
+            return ResponseLib::formatSuccessResponse($mResult['data'], $mResult['message']);
+        } catch (\Throwable $oException) {
+
+            return ResponseLib::formatErrorResponse($oException);
+        }
+    }
+
+    /**
+     * Create an alumni record
+     */
     public function createAlumni()
     {
-
+        // @TODO (Insert Code Here)
     }
 
+    /**
+     * Update an alumni record
+     */
     public function updateAlumni()
     {
-
+        // @TODO (Insert Code Here)
     }
 
+    /**
+     * Delete an alumni
+     */
     public function deleteAlumni()
     {
-
+        // @TODO (Insert Code Here)
     }
 }

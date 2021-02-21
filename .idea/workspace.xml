@@ -21,6 +21,10 @@
   <component name="ChangeListManager">
     <list default="true" id="17467bac-b45e-433c-8227-c182f30fc3ba" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Constants/AlumniConstants.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Constants/AlumniConstants.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/AlumniAdminController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/AlumniAdminController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Repositories/Alumni_Management/AlumniImpactEducation.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Repositories/Alumni_Management/AlumniImpactEducation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Services/Admin/AlumniManagementService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Services/Admin/AlumniManagementService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -208,6 +212,7 @@
       <workItem from="1611619821342" duration="16622000" />
       <workItem from="1612225625006" duration="30553000" />
       <workItem from="1612674421605" duration="7436000" />
+      <workItem from="1613874072030" duration="84000" />
     </task>
     <servers />
   </component>

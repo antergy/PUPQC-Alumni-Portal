@@ -29,7 +29,9 @@ class AlumniImpactEducation extends CoreApiRepository
      * Foreign table columns to displayed in the result
      * @var string[]
      */
-    public $aForeignColumns = [];
+    public $aForeignColumns = [
+        'ioe_desc' => 'r_impact_of_education'
+    ];
 
     /**
      * Columns that are allowed to be used as search parameters
@@ -61,7 +63,7 @@ class AlumniImpactEducation extends CoreApiRepository
      */
     public function joinImpactEducationTable($sType = 'inner')
     {
-        $sReferenceKey = 't_alumni_impact_education.aled_alumni_id';
+        $sReferenceKey = 't_alumni_impact_education.aled_impact_education';
         $sForeignKey = 'r_impact_of_education.ioe_id';
         $sOperator = '=';
         $this->oModel = $this->oModel->join('r_impact_of_education', $sReferenceKey, $sOperator, $sForeignKey, $sType);
