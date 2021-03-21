@@ -18,6 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomePageController@viewMainPage');
 
 
-Route::post('/login', 'LoginPageController@login');
 Route::post('/register', 'RegistrationPageController@register');
 
+
+Route::get('/login', 'AuthController@login');
+Route::get('/logout', 'AuthController@logout');
+Route::get('/testSession', 'AuthController@testSession');
