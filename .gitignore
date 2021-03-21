@@ -15,5 +15,4 @@ npm-debug.log
 yarn-error.log
 .vscode/
 composer.lock
-.idea
 .idea/*
