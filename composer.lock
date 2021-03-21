@@ -1201,6 +1201,8 @@
                 "source": "https://github.com/laravel/lumen-framework"
             },
             "time": "2020-11-17T16:42:41+00:00"
+=======
+>>>>>>> d4227952d1796d330ac9ddf788d7a93ffd7ec093
         },
         {
             "name": "laravel/tinker",
