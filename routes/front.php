@@ -25,3 +25,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/{any}', function () {
     return view('main');
 })->where('any', '.*');
+
+Route::get('/login', 'AuthController@login');
+Route::get('/logout', 'AuthController@logout');
+Route::get('/testSession', 'AuthController@testSession');

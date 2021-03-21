@@ -22,6 +22,8 @@
     <list default="true" id="17467bac-b45e-433c-8227-c182f30fc3ba" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Front/LoginPageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Front/AuthController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/front.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/front.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -208,7 +210,7 @@
       <workItem from="1611619821342" duration="16622000" />
       <workItem from="1612225625006" duration="30553000" />
       <workItem from="1612674421605" duration="7436000" />
-      <workItem from="1613874072030" duration="84000" />
+      <workItem from="1613874072030" duration="7428000" />
     </task>
     <servers />
   </component>
@@ -232,10 +234,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="348" y="87" key="#PHP_CodeSniffer/0.0.1536.864@0.0.1536.864" timestamp="1610069139392" />
-    <state x="582" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1612676981825">
+    <state x="582" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1613886340570">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="582" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.864@0.0.1536.864" timestamp="1612676981825" />
+    <state x="582" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.864@0.0.1536.864" timestamp="1613886340570" />
     <state x="499" y="187" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1612679528660">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -248,10 +250,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="548" y="173" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1610069138345" />
-    <state x="441" y="155" key="NewPhpClassDialog" timestamp="1612680735548">
+    <state x="441" y="155" key="NewPhpClassDialog" timestamp="1613890325308">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="441" y="155" key="NewPhpClassDialog/0.0.1536.864@0.0.1536.864" timestamp="1612680735548" />
+    <state x="441" y="155" key="NewPhpClassDialog/0.0.1536.864@0.0.1536.864" timestamp="1613890325308" />
     <state x="604" y="355" key="NewPhpFileDialog" timestamp="1611544806271">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -264,10 +266,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="496" y="85" width="844" height="779" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1536.864@0.0.1536.864" timestamp="1612317206659" />
-    <state x="424" y="197" key="run.anything.popup" timestamp="1612235009901">
+    <state x="424" y="197" key="run.anything.popup" timestamp="1613889439586">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="424" y="197" key="run.anything.popup/0.0.1536.864@0.0.1536.864" timestamp="1612235009901" />
+    <state x="424" y="197" key="run.anything.popup/0.0.1536.864@0.0.1536.864" timestamp="1613889439586" />
     <state x="431" y="181" width="672" height="678" key="search.everywhere.popup" timestamp="1611633916710">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
