@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 //    return view('vue.index');
 //   })->where('vue_capture', '[\/\w\.-]*');
 
+
 Route::get('/{any}', function () {
     return view('main');
 })->where('any', '.*');
