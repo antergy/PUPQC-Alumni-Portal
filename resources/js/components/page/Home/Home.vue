@@ -9,8 +9,8 @@
               <font-awesome-icon far icon="user-circle" size="2x" />
             </div>
             <div class="profile__container">
-              <label class="profile__label">Your Name Here</label>
-              <label class="profile__position">Position</label>
+              <label class="profile__label">{{ this.$root.sRootFullname }}</label>
+              <label class="profile__position">{{ this.$root.sRootAccPos }}</label>
             </div>
           </div>
           <label class="home__list-title">Navigation Title</label>
@@ -42,9 +42,9 @@
       </div>
       <div class="home__panel--center">
         <div class="feed">
-          <div 
-            v-for="(oPost, iPostKey) in postList" 
-            :key="`post${iPostKey}`" 
+          <div
+            v-for="(oPost, iPostKey) in postList"
+            :key="`post${iPostKey}`"
             class="post"
           >
             <div class="post__header">
@@ -153,7 +153,7 @@ export default {
           },
           content: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
         },
-        
+
         {
           author: 'Renne Bright',
           date: '10 day ago',
@@ -166,7 +166,10 @@ export default {
         },
       ]
     }
-  }
+  },
+    created() {
+      this.$root.setUserInfo();
+    },
 }
 </script>
 

@@ -21,6 +21,19 @@
   <component name="ChangeListManager">
     <list default="true" id="17467bac-b45e-433c-8227-c182f30fc3ba" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Constants/AppConstants.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Constants/AppConstants.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Front/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Front/AuthController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Front/HomePageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Front/HomePageController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Services/Front/AuthService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Services/Front/AuthService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Libraries/Common/AuthLib.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Libraries/Common/AuthLib.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/layout/Navigation/Navigation.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layout/Navigation/Navigation.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/page/Home/Home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/page/Home/Home.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/components/page/Login/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/page/Login/Login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/plugins/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/plugins/router.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/main.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/main.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/front.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/front.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -165,18 +178,19 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/css" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.PHP" />
+    <property name="ts.external.directory.path" value="D:\Apps\Work and Study\PhpStorm 2020.2.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Projects\External Projects\PUPQC Alumni Portal\System\pupqc_alumni_portal\public\css" />
       <recent name="D:\Projects\External Projects\PUPQC Alumni Portal\System\pupqc_alumni_portal\app\Http\Repositories" />
       <recent name="D:\Projects\External Projects\PUPQC Alumni Portal\System\pupqc_alumni_portal" />
       <recent name="D:\Projects\External Projects\PUPQC Alumni Portal\System\pupqc_alumni_portal\app\Http\Rules\API" />
       <recent name="D:\Projects\External Projects\PUPQC Alumni Portal\System\pupqc_alumni_portal\database\migrations" />
-      <recent name="D:\Projects\External Projects\PUPQC Alumni Portal\System\pupqc_alumni_portal\routes" />
     </key>
   </component>
   <component name="RunManager">
@@ -209,6 +223,7 @@
       <workItem from="1612225625006" duration="30553000" />
       <workItem from="1612674421605" duration="7436000" />
       <workItem from="1613874072030" duration="7428000" />
+      <workItem from="1616371652994" duration="32627000" />
     </task>
     <servers />
   </component>
@@ -260,17 +275,21 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="277" y="77" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1610069259204" />
+    <state x="93" y="93" width="1350" height="678" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1616402762252">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="93" y="93" width="1350" height="678" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1536.864@0.0.1536.864" timestamp="1616402762252" />
     <state x="496" y="85" width="844" height="779" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1612317206659">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="496" y="85" width="844" height="779" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1536.864@0.0.1536.864" timestamp="1612317206659" />
-    <state x="424" y="197" key="run.anything.popup" timestamp="1613889439586">
+    <state x="424" y="197" key="run.anything.popup" timestamp="1616385188553">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="424" y="197" key="run.anything.popup/0.0.1536.864@0.0.1536.864" timestamp="1613889439586" />
-    <state x="431" y="181" width="672" height="678" key="search.everywhere.popup" timestamp="1611633916710">
+    <state x="424" y="197" key="run.anything.popup/0.0.1536.864@0.0.1536.864" timestamp="1616385188553" />
+    <state x="431" y="181" width="672" height="678" key="search.everywhere.popup" timestamp="1616386251930">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="431" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1611633916710" />
+    <state x="431" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1616386251930" />
   </component>
 </project>

@@ -14,4 +14,5 @@ class AppConstants
     const CODE = 'code';
     const DATA = 'data';
     const MESSAGE = 'message';
+    const B_RESULT = 'bResult';
 }

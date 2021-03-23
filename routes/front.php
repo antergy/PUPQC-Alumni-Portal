@@ -14,19 +14,31 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Add an appropriate middleware for API @TODO
-//
-//Route::get('/', 'HomePageController@viewMainPage');
-////Route::post('/login', 'LoginPageController@login');
-////Route::post('/register', 'RegistrationPageController@register');
-//Route::get('/vue/{vue_capture?}', function () {
-//    return view('vue.index');
-//   })->where('vue_capture', '[\/\w\.-]*');
 
+$aVueRoutes = [
+    '/',
+    '/home'
+];
+foreach ($aVueRoutes as $sRoute) {
+    Route::get($sRoute, function () use ($sRoute) {
+        $aSession = \App\Libraries\Common\AuthLib::getUserSession();
+        $aSessionStatus = data_get($aSession, 'user_session_active', null);
+        if ($aSessionStatus === null) {
+            if ($sRoute === '/') {
+                return view('main');
+            } else {
+                return redirect('/');
+            }
+        } else {
+            if ($sRoute === '/') {
+                return redirect('/home');
+            } else {
+                return view('main');
+            }
+        }
+    })->where('any', '.*');
+}
 
-Route::get('/{any}', function () {
-    return view('main');
-})->where('any', '.*');
-
-Route::get('/login', 'AuthController@login');
-Route::get('/logout', 'AuthController@logout');
-Route::get('/testSession', 'AuthController@testSession');
+Route::post('/login', 'AuthController@login');
+Route::post('/logout', 'AuthController@logout');
+Route::get('/getSession', 'AuthController@getSession');
