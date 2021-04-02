@@ -35,6 +35,10 @@ const app = new Vue({
     },
     methods: {
 
+        /**
+         * Sets user info
+         * (Retrieved from session)
+         */
         setUserInfo: function () {
             this.getRequest('getSession', (mResponse) => {
                 let sUser = mResponse;

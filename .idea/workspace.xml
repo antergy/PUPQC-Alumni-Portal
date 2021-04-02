@@ -21,19 +21,12 @@
   <component name="ChangeListManager">
     <list default="true" id="17467bac-b45e-433c-8227-c182f30fc3ba" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Constants/AppConstants.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Constants/AppConstants.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Front/AuthController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Front/AuthController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Front/HomePageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Front/HomePageController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Services/Front/AuthService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Services/Front/AuthService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Libraries/Common/AuthLib.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Libraries/Common/AuthLib.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/layout/Navigation/Navigation.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/layout/Navigation/Navigation.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/components/page/Home/Home.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/page/Home/Home.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/page/Login/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/page/Login/Login.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/plugins/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/plugins/router.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/main.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/main.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/front.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/front.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -178,7 +171,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/css" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.PHP" />
     <property name="ts.external.directory.path" value="D:\Apps\Work and Study\PhpStorm 2020.2.3\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
@@ -223,7 +216,12 @@
       <workItem from="1612225625006" duration="30553000" />
       <workItem from="1612674421605" duration="7436000" />
       <workItem from="1613874072030" duration="7428000" />
-      <workItem from="1616371652994" duration="32627000" />
+      <workItem from="1616371652994" duration="33320000" />
+      <workItem from="1616547300783" duration="1471000" />
+      <workItem from="1616663227827" duration="1211000" />
+      <workItem from="1616735874534" duration="735000" />
+      <workItem from="1616759322677" duration="614000" />
+      <workItem from="1617353692312" duration="1941000" />
     </task>
     <servers />
   </component>
@@ -259,10 +257,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="637" y="182" key="EnvironmentVariablesDialog/0.0.1536.864@0.0.1536.864" timestamp="1609815954516" />
-    <state x="548" y="173" key="FileChooserDialogImpl" timestamp="1610069138345">
+    <state x="548" y="173" key="FileChooserDialogImpl" timestamp="1616492034886">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="548" y="173" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1610069138345" />
+    <state x="548" y="173" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1616492034886" />
     <state x="441" y="155" key="NewPhpClassDialog" timestamp="1613890325308">
       <screen x="0" y="0" width="1536" height="864" />
     </state>

@@ -8,8 +8,22 @@ use App\Http\Services\Admin\AccountManagementService;
 use App\Libraries\Common\AuthLib;
 use App\Libraries\Common\SessionLib;
 
+/**
+ * Class AuthService
+ * @package App\Http\Services\Front
+ * @author  Cristian O. Balatbat <ian26balatbat@gmail.com>
+ * @since   03/15/2021
+ * @version 1.0
+ */
 class AuthService extends CoreAdminService
 {
+    /**
+     * Check if the parameters are empty
+     *
+     * @param string $sUsername
+     * @param string $sPassword
+     * @return array
+     */
     public function checkIfParamsAreEmpty($sUsername, $sPassword)
     {
         $bResult = true;
@@ -32,6 +46,12 @@ class AuthService extends CoreAdminService
         ];
     }
 
+    /**
+     * Check if the account username exist
+     *
+     * @param string $sUsername
+     * @return array
+     */
     public function checkIfAccountExist($sUsername)
     {
         $bResult = true;
@@ -59,6 +79,13 @@ class AuthService extends CoreAdminService
         ];
     }
 
+    /**
+     * Removes sensitive info from the returning user details array
+     * - Can be modified
+     *
+     * @param array $aAccountInfo
+     * @return mixed
+     */
     public function removeSensitiveInfo($aAccountInfo)
     {
         unset($aAccountInfo['acc_password']);
@@ -66,16 +93,27 @@ class AuthService extends CoreAdminService
         return $aAccountInfo;
     }
 
+    /**
+     * Sets user account status to online
+     */
     public function setAccStatusToOnline()
     {
         $this->setAccountStatus(1);
     }
 
+    /**
+     * Sets user account status to offline
+     */
     public function setAccStatusToOffline()
     {
         $this->setAccountStatus(2);
     }
 
+    /**
+     * Sets account status
+     *
+     * @param int $iStatus
+     */
     private function setAccountStatus($iStatus)
     {
         $iUid = SessionLib::getSession(AuthLib::USER_ID);
