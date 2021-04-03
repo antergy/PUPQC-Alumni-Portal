@@ -21,6 +21,10 @@ class HomePageController extends Controller
      */
     public function viewMainPage()
     {
-        return view('main');
+        return [
+            'code'    => 200,
+            'data'    => 'data',
+            'message' => 'message'
+        ];
     }
 }

@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+require('laravel-mix-postcss-config');
 
 /*
  |--------------------------------------------------------------------------
@@ -12,6 +13,16 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .postCss('resources/css/app.css', 'public/css', [
-        //
-    ]);
+    .postCss('resources/css/app.css', 'public/css')
+    .postCssConfig({
+      postcssOptions: {
+        plugins: [
+          require('postcss-import'),
+          require('tailwindcss'),
+          require('postcss-nested'),
+          require('autoprefixer'),
+          require('precss'),
+        ]
+      }
+    })
+    .vue({ version: 2 });

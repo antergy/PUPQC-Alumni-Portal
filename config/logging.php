@@ -99,6 +99,35 @@ return [
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],
+
+        /**
+         * Additional Custom Logging Channels
+         * - Separate logging channel for Front, Admin, and API Components
+         *
+         * @author  Cristian O. Balatbat <ian26balatbat@gmail.com>
+         * @since   01/06/2021
+         * @version 1.0
+         */
+        'front' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/front/laravel_front_app.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'days' => 14,
+        ],
+
+        'admin' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/admin/laravel_admin_app.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'days' => 14,
+        ],
+
+        'api' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/api/laravel_api_app.log'),
+            'level' => env('LOG_LEVEL', 'debug'),
+            'days' => 14,
+        ],
     ],
 
 ];

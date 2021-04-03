@@ -1,0 +1,14 @@
+<VirtualHost *:80>
+    ServerAdmin pupqc.alumni-portal.com
+    DocumentRoot "D:/Projects/External Projects/PUPQC Alumni Portal/System/pupqc_alumni_portal/public"
+    ServerName pupqc.alumni-portal.com
+    ServerAlias pupqc.alumni-portal.com
+    <Directory "D:/Projects/External Projects/PUPQC Alumni Portal/System/pupqc_alumni_portal">
+      Options Indexes FollowSymLinks
+      AllowOverride All
+      Require all granted
+    </Directory>
+    ErrorLog "logs/pupqc.alumni-portal.com.log"
+    CustomLog "logs/pupqc.alumni-portal.com-access.log" common
+</VirtualHost>
+
