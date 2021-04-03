@@ -17,8 +17,8 @@ class CreateRFirstJobDiscover extends Migration
         Schema::create('r_first_job_discover', function (Blueprint $table) {
             $table->id('fjd_id')->autoIncrement();
             $table->string('fjd_desc', 225);
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
         Schema::enableForeignKeyConstraints();
     }

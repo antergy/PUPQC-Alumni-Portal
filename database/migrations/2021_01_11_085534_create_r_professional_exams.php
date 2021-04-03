@@ -17,8 +17,8 @@ class CreateRProfessionalExams extends Migration
         Schema::create('r_professional_exams', function (Blueprint $table) {
             $table->id('profex_id')->autoIncrement();
             $table->string('profex_desc', 225);
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
         Schema::enableForeignKeyConstraints();
     }

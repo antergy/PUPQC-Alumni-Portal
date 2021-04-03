@@ -18,8 +18,8 @@ class CreateRCourses extends Migration
             $table->id('course_id')->autoIncrement();
             $table->string('course_desc', 100);
             $table->string('course_acronym', 20);
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
         Schema::enableForeignKeyConstraints();
     }

@@ -23,8 +23,8 @@ class CreateTAlumniCompetencies extends Migration
 
             $table->foreign('alcom_alumni_id')->references('al_id')->on('t_alumni');
             $table->foreign('alcom_competency')->references('competency_id')->on('r_competencies');
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
         Schema::enableForeignKeyConstraints();
     }

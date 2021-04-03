@@ -17,8 +17,8 @@ class CreateRHonorsReceived extends Migration
         Schema::create('r_honors_received', function (Blueprint $table) {
             $table->id('honor_id')->autoIncrement();
             $table->string('honor_desc', 225);
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
         Schema::enableForeignKeyConstraints();
     }

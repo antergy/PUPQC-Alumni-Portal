@@ -17,8 +17,8 @@ class CreateRJobLevelClassification extends Migration
         Schema::create('r_job_level_classification', function (Blueprint $table) {
             $table->id('jlc_id')->autoIncrement();
             $table->string('jlc_desc', 225);
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
         Schema::enableForeignKeyConstraints();
     }

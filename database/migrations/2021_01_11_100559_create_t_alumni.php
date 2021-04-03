@@ -50,8 +50,8 @@ class CreateTAlumni extends Migration
             $table->foreign('al_first_job_discover')->references('fjd_id')->on('r_first_job_discover');
             $table->foreign('al_first_job_timeframe')->references('fjtf_id')->on('r_first_job_timeframe');
             $table->foreign('al_self_employ_salary')->references('se_salary_id')->on('r_self_employed_salary');
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
         Schema::enableForeignKeyConstraints();
     }

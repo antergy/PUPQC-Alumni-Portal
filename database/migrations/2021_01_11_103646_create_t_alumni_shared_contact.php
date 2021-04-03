@@ -22,8 +22,8 @@ class CreateTAlumniSharedContact extends Migration
             $table->longText('asc_contact_num');
 
             $table->foreign('asc_shared_by')->references('al_id')->on('t_alumni');
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
         Schema::enableForeignKeyConstraints();
     }
