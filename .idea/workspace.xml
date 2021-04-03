@@ -21,7 +21,6 @@
   <component name="ChangeListManager">
     <list default="true" id="17467bac-b45e-433c-8227-c182f30fc3ba" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/public/.htaccess" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,9 +172,9 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Projects\External Projects\PUPQC Alumni Portal\System\pupqc_alumni_portal" />
       <recent name="D:\Projects\External Projects\PUPQC Alumni Portal\System\pupqc_alumni_portal\public\css" />
       <recent name="D:\Projects\External Projects\PUPQC Alumni Portal\System\pupqc_alumni_portal\app\Http\Repositories" />
-      <recent name="D:\Projects\External Projects\PUPQC Alumni Portal\System\pupqc_alumni_portal" />
       <recent name="D:\Projects\External Projects\PUPQC Alumni Portal\System\pupqc_alumni_portal\app\Http\Rules\API" />
       <recent name="D:\Projects\External Projects\PUPQC Alumni Portal\System\pupqc_alumni_portal\database\migrations" />
     </key>
