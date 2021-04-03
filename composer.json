@@ -52,7 +52,6 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi",
-            "php artisan clear-compiled",
             "chmod -R 777 public/"
         ],
         "post-root-package-install": [
