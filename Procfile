@@ -1,1 +1,1 @@
-web: vendor/autoload.php
+web: public/index.php
