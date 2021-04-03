@@ -56,7 +56,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         $oRoute
             ->namespace($this->sFrontControllerNamespace)
-            ->group(base_path('routes/Front.php'));
+            ->group(base_path('routes/front.php'));
     }
 
     /**
