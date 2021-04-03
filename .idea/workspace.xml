@@ -19,7 +19,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="17467bac-b45e-433c-8227-c182f30fc3ba" name="Default Changelist" comment="" />
+    <list default="true" id="17467bac-b45e-433c-8227-c182f30fc3ba" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/pupqc_alumni_portal.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pupqc_alumni_portal.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -236,6 +240,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="348" y="87" key="#PHP_CodeSniffer/0.0.1536.864@0.0.1536.864" timestamp="1610069139392" />
+    <state x="532" y="234" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1617426358004">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="532" y="234" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.864@0.0.1536.864" timestamp="1617426358004" />
     <state x="582" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1613886340570">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
