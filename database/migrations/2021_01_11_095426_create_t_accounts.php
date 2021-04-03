@@ -16,10 +16,10 @@ class CreateTAccounts extends Migration
         Schema::disableForeignKeyConstraints();
         Schema::create('t_accounts', function (Blueprint $table) {
             $table->id('acc_id')->autoIncrement();
-            $table->longText('acc_username')->unique();
+            $table->string('acc_username', 200)->unique();
             $table->longText('acc_password');
             $table->longText('acc_name');
-            $table->longText('acc_email')->unique();
+            $table->string('acc_email', 200)->unique();
             $table->longText('acc_picture')->nullable();
             $table->unsignedBigInteger('acc_type');
             $table->integer('acc_status')->default(1);
