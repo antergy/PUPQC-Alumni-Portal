@@ -17,8 +17,8 @@ class CreateRIndustry extends Migration
         Schema::create('r_industry', function (Blueprint $table) {
             $table->id('industry_id')->autoIncrement();
             $table->string('industry_desc', 225);
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
         Schema::enableForeignKeyConstraints();
     }

@@ -16,17 +16,17 @@ class CreateTAccounts extends Migration
         Schema::disableForeignKeyConstraints();
         Schema::create('t_accounts', function (Blueprint $table) {
             $table->id('acc_id')->autoIncrement();
-            $table->longText('acc_username')->unique();
+            $table->string('acc_username', 200)->unique();
             $table->longText('acc_password');
             $table->longText('acc_name');
-            $table->longText('acc_email')->unique();
-            $table->longText('acc_picture')->default('DEF-PIC');
+            $table->string('acc_email', 200)->unique();
+            $table->longText('acc_picture')->nullable();
             $table->unsignedBigInteger('acc_type');
             $table->integer('acc_status')->default(1);
 
             $table->foreign('acc_type')->references('at_id')->on('r_account_types');
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
         Schema::enableForeignKeyConstraints();
     }

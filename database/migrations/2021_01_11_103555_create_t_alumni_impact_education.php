@@ -22,8 +22,8 @@ class CreateTAlumniImpactEducation extends Migration
 
             $table->foreign('aled_alumni_id')->references('al_id')->on('t_alumni');
             $table->foreign('aled_impact_education')->references('ioe_id')->on('r_impact_of_education');
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
         Schema::enableForeignKeyConstraints();
     }
