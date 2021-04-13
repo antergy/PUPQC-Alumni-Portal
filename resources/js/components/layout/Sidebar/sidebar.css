@@ -1,0 +1,64 @@
+* {
+  @apply transition-all;
+}
+
+.sidebar {
+  @apply flex flex-col h-full px-2 bg-gray-700 fixed;
+
+  --sidebarWidth: 15em;
+
+  width: var(--sidebarWidth);
+  left: calc(-1 * var(--sidebarWidth));
+  transition: left 0.75s ease-out;
+  transition: width 0.25s ease;
+
+  &.hidden {
+    left: calc(-1 * var(--sidebarWidth));
+  }
+
+  &.active {
+    left: 0;
+  }
+}
+
+.profile {
+  @apply flex flex-row py-6 px-2 bg-gray-300 -mx-2;
+
+  &__image {
+    @apply p-2;
+  }
+
+  &__container {
+    @apply ml-2 flex flex-col;
+  }
+
+  &__label {
+    @apply text-base;
+  }
+
+  &__position {
+    @apply text-sm font-medium;
+  }
+}
+
+.section {
+  @apply flex flex-col py-2 border-b border-gray-500;
+
+  &:last-of-type {
+    @apply border-none;
+  }
+}
+
+@screen lg {
+  .sidebar {
+    --sidebarWidth: 15em;
+
+    left: 0;
+  }
+}
+
+@screen xl {
+  .sidebar {
+    --sidebarWidth: 15em;
+  }
+}

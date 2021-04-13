@@ -1,0 +1,7 @@
+.layout {
+  @apply h-full flex flex-col box-border;
+
+  &-content {
+    @apply h-full flex flex-row mt-14 justify-center;
+  }
+}

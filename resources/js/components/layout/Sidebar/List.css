@@ -1,0 +1,7 @@
+.list {
+  @apply flex flex-col mt-2;
+
+  &__title {
+    @apply px-2 text-gray-400 text-lg font-medium mb-2;
+  }
+}

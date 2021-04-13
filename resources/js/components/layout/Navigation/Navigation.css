@@ -10,7 +10,7 @@
   }
 
   &__item {
-    @apply px-4 border-r border-white h-4 flex items-center justify-center;
+    @apply px-2 border-r-2 border-white h-4 flex items-center justify-center;
 
     &:last-of-type {
       @apply border-r-0;
@@ -18,15 +18,15 @@
   }
 
   &__button {
-    @apply px-4 py-2 text-white font-semibold outline-none rounded-lg;
+    @apply px-4 py-2 text-white font-semibold outline-none rounded-md;
 
     &:hover,
     &.active {
-      @apply bg-white text-red-900;
+      @apply bg-red-700;
     }
   }
 
   &__title {
-    @apply flex items-center px-10 h-full text-white font-semibold text-xl;
+    @apply flex items-center px-10 h-full text-white font-semibold text-sm;
   }
 }
