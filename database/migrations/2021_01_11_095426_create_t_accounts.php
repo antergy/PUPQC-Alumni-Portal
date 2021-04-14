@@ -20,7 +20,7 @@ class CreateTAccounts extends Migration
             $table->longText('acc_password');
             $table->longText('acc_name');
             $table->longText('acc_email')->unique();
-            $table->longText('acc_picture')->default('DEF-PIC');
+            $table->longText('acc_picture')->nullable();
             $table->unsignedBigInteger('acc_type');
             $table->integer('acc_status')->default(1);
 

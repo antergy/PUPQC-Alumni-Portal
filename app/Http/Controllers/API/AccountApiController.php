@@ -102,7 +102,8 @@ class AccountApiController extends CoreApiController
     {
         try {
             $aRequest = $this->validate($this->oRequest, $oRules->aAccountCreate);
-            $aData = ArrayLib::filterKeys($aRequest, $this->oRepository->aSearch);
+            $aFilteredKeys = array_merge($this->oRepository->aSearch, ['acc_password']);
+            $aData = ArrayLib::filterKeys($aRequest, $aFilteredKeys);
             $aData = $this->oRepository->encryptValues($aData, $this->oRepository->aEncryptedKeys);
             $aResponse = $this->oRepository->createRecord($aData);
 
