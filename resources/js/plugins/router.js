@@ -1,12 +1,11 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
 
-import Login from '../components/page/Login/Login.vue'
-import Home from '../components/page/Home/Home.vue'
-import Profile from '../components/page/Profile/Profile.vue'
+import Login from '../components/page/Login/Login.vue';
+import Home from '../components/page/Home/Home.vue';
+import Profile from '../components/page/Profile/Profile.vue';
 
-Vue.component('Login', Login)
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 export default {
     router: new VueRouter({
