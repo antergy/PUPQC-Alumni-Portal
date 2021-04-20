@@ -3,183 +3,107 @@
 }
 
 .home {
-  @apply h-full flex flex-col items-center;
+  @apply px-6;
 
-  &__wrapper {
-    @apply bg-gray-100 w-full flex flex-row absolute;
+  &__feed {
+    @apply flex flex-col mt-4;
   }
-
-  &__panel {
-    &--left,
-    &--center,
-    &--right {
-      @apply pt-14;
-    }
-
-    &--left {
-      @apply w-2/5 hidden;
-    }
-
-    &--center {
-      @apply w-full;
-    }
-
-    &--right {
-      @apply w-2/5 hidden;
-    }
-  }
-
-  &__list {
-    @apply w-full py-4 border-b border-gray-300 px-4;
-
-    &:last-of-type {
-      @apply border-b-0;
-    }
-
-    &-title {
-      @apply font-bold text-lg opacity-30;
-    }
-
-    &-item {
-      @apply flex py-2 text-sm cursor-pointer rounded px-2 my-2;
-
-      &:hover {
-        @apply bg-gray-300;
-      }
-    }
-  }
-}
-
-.profile {
-  @apply flex flex-row items-center bg-red-900 rounded-lg px-4 py-2 mb-4;
-
-  &:hover {
-    @apply bg-red-900;
-  }
-
-  &__image {
-    @apply flex bg-white rounded-full p-1 justify-center items-center overflow-hidden;
-  }
-
-  &__container {
-    @apply flex flex-col ml-4 text-white;
-  }
-
-  &__label {
-    @apply text-lg truncate max-w-xs text-white;
-  }
-
-  &__position {
-    @apply text-sm font-medium;
-  }
-}
-
-.feed {
-  @apply mt-4 px-2 pb-10;
 }
 
 .post {
-  @apply flex flex-col px-4 bg-white rounded border border-gray-200 shadow mb-6;
+  @apply mt-6 bg-white rounded-lg border-2;
 
-  &:last-of-type {
-    @apply mb-0;
+  width: 20em;
+
+  &:first-of-type {
+    @apply mt-0;
   }
 
   &__header {
-    @apply flex flex-row w-full items-center justify-between border-b border-gray-400;
+    @apply flex flex-row justify-between p-2 border-b;
+  }
+
+  &__content {
+    @apply p-4 border-b;
+  }
+
+  &__action {
+    @apply flex flex-row p-2;
+  }
+
+  &__image {
+    @apply p-2;
   }
 
   &__profile {
     @apply flex flex-row;
   }
 
-  &__image {
-    @apply flex items-center;
-  }
-
   &__info {
-    @apply flex flex-col ml-2 py-2;
+    @apply flex flex-col ml-2;
   }
 
   &__name {
-    @apply font-medium;
+    @apply text-base;
   }
 
   &__date {
-    @apply text-sm text-gray-600;
+    @apply text-sm text-gray-500;
   }
 
-  &__content {
-    @apply py-4;
+  &__option-toggle {
+    @apply px-4 rounded-lg outline-none;
+
+    &:hover {
+      @apply bg-gray-200;
+    }
   }
 
-  &__action {
-    @apply flex flex-row py-2;
+  &__action-item {
+    @apply flex justify-center items-center px-4 py-2 rounded-lg outline-none box-border;
 
-    &-label {
-      @apply text-sm;
+    min-width: 7rem;
+
+    * {
+      @apply cursor-pointer;
     }
 
-    &-item {
-      @apply flex-1 py-2 border-r border-gray-400 outline-none;
+    &.active {
+      @apply border-2 border-red-900;
+    }
+  }
 
-      & * {
-        @apply cursor-pointer;
-      }
+  &__action-icon {
+    @apply px-2;
 
-      &:hover {
-        @apply bg-red-900 text-white;
-      }
+    &.active {
+      @apply text-red-900;
+    }
+  }
 
-      &:last-of-type {
-        @apply border-r-0;
-      }
+  &__action-label {
+    @apply text-sm;
 
-      &.active {
-        @apply bg-red-900 text-white;
-      }
+    &.active {
+      @apply font-medium text-red-900;
     }
   }
 }
 
 @screen md {
-  .feed {
-    @apply px-6;
-  }
-
-  .home {
-    &__panel {
-      &--left,
-      &--right {
-        @apply hidden;
-      }
-    }
+  .post {
+    width: 30em;
   }
 }
 
 @screen lg {
-  .feed {
-    @apply px-14;
-  }
-
-  .home {
-    &__panel {
-      &--left,
-      &--right {
-        @apply block;
-      }
-    }
+  .post {
+    width: 35em;
   }
 }
 
 @screen xl {
-  .feed {
-    @apply px-20;
+  .post {
+    width: 40em;
   }
-
-  /* .home {
-    &__wrapper {
-      @apply w-2/3;
-    }
-  } */
 }

@@ -7,7 +7,9 @@ import {
   faUserCircle,
   faEllipsisH,
   faLightbulb,
-  faComment
+  faComment,
+  faChevronDown,
+  faChevronUp,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
@@ -18,7 +20,9 @@ const aIconList = [
   faUserCircle,
   faEllipsisH,
   faLightbulb,
-  faComment
+  faComment,
+  faChevronDown,
+  faChevronUp
 ]
 
 aIconList.forEach(oIcon => {

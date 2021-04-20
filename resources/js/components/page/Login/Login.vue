@@ -34,9 +34,9 @@ export default {
       valid: true
     }
   },
-    created() {
-
-    },
+  created() {
+    this.$root.sLayout = 'clean'
+  },
   methods: {
     doLogin: function () {
        var sUsername =  $('#username').val();

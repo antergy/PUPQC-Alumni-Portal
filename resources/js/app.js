@@ -6,9 +6,7 @@ import vueRouter from './plugins/router'
 import uiKit from './plugins/uiKit'
 import './plugins/fontawesome'
 import "tailwindcss/tailwind.css"
-/** External extra components */
-Vue.component('Navigation', require('./components/layout/Navigation/Navigation').default);
-Vue.component('Home', require('./components/page/Home/Home').default);
+
 const app = new Vue({
     el: '#app',
     router: vueRouter.router,
@@ -20,18 +18,16 @@ const app = new Vue({
         sRootAccPos   : '',
         sRootUserkey  : '',
         sRootUserProfPic : '',
+        sLayout: ''
     },
     created(){
+        uiKit()
         this.oToast = Swal.mixin({
             toast: true,
             position: 'top',
             showConfirmButton: false,
             timer: 2000
         });
-    },
-
-    mounted () {
-        uiKit()
     },
     methods: {
 

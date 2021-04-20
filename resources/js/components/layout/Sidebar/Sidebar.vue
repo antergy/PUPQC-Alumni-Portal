@@ -1,0 +1,47 @@
+<template>
+	<div :class="['sidebar', { active: active }]">
+		<div class="profile">
+			<div class="profile__image">
+				<font-awesome-icon far icon="user-circle" size="2x" />
+			</div>
+			<div class="profile__container">
+				<label class="profile__label">{{ this.$root.sRootFullname }}</label>
+				<label class="profile__position">{{ this.$root.sRootAccPos }}</label>
+			</div>
+		</div>
+		<div class="section">
+			<List title="Navigation Title">
+				<ListItem text="Home" to="/home" />
+				<ListItem text="Messaging" to="/profile" />
+				<ListItem text="Alumni Directory" />
+				<ListItem text="Reports" >
+					<ListItem text="Post Activities" />
+					<ListItem text="Alumni Tracer Study" />
+					<ListItem text="System Logs" />
+				</ListItem>
+				<ListItem text="System Configuration" />
+			</List>
+		</div>
+	</div>
+</template>
+
+<script>
+import List from './List.vue'
+import ListItem from './ListItem.vue'
+
+export default {
+	components: {
+		List,
+		ListItem
+	},
+	data() {
+		return {
+			active: false,
+		};
+	},
+};
+</script>
+
+<style scoped>
+@import "./sidebar.css";
+</style>

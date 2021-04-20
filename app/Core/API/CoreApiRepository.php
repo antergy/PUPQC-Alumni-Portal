@@ -152,8 +152,15 @@ abstract class CoreApiRepository
         $aProcessInfo[LogLib::MODULE_KEY] = data_get((explode('-', LogLib::$sTraceId)), 0, LogLib::MODULE);
         LogLib::LogAPI($aProcessInfo, $sSql);
 
+        /** Override default timestamp */
+        $sDateNow = date('Y-m-d H:i:s');
+        $aDateValues = [
+            $this->sCreatedDateColumn => $sDateNow,
+            $this->sUpdatedDateColumn => $sDateNow
+        ];
+
         /** Execute query */
-        $aData = $this->oModel->insertGetId($aData);
+        $aData = $this->oModel->insertGetId(array_merge($aData, $aDateValues));
 
         /** Logs after executing query */
         $aProcessInfo[LogLib::REQUEST_TYPE_KEY] = 'Result';
@@ -180,8 +187,15 @@ abstract class CoreApiRepository
         $aProcessInfo[LogLib::MODULE_KEY] = data_get((explode('-', LogLib::$sTraceId)), 0, LogLib::MODULE);
         LogLib::LogAPI($aProcessInfo, $sSql);
 
+        /** Override default timestamp */
+        $sDateNow = date('Y-m-d H:i:s');
+        $aDateValues = [
+            $this->sCreatedDateColumn => $sDateNow,
+            $this->sUpdatedDateColumn => $sDateNow
+        ];
+
         /** Execute query */
-        $bSave = $this->oModel->updateOrInsert($aFind, $aData);
+        $bSave = $this->oModel->updateOrInsert($aFind, array_merge($aData, $aDateValues));
 
         /** Logs after executing query */
         $aProcessInfo[LogLib::REQUEST_TYPE_KEY] = 'Result';
@@ -199,8 +213,8 @@ abstract class CoreApiRepository
      */
     public function updateRecord($iPrimaryKey, $aData)
     {
-        $sUpdatedDateValue = date('Y-m-d H:i:s');
-        $aData = array_merge($aData, [$this->sUpdatedDateColumn => $sUpdatedDateValue]);
+        $sDateNow = date('Y-m-d H:i:s');
+        $aData = array_merge($aData, [$this->sUpdatedDateColumn => $sDateNow]);
         $iUpdate = $this->oModel->where($this->sPrimaryKey, $iPrimaryKey)->update($aData);
         $this->logInfo([$iUpdate]);
 
