@@ -76,12 +76,10 @@ Route::prefix('v1')->group(function () {
     /**
      * API Route group for alumni management; also includes the following sub-modules:
      *
-     * - Alumni Job Level Classification
-     * - Alumni Competencies
-     * - Alumni Work Experience
-     * - Alumni Impact of Education
-     * - Alumni Unemployment Reason
-     * - Alumni Shared Contacts
+     * - Alumni Undergraduate Job @TODO
+     * - Alumni Graduate Job      @TODO
+     * - Alumni Company Profile   @TODO
+     * - Alumni Graduate Thesis   @TODO
      */
     Route::prefix('alumni')->group(function () {
         $sParentNamespace = 'Alumni_Management';
@@ -90,49 +88,35 @@ Route::prefix('v1')->group(function () {
         Route::post('update', "{$sParentNamespace}\AlumniApiController@update");
         Route::post('delete', "{$sParentNamespace}\AlumniApiController@delete");
 
+        /**
+         * Sample route group for sub modules of alumni table
+         * (This sample route group is to be deleted)
+         * Create a group for each sub module
+         * - Alumni Undergraduate Job
+         * - Alumni Graduate Job
+         * - Alumni Company Profile
+         * - Alumni Graduate Thesis
+         */
         Route::prefix('competency')->group(function () use ($sParentNamespace) {
             Route::get('read', "{$sParentNamespace}\AlumniCompetencyApiController@getAll");
             Route::post('create', "{$sParentNamespace}\AlumniCompetencyApiController@create");
+            // (Add route for update)
             Route::post('deleteByAlumni', "{$sParentNamespace}\AlumniCompetencyApiController@bulkDelete");
         });
 
-        Route::prefix('ajle')->group(function () use ($sParentNamespace) {
-            Route::get('read', "{$sParentNamespace}\AlumniJobLevelApiController@getAll");
-            Route::post('create', "{$sParentNamespace}\AlumniJobLevelApiController@create");
-            Route::post('update', "{$sParentNamespace}\AlumniJobLevelApiController@update");
-            Route::post('delete', "{$sParentNamespace}\AlumniJobLevelApiController@delete");
-            Route::post('deleteByAlumni', "{$sParentNamespace}\AlumniJobLevelApiController@bulkDelete");
-        });
+    });
 
-        Route::prefix('unemploy_reason')->group(function () use ($sParentNamespace) {
-            Route::get('read', "{$sParentNamespace}\AlumniUnemployedReasonApiController@getAll");
-            Route::post('create', "{$sParentNamespace}\AlumniUnemployedReasonApiController@create");
-            Route::post('update', "{$sParentNamespace}\AlumniUnemployedReasonApiController@update");
-            Route::post('delete', "{$sParentNamespace}\AlumniUnemployedReasonApiController@delete");
-            Route::post('deleteByAlumni', "{$sParentNamespace}\AlumniUnemployedReasonApiController@bulkDelete");
-        });
+    /**
+     * Set the API route group for form management, also includes the following sub-modules:
+     *
+     * - Form Question Group
+     * - Form Question Type
+     * - Form Questions
+     * - Form Question Choices
+     * - Form Answers
+     */
+    Route::prefix('form')->group(function () {
 
-        Route::prefix('work_exp')->group(function () use ($sParentNamespace) {
-            Route::get('read', "{$sParentNamespace}\AlumniWorkExpApiController@getAll");
-            Route::post('create', "{$sParentNamespace}\AlumniWorkExpApiController@create");
-            Route::post('update', "{$sParentNamespace}\AlumniWorkExpApiController@update");
-            Route::post('delete', "{$sParentNamespace}\AlumniWorkExpApiController@delete");
-            Route::post('deleteByAlumni', "{$sParentNamespace}\AlumniWorkExpApiController@bulkDelete");
-        });
-
-        Route::prefix('ioe')->group(function () use ($sParentNamespace) {
-            Route::get('read', "{$sParentNamespace}\AlumniImpactEducationApiController@getAll");
-            Route::post('create', "{$sParentNamespace}\AlumniImpactEducationApiController@create");
-            Route::post('deleteByAlumni', "{$sParentNamespace}\AlumniImpactEducationApiController@bulkDelete");
-        });
-
-        Route::prefix('shared_contacts')->group(function () use ($sParentNamespace) {
-            Route::get('read', "{$sParentNamespace}\AlumniSharedContactApiController@getAll");
-            Route::post('create', "{$sParentNamespace}\AlumniSharedContactApiController@create");
-            Route::post('update', "{$sParentNamespace}\AlumniSharedContactApiController@update");
-            Route::post('delete', "{$sParentNamespace}\AlumniSharedContactApiController@delete");
-            Route::post('deleteByAlumni', "{$sParentNamespace}\AlumniSharedContactApiController@bulkDelete");
-        });
     });
 
     /**
@@ -141,33 +125,13 @@ Route::prefix('v1')->group(function () {
      * - Course Management
      * - Account Type Management
      * - Post Type Management
-     * - Educational Attainment Management
-     * - Honors Received Management
-     * - Professional Exam Management
-     * - First Job Timeframe Management
-     * - First Job Discover Management
-     * - Job Level Management
-     * - Self Employed Salary Management
-     * - Unemployment Reason Management
      * - Industry Management
-     * - Competency Management
-     * - Impact of Education Management
      */
     $aModules = [
         'course'          => 'CourseApiController',
         'acc_type'        => 'AccountTypeApiController',
         'post_type'       => 'PostTypeApiController',
-        'educ_attain'     => 'EducAttainApiController',
-        'honors'          => 'HonorsReceivedApiController',
-        'profex'          => 'ProfessionalExamApiController',
-        'fjtf'            => 'FirstJobTimeframeApiController',
-        'fjd'             => 'FirstJobDiscoverApiController',
-        'job_level'       => 'JobLevelApiController',
-        'se_salary'       => 'SelfEmployedSalaryApiController',
-        'unemploy_reason' => 'UnemploymentReasonApiController',
-        'industry'        => 'IndustryApiController',
-        'competency'      => 'CompetencyApiController',
-        'ioe'             => 'ImpactEducationApiController'
+        'industry'        => 'IndustryApiController'
     ];
     foreach ($aModules as $sModuleGroupName => $sModuleController) {
         Route::prefix($sModuleGroupName)->group(function () use($sModuleController) {

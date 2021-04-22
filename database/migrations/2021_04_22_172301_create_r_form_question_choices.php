@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRUnemploymentReason extends Migration
+class CreateRFormQuestionChoices extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,15 @@ class CreateRUnemploymentReason extends Migration
      */
     public function up()
     {
-        Schema::disableForeignKeyConstraints();
-        Schema::create('r_unemployment_reason', function (Blueprint $table) {
-            $table->id('ur_id')->autoIncrement();
-            $table->string('ur_desc', 225);
+        Schema::create('r_form_question_choices', function (Blueprint $table) {
+            $table->id('fqc_id')->autoIncrement();
+            $table->string('fqc_desc', 255);
+            $table->unsignedBigInteger('fqc_fq_id');
+
+            $table->foreign('fqc_fq_id')->references('fq_id')->on('r_form_questions');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
-        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -30,6 +31,6 @@ class CreateRUnemploymentReason extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('r_unemployment_reason');
+        Schema::dropIfExists('r_form_question_choices');
     }
 }

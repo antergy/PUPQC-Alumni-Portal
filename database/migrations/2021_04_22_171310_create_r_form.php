@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRFirstJobDiscover extends Migration
+class CreateRForm extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,16 @@ class CreateRFirstJobDiscover extends Migration
      */
     public function up()
     {
-        Schema::disableForeignKeyConstraints();
-        Schema::create('r_first_job_discover', function (Blueprint $table) {
-            $table->id('fjd_id')->autoIncrement();
-            $table->string('fjd_desc', 225);
+        Schema::create('r_form', function (Blueprint $table) {
+            $table->id('form_id')->autoIncrement();
+            $table->string('form_desc', 100);
+            $table->unsignedBigInteger('form_degree_id');
+            $table->unsignedBigInteger('form_course_id')->nullable();
+            $table->integer('form_active_status');
+
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
-        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -30,6 +32,6 @@ class CreateRFirstJobDiscover extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('r_first_job_discover');
+        Schema::dropIfExists('r_form');
     }
 }

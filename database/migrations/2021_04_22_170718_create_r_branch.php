@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRProfessionalExams extends Migration
+class CreateRBranch extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,11 @@ class CreateRProfessionalExams extends Migration
     public function up()
     {
         Schema::disableForeignKeyConstraints();
-        Schema::create('r_professional_exams', function (Blueprint $table) {
-            $table->id('profex_id')->autoIncrement();
-            $table->string('profex_desc', 225);
+        Schema::create('r_branch', function (Blueprint $table) {
+            $table->id('branch_id')->autoIncrement();
+            $table->string('branch_name', 100);
+            $table->string('branch_address', 255);
+
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
@@ -30,6 +32,6 @@ class CreateRProfessionalExams extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('r_professional_exams');
+        Schema::dropIfExists('r_branch');
     }
 }

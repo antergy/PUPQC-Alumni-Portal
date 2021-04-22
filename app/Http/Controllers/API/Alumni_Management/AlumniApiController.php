@@ -45,12 +45,6 @@ class AlumniApiController extends CoreApiController
             /** Initialize foreign key constraint */
             $this->oRepository->joinAccountsTable('left');
             $this->oRepository->joinCourseTable('left');
-            $this->oRepository->joinEducAttainTable('left');
-            $this->oRepository->joinHonorsReceivedTable('left');
-            $this->oRepository->joinProfExamTable('left');
-            $this->oRepository->joinFirstJobDiscoverTable('left');
-            $this->oRepository->joinFirstJobTimeFrameTable('left');
-            $this->oRepository->joinSelfEmploySalaryTable('left');
 
             /** Initialize where clause from default table */
             $aSearch = $this->oRepository->aSearch;

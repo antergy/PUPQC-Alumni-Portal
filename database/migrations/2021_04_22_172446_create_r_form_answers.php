@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRImpactOfEducation extends Migration
+class CreateRFormAnswers extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,17 @@ class CreateRImpactOfEducation extends Migration
      */
     public function up()
     {
-        Schema::disableForeignKeyConstraints();
-        Schema::create('r_impact_of_education', function (Blueprint $table) {
-            $table->id('ioe_id')->autoIncrement();
-            $table->longText('ioe_desc');
+        Schema::create('r_form_answers', function (Blueprint $table) {
+            $table->id('fa_id')->autoIncrement();
+            $table->longtext('fa_answer');
+            $table->unsignedBigInteger('fa_fq_id');
+            $table->unsignedBigInteger('fa_acc_id');
+
+            $table->foreign('fa_fq_id')->references('fq_id')->on('r_form_questions');
+            $table->foreign('fa_acc_id')->references('acc_id')->on('t_accounts');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
-        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -30,6 +33,6 @@ class CreateRImpactOfEducation extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('r_impact_of_education');
+        Schema::dropIfExists('r_form_answers');
     }
 }

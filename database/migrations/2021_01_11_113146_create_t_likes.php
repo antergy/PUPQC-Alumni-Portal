@@ -20,7 +20,7 @@ class CreateTLikes extends Migration
             $table->unsignedBigInteger('lk_acc_id');
             $table->integer('lk_status')->default(1);
 
-            $table->foreign('lk_post_id')->references('p_id')->on('t_posts');
+            $table->foreign('lk_post_id')->references('post_id')->on('t_posts');
             $table->foreign('lk_acc_id')->references('acc_id')->on('t_accounts');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));

@@ -21,10 +21,14 @@ class CreateTAccounts extends Migration
             $table->longText('acc_name');
             $table->longText('acc_email')->unique();
             $table->longText('acc_picture')->nullable();
-            $table->unsignedBigInteger('acc_type');
+            $table->unsignedBigInteger('acc_at_id');
+            $table->unsignedBigInteger('acc_assoc_degree_id');
+            $table->unsignedBigInteger('acc_assoc_branch_id');
             $table->integer('acc_status')->default(1);
 
-            $table->foreign('acc_type')->references('at_id')->on('r_account_types');
+            $table->foreign('acc_at_id')->references('at_id')->on('r_account_types');
+            $table->foreign('acc_assoc_degree_id')->references('degree_id')->on('r_degree');
+            $table->foreign('acc_assoc_branch_id')->references('branch_id')->on('r_branch');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateREducationalAttainment extends Migration
+class CreateTAlumniGraduateThesis extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,16 @@ class CreateREducationalAttainment extends Migration
      */
     public function up()
     {
-        Schema::disableForeignKeyConstraints();
-        Schema::create('r_educational_attainment', function (Blueprint $table) {
-            $table->id('educ_attain_id')->autoIncrement();
-            $table->string('educ_attain_desc', 225);
+        Schema::create('t_alumni_graduate_thesis', function (Blueprint $table) {
+            $table->id('agt_id')->autoIncrement();
+            $table->unsignedBigInteger('agt_alumni_id');
+            $table->string('agt_title', 255);
+            $table->string('agt_adviser', 100);
+
+            $table->foreign('agt_alumni_id')->references('alumni_id')->on('t_alumni');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
-        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -30,6 +32,6 @@ class CreateREducationalAttainment extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('r_educational_attainment');
+        Schema::dropIfExists('t_alumni_graduate_thesis');
     }
 }

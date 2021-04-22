@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRJobLevelClassification extends Migration
+class CreateTAlumniGraduateJob extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,16 @@ class CreateRJobLevelClassification extends Migration
      */
     public function up()
     {
-        Schema::disableForeignKeyConstraints();
-        Schema::create('r_job_level_classification', function (Blueprint $table) {
-            $table->id('jlc_id')->autoIncrement();
-            $table->string('jlc_desc', 225);
+        Schema::create('t_alumni_graduate_job', function (Blueprint $table) {
+            $table->id('agj_id')->autoIncrement();
+            $table->unsignedBigInteger('agj_alumni_id');
+            $table->string('agj_curr_job_title', 100);
+            $table->string('agj_prev_job_title', 100);
+
+            $table->foreign('agj_alumni_id')->references('alumni_id')->on('t_alumni');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP'));
         });
-        Schema::enableForeignKeyConstraints();
     }
 
     /**
@@ -30,6 +32,6 @@ class CreateRJobLevelClassification extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('r_job_level_classification');
+        Schema::dropIfExists('t_alumni_graduate_job');
     }
 }
