@@ -2,173 +2,107 @@
   @apply transition-all;
 }
 
-.home {
-  @apply h-full flex flex-col items-center;
+.profile {
+  @apply px-4 mt-4;
+}
 
-  &__wrapper {
-    @apply bg-gray-100 w-full flex flex-row;
+.form {
+  @apply flex flex-col p-2 w-full box-border;
+
+  &.outline {
+    @apply border border-gray-300 rounded;
   }
 
-  &__panel {
-    &--left,
-    &--center,
-    &--right {
-      @apply pt-14 box-border;
-    }
-
-    &--left {
-      @apply w-0 hidden;
-    }
-
-    &--center {
-      @apply w-full;
-    }
-
-    &--right {
-      @apply w-0 hidden;
-    }
+  &__title {
+    @apply flex p-1 items-center text-lg font-medium border-b border-gray-300;
   }
 
-  &__list {
-    @apply w-full py-4 border-b border-gray-300 px-4;
+  &__group {
+    @apply flex m-2 flex-col border-b border-gray-300;
 
-    &:last-of-type {
-      @apply border-b-0;
-    }
+    &.row {
+      @apply flex-row;
 
-    &-title {
-      @apply font-bold text-lg opacity-30;
-    }
+      & > .form__input-group:first-of-type {
+        @apply ml-0;
+      }
 
-    &-item {
-      @apply flex py-2 text-sm cursor-pointer rounded px-2 my-2;
-
-      &:hover {
-        @apply bg-gray-300;
+      & > .form__input-group:last-of-type {
+        @apply mr-0;
       }
     }
   }
-}
 
-.profile {
-  @apply inline-flex items-center bg-red-900 rounded-lg px-4 py-2 mb-4;
+  &__input-group {
+    @apply flex flex-col m-2;
 
-  &:hover {
-    @apply bg-red-900;
-  }
+    &.sm {
+      @apply w-40;
+    }
 
-  &__image {
-    @apply flex box-border w-10 h-10 bg-white rounded-full p-1 justify-center items-center overflow-hidden;
-  }
+    &.md {
+      @apply w-60;
+    }
 
-  &__container {
-    @apply flex flex-col ml-4 text-white;
+    &.lg {
+      @apply w-80;
+    }
   }
 
   &__label {
-    @apply text-lg truncate max-w-xs text-white;
+    @apply text-sm font-medium mb-1;
   }
 
-  &__position {
-    @apply text-sm font-medium;
-  }
-}
+  &__input,
+  &__textarea {
+    @apply w-full px-2 py-1 border border-gray-300 rounded outline-none;
 
-.feed {
-  @apply mt-4 px-4 pb-10;
-}
-
-.post {
-  @apply flex flex-col px-4 bg-white rounded border border-gray-200 shadow mb-6;
-
-  &:last-of-type {
-    @apply mb-0;
-  }
-
-  &__header {
-    @apply flex flex-row w-full items-center justify-between border-b border-gray-400;
-  }
-
-  &__profile {
-    @apply flex flex-row;
-  }
-
-  &__image {
-    @apply flex items-center;
-  }
-
-  &__info {
-    @apply flex flex-col ml-2 py-2;
-  }
-
-  &__name {
-    @apply font-medium;
-  }
-
-  &__date {
-    @apply text-sm text-gray-600;
-  }
-
-  &__content {
-    @apply py-4;
-  }
-
-  &__action {
-    @apply flex flex-row py-2;
-
-    &-label {
-      @apply text-sm;
+    &.danger {
+      @apply border-2 border-red-400;
     }
 
-    &-item {
-      @apply flex-1 py-2 border-r border-gray-400 outline-none;
+    &.success {
+      @apply border-2 border-green-400;
+    }
+  }
 
-      & * {
-        @apply cursor-pointer;
-      }
+  &__button {
+    @apply px-2 py-1 my-1 bg-gray-500 text-white text-sm font-medium rounded outline-none;
+
+    &:hover {
+      @apply bg-gray-400;
+    }
+
+    &.success {
+      @apply bg-green-500;
 
       &:hover {
-        @apply bg-red-900 text-white;
-      }
-
-      &:last-of-type {
-        @apply border-r-0;
-      }
-
-      &.active {
-        @apply bg-red-900 text-white;
+        @apply bg-green-400;
       }
     }
-  }
-}
 
-@screen md {
-  .feed {
-    @apply px-12;
-  }
-}
+    &.danger {
+      @apply bg-red-500;
 
-@screen lg {
-  .feed {
-    @apply px-14;
-  }
-
-  .home {
-    &__panel {
-      &--left,
-      &--right {
-        @apply block w-72;
-      }
-
-      &--center {
-        @apply w-2/3;
+      &:hover {
+        @apply bg-red-400;
       }
     }
-  }
-}
 
-@screen xl {
-  .feed {
-    @apply px-20;
+    &.warning {
+      @apply bg-yellow-500;
+
+      &:hover {
+        @apply bg-yellow-400;
+      }
+    }
+
+    &.info {
+      @apply bg-blue-500;
+
+      &:hover {
+        @apply bg-blue-400;
+      }
+    }
   }
 }
