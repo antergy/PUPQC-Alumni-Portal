@@ -16,6 +16,7 @@
         html, body, #app {
             box-sizing: border-box;
             height: 100%;
+            background-color: #eceff4;
         }
     </style>
 </head>

@@ -16,11 +16,11 @@ use Illuminate\Support\Facades\Route;
 // Add an appropriate middleware for API @TODO
 
 /** NOTE: It is important that the vue routes are different from the web routes */
-$aVueRoutes = [
+$aAuthenticatedVueRoutes = [
     '/',
     '/home'
 ];
-foreach ($aVueRoutes as $sRoute) {
+foreach ($aAuthenticatedVueRoutes as $sRoute) {
     Route::get($sRoute, function () use ($sRoute) {
         /** Retrieve session from backend */
         $aSession = \App\Libraries\Common\AuthLib::getUserSession();
@@ -40,6 +40,17 @@ foreach ($aVueRoutes as $sRoute) {
                 return view('main');
             }
         }
+    })->where('any', '.*');
+}
+
+$aPublicVueRoutes = [
+  '/register',
+  '/tracerIntro',
+  '/tracerForm'
+];
+foreach ($aPublicVueRoutes as $sRoute) {
+    Route::get($sRoute, function () use ($sRoute) {
+        return view('main');
     })->where('any', '.*');
 }
 

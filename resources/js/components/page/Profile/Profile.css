@@ -1,108 +1,108 @@
 * {
-  @apply transition-all;
+    @apply transition-all;
 }
 
 .profile {
-  @apply px-4 mt-4;
+    @apply px-4 mt-4;
 }
 
 .form {
-  @apply flex flex-col p-2 w-full box-border;
+    @apply flex flex-col p-2 w-full box-border;
 
-  &.outline {
-    @apply border border-gray-300 rounded;
+&.outline {
+     @apply border border-gray-300 rounded;
+ }
+
+&__title {
+     @apply flex p-1 items-center text-lg font-medium border-b border-gray-300;
+ }
+
+&__group {
+     @apply flex m-2 flex-col border-b border-gray-300;
+
+&.row {
+     @apply flex-row;
+
+& > .form__input-group:first-of-type {
+      @apply ml-0;
   }
 
-  &__title {
-    @apply flex p-1 items-center text-lg font-medium border-b border-gray-300;
+& > .form__input-group:last-of-type {
+      @apply mr-0;
   }
+}
+}
 
-  &__group {
-    @apply flex m-2 flex-col border-b border-gray-300;
+&__input-group {
+     @apply flex flex-col m-2;
 
-    &.row {
-      @apply flex-row;
+&.sm {
+     @apply w-40;
+ }
 
-      & > .form__input-group:first-of-type {
-        @apply ml-0;
-      }
+&.md {
+     @apply w-60;
+ }
 
-      & > .form__input-group:last-of-type {
-        @apply mr-0;
-      }
-    }
-  }
+&.lg {
+     @apply w-80;
+ }
+}
 
-  &__input-group {
-    @apply flex flex-col m-2;
+&__label {
+     @apply text-sm font-medium mb-1;
+ }
 
-    &.sm {
-      @apply w-40;
-    }
+&__input,
+&__textarea {
+     @apply w-full px-2 py-1 border border-gray-300 rounded outline-none;
 
-    &.md {
-      @apply w-60;
-    }
+&.danger {
+     @apply border-2 border-red-400;
+ }
 
-    &.lg {
-      @apply w-80;
-    }
-  }
+&.success {
+     @apply border-2 border-green-400;
+ }
+}
 
-  &__label {
-    @apply text-sm font-medium mb-1;
-  }
+&__button {
+     @apply px-2 py-1 my-1 bg-gray-500 text-white text-sm font-medium rounded outline-none;
 
-  &__input,
-  &__textarea {
-    @apply w-full px-2 py-1 border border-gray-300 rounded outline-none;
+&:hover {
+     @apply bg-gray-400;
+ }
 
-    &.danger {
-      @apply border-2 border-red-400;
-    }
+&.success {
+     @apply bg-green-500;
 
-    &.success {
-      @apply border-2 border-green-400;
-    }
-  }
+&:hover {
+     @apply bg-green-400;
+ }
+}
 
-  &__button {
-    @apply px-2 py-1 my-1 bg-gray-500 text-white text-sm font-medium rounded outline-none;
+&.danger {
+     @apply bg-red-500;
 
-    &:hover {
-      @apply bg-gray-400;
-    }
+&:hover {
+     @apply bg-red-400;
+ }
+}
 
-    &.success {
-      @apply bg-green-500;
+&.warning {
+     @apply bg-yellow-500;
 
-      &:hover {
-        @apply bg-green-400;
-      }
-    }
+&:hover {
+     @apply bg-yellow-400;
+ }
+}
 
-    &.danger {
-      @apply bg-red-500;
+&.info {
+     @apply bg-blue-500;
 
-      &:hover {
-        @apply bg-red-400;
-      }
-    }
-
-    &.warning {
-      @apply bg-yellow-500;
-
-      &:hover {
-        @apply bg-yellow-400;
-      }
-    }
-
-    &.info {
-      @apply bg-blue-500;
-
-      &:hover {
-        @apply bg-blue-400;
-      }
-    }
-  }
+&:hover {
+     @apply bg-blue-400;
+ }
+}
+}
 }

@@ -1,28 +1,42 @@
 <template>
-  <div class="login">
-    <div class="login__panel">
-      <div class="login__header">
-        <label class="login__header-label">PUPQC Alumni Portal</label>
-      </div>
-      <div class="login__content">
-        <div class="login__container">
-          <label class="login__label">LOGIN</label>
-          <div class="login__input-group">
-            <label class="login__label">Username</label>
-            <input type="text" placeholder="Username" class="login__input" v-model="username" id="username">
-          </div>
-          <div class="login__input-group">
-            <label class="login__label">Password</label>
-            <input type="password" placeholder="Password" class="login__input" v-model="password" id="password">
-          </div>
+        <div class="login">
+           <div style="width: 100%; height: 100%; display: flex">
+               <div style="width: 70%; display: inline-block; box-shadow: 5px 10px 8px #888888; background-color: #ffffff">
+
+               </div>
+               <div style="width: 30%; display: inline-block; text-align: left; background-color: #lightgrey;">
+                   <div class="login__panel" style="width: 60%; margin: 20%">
+                       <div class="login__header">
+                           <label class="login__header-label">Login</label>
+                       </div>
+                       <div class="login__content">
+                           <div class="login__container">
+                               <div class="login__input-group">
+                                   <label class="login__label">Username</label>
+                                   <input type="text" placeholder="Username" class="login__input" v-model="username"
+                                          id="username">
+                               </div>
+                               <div class="login__input-group">
+                                   <label class="login__label">Password</label>
+                                   <input type="password" placeholder="Password" class="login__input" v-model="password"
+                                          id="password">
+                               </div>
+                           </div>
+                           <button class="login__button" @click="doLogin()">LOGIN</button>
+                       </div>
+                       <div class="login__footer">
+<!--                           <label class="login__footer-label">Developed by: ANTERGY | All rights reserved</label>-->
+                       </div>
+                   </div>
+                   <div style="margin: 10%">
+                       <p style="text-align: center">Are you an alumni and don't have an account?<br>
+                           Register now by creating an account so you can be updated to the latest happenings of your <br> alma matter!</p>
+                       <br>
+                       <button class="login__button" @click="$root.redirect('register')">Register Now</button>
+                   </div>
+               </div>
+           </div>
         </div>
-        <button class="login__button" @click="doLogin()">LOGIN</button>
-      </div>
-      <div class="login__footer">
-        <label class="login__footer-label">Developed by: ANTERGY | All rights reserved</label>
-      </div>
-    </div>
-  </div>
 </template>
 
 <script lang="js">
@@ -35,7 +49,7 @@ export default {
     }
   },
   created() {
-    this.$root.sLayout = 'clean'
+    this.$root.sLayout = 'custom'
   },
   methods: {
     doLogin: function () {

@@ -1,0 +1,32 @@
+* {
+  @apply transition-all;
+}
+
+.navigation {
+  @apply flex w-full h-14 justify-between bg-red-900 shadow-md z-30 fixed;
+
+  &__container {
+    @apply flex items-center;
+  }
+
+  &__item {
+    @apply px-2 border-r-2 border-white h-4 flex items-center justify-center;
+
+    &:last-of-type {
+      @apply border-r-0;
+    }
+  }
+
+  &__button {
+    @apply px-4 py-2 text-white font-semibold outline-none rounded-md;
+
+    &:hover,
+    &.active {
+      @apply bg-red-700;
+    }
+  }
+
+  &__title {
+    @apply flex items-center px-10 h-full text-white font-semibold text-sm;
+  }
+}

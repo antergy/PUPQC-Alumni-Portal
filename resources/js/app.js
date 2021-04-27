@@ -31,6 +31,10 @@ const app = new Vue({
     },
     methods: {
 
+        redirect: function (sRoute) {
+            window.location.href = '/' + sRoute;
+        },
+
         /**
          * Sets user info
          * (Retrieved from session)

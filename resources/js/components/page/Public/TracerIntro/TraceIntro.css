@@ -1,0 +1,121 @@
+* {
+    @apply transition-all;
+}
+
+.profile {
+    @apply px-4 mt-4 w-4/12;
+}
+
+.form {
+    @apply flex flex-col p-2 box-border w-full bg-white;
+
+&.outline {
+     @apply border border-gray-300 rounded;
+ }
+
+&__title {
+     @apply flex p-1 items-center text-2xl font-bold border-b border-gray-300;
+ }
+
+
+&__subtitle {
+     @apply flex p-1 items-center text-lg font-medium;
+ }
+
+&__group {
+     @apply flex m-2 flex-col border-b border-gray-300;
+
+&.row {
+     @apply flex-row;
+
+& > .form__input-group:first-of-type {
+      @apply ml-0;
+  }
+
+& > .form__input-group:last-of-type {
+      @apply mr-0;
+  }
+}
+}
+
+&__input-group {
+     @apply flex flex-col m-2;
+
+&.sm {
+     @apply w-40;
+ }
+
+&.md {
+     @apply w-60;
+ }
+
+&.lg {
+     @apply w-80;
+ }
+
+&.x-lg {
+     @apply w-6/12;
+ }
+
+&.xx-lg {
+     @apply w-9/12;
+ }
+}
+
+&__label {
+     @apply text-sm font-medium mb-1;
+ }
+
+&__input,
+&__textarea {
+     @apply w-full px-2 py-1 border border-gray-300 rounded outline-none;
+
+&.danger {
+     @apply border-2 border-red-400;
+ }
+
+&.success {
+     @apply border-2 border-green-400;
+ }
+}
+
+&__button {
+     @apply px-2 py-1 my-1 bg-gray-500 text-white text-sm font-medium rounded outline-none;
+
+&:hover {
+     @apply bg-gray-400;
+ }
+
+&.success {
+     @apply bg-green-500;
+
+&:hover {
+     @apply bg-green-400;
+ }
+}
+
+&.danger {
+     @apply bg-red-500;
+
+&:hover {
+     @apply bg-red-400;
+ }
+}
+
+&.warning {
+     @apply bg-yellow-500;
+
+&:hover {
+     @apply bg-yellow-400;
+ }
+}
+
+&.info {
+     @apply bg-blue-500;
+
+&:hover {
+     @apply bg-blue-400;
+ }
+}
+}
+}

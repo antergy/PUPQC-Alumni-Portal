@@ -54,11 +54,11 @@
 <script>
 export default {
   craeted () {
-		this.$root.sLayout = "default";
+		// this.$root.sLayout = "default";
   },
   data () {
     return {
-      
+
     }
   }
 }
