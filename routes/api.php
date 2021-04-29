@@ -45,6 +45,16 @@ Route::prefix('v1')->group(function () {
     });
 
     /**
+     * API Route group for form management
+     */
+    Route::prefix('form')->group(function() {
+        Route::get('read', "FormApiController@getAll");
+        Route::post('create', "FormApiController@create");
+        Route::post('update', "FormApiController@update");
+        Route::post('delete', "FormApiController@delete");
+    });
+
+    /**
      * API Route group for post management
      * - Includes likes and comments management
      */
@@ -131,7 +141,8 @@ Route::prefix('v1')->group(function () {
         'course'          => 'CourseApiController',
         'acc_type'        => 'AccountTypeApiController',
         'post_type'       => 'PostTypeApiController',
-        'industry'        => 'IndustryApiController'
+        'industry'        => 'IndustryApiController',
+        'degree'          => 'DegreeApiController'
     ];
     foreach ($aModules as $sModuleGroupName => $sModuleController) {
         Route::prefix($sModuleGroupName)->group(function () use($sModuleController) {

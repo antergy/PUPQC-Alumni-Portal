@@ -20,82 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="17467bac-b45e-433c-8227-c182f30fc3ba" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/API/Form_Management/FormApiController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Repositories/Form_Management/FormRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Rules/API/Form_Management/FormRules.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/pupqc_alumni_portal.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pupqc_alumni_portal.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/Alumni_Management/AlumniApiController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/API/Alumni_Management/AlumniApiController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/Alumni_Management/AlumniCompetencyApiController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/Alumni_Management/AlumniImpactEducationApiController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/Alumni_Management/AlumniJobLevelApiController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/Alumni_Management/AlumniSharedContactApiController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/Alumni_Management/AlumniUnemployedReasonApiController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/Alumni_Management/AlumniWorkExpApiController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/CompetencyApiController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/EducAttainApiController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/FirstJobDiscoverApiController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/FirstJobTimeframeApiController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/HonorsReceivedApiController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/ImpactEducationApiController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/JobLevelApiController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/ProfessionalExamApiController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/SelfEmployedSalaryApiController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/API/UnemploymentReasonApiController.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Repositories/AccountRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Repositories/AccountRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Repositories/Alumni_Management/Alumni.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Repositories/Alumni_Management/Alumni.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Repositories/Alumni_Management/AlumniCompetencies.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Repositories/Alumni_Management/AlumniImpactEducation.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Repositories/Alumni_Management/AlumniJobLevelExp.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Repositories/Alumni_Management/AlumniSharedContact.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Repositories/Alumni_Management/AlumniUnemployedReason.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Repositories/Alumni_Management/AlumniWorkExperience.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Repositories/CompetencyRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Repositories/EducAttainmentRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Repositories/FirstJobDiscoverRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Repositories/FirstJobTimeFrameRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Repositories/HonorsReceivedRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Repositories/ImpactEducationRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Repositories/JobLevelClassificationRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Repositories/ProfessionalExamsRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Repositories/SelfEmployedSalaryRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Repositories/UnemploymentReasonRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Rules/API/AccountRules.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Rules/API/AccountRules.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Rules/API/Alumni_Management/AlumniCompetencyRules.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Rules/API/Alumni_Management/AlumniImpactEducRules.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Rules/API/Alumni_Management/AlumniJobLevelRules.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Rules/API/Alumni_Management/AlumniSharedContactRules.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Rules/API/Alumni_Management/AlumniUnemployedReasonRules.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Rules/API/Alumni_Management/AlumniWorkExpRules.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Rules/API/CompetencyRules.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Rules/API/EducAttainRules.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Rules/API/FirstJobDiscoverRules.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Rules/API/FirstJobTimeFrameRules.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Rules/API/HonorsReceivedRules.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Rules/API/ImpactEducationRules.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Rules/API/JobLevelRules.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Rules/API/ProfExamRules.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Rules/API/SelfEmployedSalaryRules.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Rules/API/UnEmployReasonRules.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Services/Front/AuthService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Services/Front/AuthService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_084842_create_r_courses.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_11_084842_create_r_courses.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_085142_create_r_educational_attainment.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_085324_create_r_honors_received.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_085534_create_r_professional_exams.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_085648_create_r_first_job_timeframe.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_085701_create_r_first_job_discover.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_085906_create_r_job_level_classification.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_090027_create_r_self_employed_salary.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_090045_create_r_unemployment_reason.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_090226_create_r_competencies.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_090358_create_r_impact_of_education.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_095426_create_t_accounts.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_11_095426_create_t_accounts.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_100559_create_t_alumni.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_11_100559_create_t_alumni.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_103356_create_t_alumni_job_level_exp.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_103433_create_t_alumni_unemployed_reason.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_103500_create_t_alumni_work_experience.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_103543_create_t_alumni_competencies.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_103555_create_t_alumni_impact_education.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_103646_create_t_alumni_shared_contact.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_112418_create_t_posts.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_11_112418_create_t_posts.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_113146_create_t_likes.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_11_113146_create_t_likes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_11_113426_create_t_comments.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_11_113426_create_t_comments.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -105,7 +34,9 @@
   </component>
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
-    <execution />
+    <execution>
+      <executable />
+    </execution>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -239,6 +170,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -248,11 +180,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Information Technology\Freelance Projects\PUPQC-Alumni-Portal" />
       <recent name="D:\Projects\External Projects\PUPQC Alumni Portal\System\pupqc_alumni_portal\public\css" />
       <recent name="D:\Projects\External Projects\PUPQC Alumni Portal\System\pupqc_alumni_portal\app\Http\Repositories" />
       <recent name="D:\Projects\External Projects\PUPQC Alumni Portal\System\pupqc_alumni_portal" />
       <recent name="D:\Projects\External Projects\PUPQC Alumni Portal\System\pupqc_alumni_portal\app\Http\Rules\API" />
-      <recent name="D:\Projects\External Projects\PUPQC Alumni Portal\System\pupqc_alumni_portal\database\migrations" />
     </key>
   </component>
   <component name="RunManager">
@@ -261,7 +193,10 @@
       <method v="2" />
     </configuration>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="17467bac-b45e-433c-8227-c182f30fc3ba" name="Default Changelist" comment="" />
@@ -291,23 +226,32 @@
       <workItem from="1616735874534" duration="735000" />
       <workItem from="1616759322677" duration="614000" />
       <workItem from="1617353692312" duration="1941000" />
+      <workItem from="1619400172358" duration="1137000" />
+      <workItem from="1619401340663" duration="830000" />
+      <workItem from="1619488324685" duration="629000" />
+      <workItem from="1619517412250" duration="1787000" />
+      <workItem from="1619519354662" duration="31000" />
+      <workItem from="1619521823547" duration="1251000" />
+      <workItem from="1619687168268" duration="132000" />
+      <workItem from="1619687530726" duration="3000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
+    <option name="version" value="1" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="582" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1613886340570">
@@ -322,14 +266,16 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="499" y="187" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1536.864@0.0.1536.864" timestamp="1612679528660" />
-    <state x="548" y="173" key="FileChooserDialogImpl" timestamp="1616492034886">
-      <screen x="0" y="0" width="1536" height="864" />
+    <state x="661" y="216" key="FileChooserDialogImpl" timestamp="1619401392016">
+      <screen x="0" y="0" width="1852" height="1080" />
     </state>
     <state x="548" y="173" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1616492034886" />
-    <state x="441" y="155" key="NewPhpClassDialog" timestamp="1613890325308">
-      <screen x="0" y="0" width="1536" height="864" />
+    <state x="661" y="216" key="FileChooserDialogImpl/0.0.1852.1080/1920.0.1304.768@0.0.1852.1080" timestamp="1619401392016" />
+    <state x="532" y="194" key="NewPhpClassDialog" timestamp="1619522251030">
+      <screen x="0" y="0" width="1852" height="1080" />
     </state>
     <state x="441" y="155" key="NewPhpClassDialog/0.0.1536.864@0.0.1536.864" timestamp="1613890325308" />
+    <state x="532" y="194" key="NewPhpClassDialog/0.0.1852.1080/1920.0.1304.768@0.0.1852.1080" timestamp="1619522251030" />
     <state x="604" y="355" key="NewPhpFileDialog" timestamp="1611544806271">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -338,17 +284,26 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="93" y="93" width="1350" height="678" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1536.864@0.0.1536.864" timestamp="1616402762252" />
+    <state x="627" y="364" key="com.intellij.ide.util.TipDialog" timestamp="1619687530257">
+      <screen x="0" y="0" width="1852" height="1080" />
+    </state>
+    <state x="627" y="364" key="com.intellij.ide.util.TipDialog/0.0.1852.1080/1920.0.1304.768@0.0.1852.1080" timestamp="1619687530257" />
     <state x="496" y="85" width="844" height="779" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1612317206659">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="496" y="85" width="844" height="779" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1536.864@0.0.1536.864" timestamp="1612317206659" />
+    <state x="633" y="273" width="585" height="534" key="find.popup" timestamp="1619517776024">
+      <screen x="0" y="0" width="1852" height="1080" />
+    </state>
+    <state x="633" y="273" width="585" height="534" key="find.popup/0.0.1852.1080/1920.0.1304.768@0.0.1852.1080" timestamp="1619517776024" />
     <state x="424" y="197" key="run.anything.popup" timestamp="1619085202662">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="424" y="197" key="run.anything.popup/0.0.1536.864@0.0.1536.864" timestamp="1619085202662" />
-    <state x="431" y="181" width="672" height="678" key="search.everywhere.popup" timestamp="1616386251930">
-      <screen x="0" y="0" width="1536" height="864" />
+    <state x="520" y="226" width="811" height="848" key="search.everywhere.popup" timestamp="1619518827569">
+      <screen x="0" y="0" width="1852" height="1080" />
     </state>
     <state x="431" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1616386251930" />
+    <state x="520" y="226" width="811" height="848" key="search.everywhere.popup/0.0.1852.1080/1920.0.1304.768@0.0.1852.1080" timestamp="1619518827569" />
   </component>
 </project>
