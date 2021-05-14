@@ -52,6 +52,41 @@ Route::prefix('v1')->group(function () {
         Route::post('create', "FormApiController@create");
         Route::post('update', "FormApiController@update");
         Route::post('delete', "FormApiController@delete");
+
+        Route::prefix('answers')->group(function() {
+            Route::get('read', "FormAnswerApiController@getAll");
+            Route::post('create', "FormAnswerApiController@create");
+            Route::post('update', "FormAnswerApiController@update");
+            Route::post('delete', "FormAnswerApiController@delete");
+        });
+
+        Route::prefix('questions')->group(function() {
+            Route::get('read', "QuestionApiController@getAll");
+            Route::post('create', "QuestionApiController@create");
+            Route::post('update', "QuestionApiController@update");
+            Route::post('delete', "QuestionApiController@delete");
+
+            Route::prefix('choices')->group(function() {
+                Route::get('read', "ChoicesApiController@getAll");
+                Route::post('create', "ChoicesApiController@create");
+                Route::post('update', "ChoicesApiController@update");
+                Route::post('delete', "ChoicesApiController@delete");
+            });
+
+            Route::prefix('group')->group(function() {
+                Route::get('read', "QuestionGroupApiController@getAll");
+                Route::post('create', "QuestionGroupApiController@create");
+                Route::post('update', "QuestionGroupApiController@update");
+                Route::post('delete', "QuestionGroupApiController@delete");
+            });
+
+            Route::prefix('type')->group(function() {
+                Route::get('read', "QuestionTypeApiController@getAll");
+                Route::post('create', "QuestionTypeApiController@create");
+                Route::post('update', "QuestionTypeApiController@update");
+                Route::post('delete', "QuestionTypeApiController@delete");
+            });
+        });
     });
 
     /**

@@ -1,11 +1,10 @@
 <?php
 
-
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\Form_Management;
 
 use App\Core\API\CoreApiController;
-use App\Http\Repositories\DegreeRepository;
-use App\Http\Rules\API\DegreeRules;
+use App\Http\Repositories\Form_Management\QuestionGroupRepository;
+use App\Http\Rules\API\Form_Management\FormRules;
 use App\Libraries\API\ArrayLib;
 use App\Libraries\API\WhereLib;
 use App\Libraries\Common\LogLib;
@@ -15,41 +14,56 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
 /**
- * Class DegreeApiController
- * @package App\Http\Controllers\API
+ * Class QuestionGroupApiController
+ *
+ * @package App\Http\Controllers\API\Form_Management
  * @author  Gerard O. Maglaque <maglaquegerard@gmail.com>
- * @since   04/23/2021
+ * @since   05/12/2021
  * @version 1.0
  */
-class DegreeApiController extends CoreApiController
+class QuestionGroupApiController extends CoreApiController
 {
     /**
-     * DegreeApiController constructor.
+     * QuestionGroupApiController constructor.
      *
      * @param Request $oRequest
-     * @param DegreeRepository $oDegreeRepository
+     * @param QuestionGroupRepository $oFormRepository
      */
-    public function __construct(Request $oRequest, DegreeRepository $oDegreeRepository)
+    public function __construct(Request $oRequest, QuestionGroupRepository $oFormRepository)
     {
         $this->oRequest = $oRequest;
         LogLib::$sTraceId = $this->oRequest->input(LogLib::TRACE_ID, LogLib::DEFAULT_TRACE_ID);
-        $this->oRepository = $oDegreeRepository;
+        $this->oRepository = $oFormRepository;
     }
 
     /**
-     * Retrieves degree record(s)
+     * Retrieves question group record(s)
      *
      * @return array
      */
     public function getAll()
     {
         try {
+            /** Initialize foreign key constraint */
+            $this->oRepository->joinFormTable('left');
+
+            /** Initialize where clause from default table */
             $aSearch = $this->oRepository->aSearch;
             $aMainWhere = $this->oRequest->only($aSearch);
-            $aWhere = WhereLib::makeArray($aMainWhere);
+
+            /** $Included fields from reference table to the where clause */
+            $aForeignSearch = array_keys($this->oRepository->aForeignColumns);
+            $aForeignWhere = $this->oRequest->only($aForeignSearch);
+            $aWhere = array_merge($aMainWhere, $aForeignWhere);
+
+            /** Arrange where clause values */
+            $aWhere = WhereLib::makeArray($aWhere);
             $this->oRepository->searchParams($aWhere);
-            $aSelect = $aSearch;
+
+            $aSelect = array_merge($aForeignSearch, $aSearch);
             array_unshift($aSelect, $this->oRepository->sPrimaryKey);
+
+            /** Execute get query */
             $aResponse = $this->oRepository->getAll($aSelect);
 
             return ResponseLib::formatSuccessResponse($aResponse, ResponseLib::SUCCESS_RETRIEVE_MESSAGE);
@@ -59,16 +73,16 @@ class DegreeApiController extends CoreApiController
     }
 
     /**
-     * Creates a degree record
+     * Creates a question group record
      *
-     * @param DegreeRules $oRules
+     * @param FormRules $oRules
      * @return array
      * @throws QueryException|ValidationException
      */
-    public function create(DegreeRules $oRules)
+    public function create(FormRules $oRules)
     {
         try {
-            $aRequest = $this->validate($this->oRequest, $oRules->aDegreeCreate);
+            $aRequest = $this->validate($this->oRequest, $oRules->aFormCreate);
             $aData = ArrayLib::filterKeys($aRequest, $this->oRepository->aSearch);
             $aResponse = $this->oRepository->createRecord($aData);
 
@@ -79,28 +93,32 @@ class DegreeApiController extends CoreApiController
     }
 
     /**
-     * Updates a degree record
+     * Updates a question group record
      *
-     * @param DegreeRules $oRules
+     * @param FormRules $oRules
      * @return array
      * @throws QueryException|ValidationException
      */
-    public function update(DegreeRules $oRules)
+    public function update(FormRules $oRules)
     {
         try {
-            $aRequest = $this->validate($this->oRequest, $oRules->aDegreeCreate);
-            $iId = $this->oRequest->input($this->oRepository->sPrimaryKey);
+            $aRequest = $this->validate($this->oRequest, $oRules->aFormUpdate);
+            $iId = intval($this->oRequest->input($this->oRepository->sPrimaryKey));
             $aData = ArrayLib::filterKeys($aRequest, $this->oRepository->aSearch);
             $aResponse = $this->oRepository->updateRecord($iId, $aData);
+            $sMessage = ResponseLib::SUCCESS_UPDATE_MESSAGE;
+            if ($aResponse === 0) {
+                $sMessage = 'There is nothing to update';
+            }
 
-            return ResponseLib::formatSuccessResponse($aResponse, ResponseLib::SUCCESS_UPDATE_MESSAGE);
+            return ResponseLib::formatSuccessResponse($aResponse, $sMessage);
         } catch (QueryException | ValidationException $oException) {
             return ResponseLib::formatErrorResponse($oException);
         }
     }
 
     /**
-     * Deletes a degree record
+     * Deletes a question group record
      *
      * @return array
      */
@@ -113,10 +131,10 @@ class DegreeApiController extends CoreApiController
             if ($mResponse === 0) {
                 $sMessage = ResponseLib::NO_RECORD_DELETE_MESSAGE;
             }
+
             return ResponseLib::formatSuccessResponse($mResponse, $sMessage);
         } catch (QueryException $oException) {
             return ResponseLib::formatErrorResponse($oException);
         }
     }
 }
-

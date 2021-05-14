@@ -5,21 +5,21 @@ namespace App\Http\Repositories\Form_Management;
 use App\Core\API\CoreApiRepository;
 
 /**
- * Class FormRepository
+ * Class FormAnswerRepository
  *
  * @package App\Http\Repositories\Form_Management
  * @author  Gerard O. Maglaque <maglaquegerard@gmail.com>
- * @since   04/23/2021
+ * @since   05/01/2021
  * @version 1.0
  */
-class FormRepository extends CoreApiRepository
+class FormAnswerRepository extends CoreApiRepository
 {
     /**
      * Table name
      *
      * @var string
      */
-    public $sTableName = 'r_form';
+    public $sTableName = 'r_form_answers';
 
     /**
      * Foreign table columns to displayed in the result
@@ -35,7 +35,7 @@ class FormRepository extends CoreApiRepository
      *
      * @var string
      */
-    public $sPrimaryKey = 'form_id';
+    public $sPrimaryKey = 'fa_id';
 
     /**
      * Columns that are allowed to be used as search parameters
@@ -43,11 +43,10 @@ class FormRepository extends CoreApiRepository
      * @var string[]
      */
     public $aSearch = [
-        'form_id',
-        'form_desc',
-        'form_degree_id',
-        'form_course_id',
-        'form_active_status',
+        'fa_id',
+        'fa_answer',
+        'fa_fq_id',
+        'fa_acc_id',
     ];
 
     /**
@@ -67,29 +66,28 @@ class FormRepository extends CoreApiRepository
     ];
 
     /**
-     * Inner join the degree table
+     * Inner join the form questions table
      *
      * @param string $sType
      */
-    public function joinDegreeTable($sType = 'inner')
+    public function joinFormQuestionTable($sType = 'inner')
     {
-        $sReferenceKey = 'r_form.form_degree_id';
-        $sForeignKey = 'r_degree.degree_id';
+        $sReferenceKey = 'r_form_answers.fa_fq_id';
+        $sForeignKey = 'r_form_questions.fq_id';
         $sOperator = '=';
-        $this->oModel = $this->oModel->join('r_degree', $sReferenceKey, $sOperator, $sForeignKey, $sType);
+        $this->oModel = $this->oModel->join('r_form_questions', $sReferenceKey, $sOperator, $sForeignKey, $sType);
     }
 
     /**
-     * Inner join the courses table
+     * Inner join the accounts table
      *
      * @param string $sType
      */
-    public function joinCourseTable($sType = 'inner')
+    public function joinAccountTable($sType = 'inner')
     {
-        $sReferenceKey = 'r_form.form_course_id';
-        $sForeignKey = 'r_courses.course_id';
+        $sReferenceKey = 'r_form_answers.fa_acc_id';
+        $sForeignKey = 't_accounts.acc_id';
         $sOperator = '=';
-        $this->oModel = $this->oModel->join('r_courses', $sReferenceKey, $sOperator, $sForeignKey, $sType);
+        $this->oModel = $this->oModel->join('t_accounts', $sReferenceKey, $sOperator, $sForeignKey, $sType);
     }
 }
-
