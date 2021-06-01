@@ -45,6 +45,7 @@ class PostApiController extends CoreApiController
             /** Initialize foreign key constraint */
             $this->oRepository->joinAccountTable();
             $this->oRepository->joinPostTypeTable('left');
+            $this->oRepository->joinDegreeTable('left');
             $this->oRepository->joinCourseTable('left');
 
             /** Initialize where clause from default table */

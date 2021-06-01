@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\API\Form_Management;
+namespace App\Http\Controllers\API;
 
 use App\Core\API\CoreApiController;
-use App\Http\Repositories\Form_Management\FormAnswerRepository;
-use App\Http\Rules\API\Form_Management\FormRules;
+use App\Http\Repositories\BranchRepository;
+use App\Http\Rules\API\BranchRules;
 use App\Libraries\API\ArrayLib;
 use App\Libraries\API\WhereLib;
 use App\Libraries\Common\LogLib;
@@ -14,57 +14,41 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
 /**
- * Class FormAnswerApiController
- *
- * @package App\Http\Controllers\API\Form_Management
+ * Class BranchApiController
+ * @package App\Http\Controllers\API
  * @author  Gerard O. Maglaque <maglaquegerard@gmail.com>
- * @since   05/01/2021
+ * @since   05/28/2021
  * @version 1.0
  */
-class FormAnswerApiController extends CoreApiController
+class BranchApiController extends CoreApiController
 {
     /**
-     * FormAnswerApiController constructor.
-     *
+     * BranchApiController constructor.
      * @param Request $oRequest
-     * @param FormAnswerRepository $oFormRepository
+     * @param BranchRepository $oBranchRepository
      */
-    public function __construct(Request $oRequest, FormAnswerRepository $oFormRepository)
+    public function __construct(Request $oRequest, BranchRepository $oBranchRepository)
     {
+
         $this->oRequest = $oRequest;
         LogLib::$sTraceId = $this->oRequest->input(LogLib::TRACE_ID, LogLib::DEFAULT_TRACE_ID);
-        $this->oRepository = $oFormRepository;
+        $this->oRepository = $oBranchRepository;
     }
 
     /**
-     * Retrieves form answer record(s)
+     * Retrieves branch record(s)
      *
      * @return array
      */
     public function getAll()
     {
         try {
-            /** Initialize foreign key constraint */
-            $this->oRepository->joinFormQuestionTable('left');
-            $this->oRepository->joinAccountTable('left');
-
-            /** Initialize where clause from default table */
             $aSearch = $this->oRepository->aSearch;
             $aMainWhere = $this->oRequest->only($aSearch);
-
-            /** $Included fields from reference table to the where clause */
-            $aForeignSearch = array_keys($this->oRepository->aForeignColumns);
-            $aForeignWhere = $this->oRequest->only($aForeignSearch);
-            $aWhere = array_merge($aMainWhere, $aForeignWhere);
-
-            /** Arrange where clause values */
-            $aWhere = WhereLib::makeArray($aWhere);
+            $aWhere = WhereLib::makeArray($aMainWhere);
             $this->oRepository->searchParams($aWhere);
-
-            $aSelect = array_merge($aForeignSearch, $aSearch);
+            $aSelect = $aSearch;
             array_unshift($aSelect, $this->oRepository->sPrimaryKey);
-
-            /** Execute get query */
             $aResponse = $this->oRepository->getAll($aSelect);
 
             return ResponseLib::formatSuccessResponse($aResponse, ResponseLib::SUCCESS_RETRIEVE_MESSAGE);
@@ -74,16 +58,16 @@ class FormAnswerApiController extends CoreApiController
     }
 
     /**
-     * Creates a form answer record
+     * Creates a branch record
      *
-     * @param FormRules $oRules
+     * @param BranchRules $oRules
      * @return array
      * @throws QueryException|ValidationException
      */
-    public function create(FormRules $oRules)
+    public function create(BranchRules $oRules)
     {
         try {
-            $aRequest = $this->validate($this->oRequest, $oRules->aFormAnswerCreate);
+            $aRequest = $this->validate($this->oRequest, $oRules->aBranchCreate);
             $aData = ArrayLib::filterKeys($aRequest, $this->oRepository->aSearch);
             $aResponse = $this->oRepository->createRecord($aData);
 
@@ -94,32 +78,28 @@ class FormAnswerApiController extends CoreApiController
     }
 
     /**
-     * Updates a form answer record
+     * Updates a branch record
      *
-     * @param FormRules $oRules
+     * @param BranchRules $oRules
      * @return array
      * @throws QueryException|ValidationException
      */
-    public function update(FormRules $oRules)
+    public function update(BranchRules $oRules)
     {
         try {
-            $aRequest = $this->validate($this->oRequest, $oRules->aFormAnswerUpdate);
-            $iId = intval($this->oRequest->input($this->oRepository->sPrimaryKey));
+            $aRequest = $this->validate($this->oRequest, $oRules->aBranchUpdate);
+            $iId = $this->oRequest->input($this->oRepository->sPrimaryKey);
             $aData = ArrayLib::filterKeys($aRequest, $this->oRepository->aSearch);
             $aResponse = $this->oRepository->updateRecord($iId, $aData);
-            $sMessage = ResponseLib::SUCCESS_UPDATE_MESSAGE;
-            if ($aResponse === 0) {
-                $sMessage = 'There is nothing to update';
-            }
 
-            return ResponseLib::formatSuccessResponse($aResponse, $sMessage);
+            return ResponseLib::formatSuccessResponse($aResponse, ResponseLib::SUCCESS_UPDATE_MESSAGE);
         } catch (QueryException | ValidationException $oException) {
             return ResponseLib::formatErrorResponse($oException);
         }
     }
 
     /**
-     * Deletes a form answer record
+     * Deletes a branch record
      *
      * @return array
      */
@@ -132,7 +112,6 @@ class FormAnswerApiController extends CoreApiController
             if ($mResponse === 0) {
                 $sMessage = ResponseLib::NO_RECORD_DELETE_MESSAGE;
             }
-
             return ResponseLib::formatSuccessResponse($mResponse, $sMessage);
         } catch (QueryException $oException) {
             return ResponseLib::formatErrorResponse($oException);

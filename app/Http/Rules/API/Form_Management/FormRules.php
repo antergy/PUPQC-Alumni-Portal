@@ -57,4 +57,42 @@ class FormRules
             'required'
         ],
     ];
+
+    /**
+     * Rules for creating a form answer
+     *
+     * @var \string[][]
+     */
+    public $aFormAnswerCreate = [
+        'fa_answer'          => [
+            'required'
+        ],
+        'fa_fq_id'     => [
+            'required'
+        ],
+        'fa_acc_id'     => [
+            'required'
+        ],
+    ];
+
+    /**
+     * Rules for updating a form answer
+     *
+     * @var \string[][]
+     */
+    public $aFormAnswerUpdate = [
+        'fa_id'          => [
+            'required',
+            'exists:r_form_answers,fa_id'
+        ],
+        'fa_answer'          => [
+            'required'
+        ],
+        'fa_fq_id'     => [
+            'required'
+        ],
+        'fa_acc_id'     => [
+            'required'
+        ],
+    ];
 }

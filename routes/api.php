@@ -45,46 +45,54 @@ Route::prefix('v1')->group(function () {
     });
 
     /**
-     * API Route group for form management
+     * Set the API route group for form management, also includes the following sub-modules:
+     *
+     * - Form Question Group
+     * - Form Question Type
+     * - Form Questions
+     * - Form Question Choices
+     * - Form Answers
      */
     Route::prefix('form')->group(function() {
-        Route::get('read', "FormApiController@getAll");
-        Route::post('create', "FormApiController@create");
-        Route::post('update', "FormApiController@update");
-        Route::post('delete', "FormApiController@delete");
+        $sParentNamespace = 'Form_Management';
 
-        Route::prefix('answers')->group(function() {
-            Route::get('read', "FormAnswerApiController@getAll");
-            Route::post('create', "FormAnswerApiController@create");
-            Route::post('update', "FormAnswerApiController@update");
-            Route::post('delete', "FormAnswerApiController@delete");
+        Route::get('read', "{$sParentNamespace}\FormApiController@getAll");
+        Route::post('create', "{$sParentNamespace}\FormApiController@create");
+        Route::post('update', "{$sParentNamespace}\FormApiController@update");
+        Route::post('delete', "{$sParentNamespace}\FormApiController@delete");
+
+        Route::prefix('answers')->group(function() use ($sParentNamespace) {
+            Route::get('read', "{$sParentNamespace}\FormAnswerApiController@getAll");
+            Route::post('create', "{$sParentNamespace}\FormAnswerApiController@create");
+            Route::post('update', "{$sParentNamespace}\FormAnswerApiController@update");
+            Route::post('delete', "{$sParentNamespace}\FormAnswerApiController@delete");
         });
 
-        Route::prefix('questions')->group(function() {
-            Route::get('read', "QuestionApiController@getAll");
-            Route::post('create', "QuestionApiController@create");
-            Route::post('update', "QuestionApiController@update");
-            Route::post('delete', "QuestionApiController@delete");
+        Route::prefix('questions')->group(function() use ($sParentNamespace) {
+            Route::get('read', "{$sParentNamespace}\QuestionApiController@getAll");
+            Route::post('create', "{$sParentNamespace}\QuestionApiController@create");
+            Route::post('update', "{$sParentNamespace}\QuestionApiController@update");
+            Route::post('delete', "{$sParentNamespace}\QuestionApiController@delete");
 
-            Route::prefix('choices')->group(function() {
-                Route::get('read', "ChoicesApiController@getAll");
-                Route::post('create', "ChoicesApiController@create");
-                Route::post('update', "ChoicesApiController@update");
-                Route::post('delete', "ChoicesApiController@delete");
+            Route::prefix('choices')->group(function() use ($sParentNamespace) {
+                Route::get('read', "{$sParentNamespace}\ChoicesApiController@getAll");
+                Route::post('create', "{$sParentNamespace}\ChoicesApiController@create");
+                Route::post('update', "{$sParentNamespace}\ChoicesApiController@update");
+                Route::post('delete', "{$sParentNamespace}\ChoicesApiController@delete");
             });
 
-            Route::prefix('group')->group(function() {
-                Route::get('read', "QuestionGroupApiController@getAll");
-                Route::post('create', "QuestionGroupApiController@create");
-                Route::post('update', "QuestionGroupApiController@update");
-                Route::post('delete', "QuestionGroupApiController@delete");
+            Route::prefix('group')->group(function() use ($sParentNamespace) {
+                Route::get('read', "{$sParentNamespace}\QuestionGroupApiController@getAll");
+                Route::post('create', "{$sParentNamespace}\QuestionGroupApiController@create");
+                Route::post('update', "{$sParentNamespace}\QuestionGroupApiController@update");
+                Route::post('delete', "{$sParentNamespace}\QuestionGroupApiController@delete");
             });
 
-            Route::prefix('type')->group(function() {
-                Route::get('read', "QuestionTypeApiController@getAll");
-                Route::post('create', "QuestionTypeApiController@create");
-                Route::post('update', "QuestionTypeApiController@update");
-                Route::post('delete', "QuestionTypeApiController@delete");
+            Route::prefix('type')->group(function() use ($sParentNamespace) {
+                Route::get('read', "{$sParentNamespace}\QuestionTypeApiController@getAll");
+                Route::post('create', "{$sParentNamespace}\QuestionTypeApiController@create");
+                Route::post('update', "{$sParentNamespace}\QuestionTypeApiController@update");
+                Route::post('delete', "{$sParentNamespace}\QuestionTypeApiController@delete");
             });
         });
     });
@@ -133,34 +141,33 @@ Route::prefix('v1')->group(function () {
         Route::post('update', "{$sParentNamespace}\AlumniApiController@update");
         Route::post('delete', "{$sParentNamespace}\AlumniApiController@delete");
 
-        /**
-         * Sample route group for sub modules of alumni table
-         * (This sample route group is to be deleted)
-         * Create a group for each sub module
-         * - Alumni Undergraduate Job
-         * - Alumni Graduate Job
-         * - Alumni Company Profile
-         * - Alumni Graduate Thesis
-         */
-        Route::prefix('competency')->group(function () use ($sParentNamespace) {
-            Route::get('read', "{$sParentNamespace}\AlumniCompetencyApiController@getAll");
-            Route::post('create', "{$sParentNamespace}\AlumniCompetencyApiController@create");
-            // (Add route for update)
-            Route::post('deleteByAlumni', "{$sParentNamespace}\AlumniCompetencyApiController@bulkDelete");
+        Route::prefix('company_profile')->group(function () use ($sParentNamespace) {
+            Route::get('read', "{$sParentNamespace}\AlumniCompanyProfileApiController@getAll");
+            Route::post('create', "{$sParentNamespace}\AlumniCompanyProfileApiController@create");
+            Route::post('update', "{$sParentNamespace}\AlumniCompanyProfileApiController@update");
+            Route::post('delete', "{$sParentNamespace}\AlumniCompanyProfileApiController@delete");
         });
 
-    });
+        Route::prefix('graduate_job')->group(function () use ($sParentNamespace) {
+            Route::get('read', "{$sParentNamespace}\AlumniGraduateJobApiController@getAll");
+            Route::post('create', "{$sParentNamespace}\AlumniGraduateJobApiController@create");
+            Route::post('update', "{$sParentNamespace}\AlumniGraduateJobApiController@update");
+            Route::post('delete', "{$sParentNamespace}\AlumniGraduateJobApiController@delete");
+        });
 
-    /**
-     * Set the API route group for form management, also includes the following sub-modules:
-     *
-     * - Form Question Group
-     * - Form Question Type
-     * - Form Questions
-     * - Form Question Choices
-     * - Form Answers
-     */
-    Route::prefix('form')->group(function () {
+        Route::prefix('graduate_thesis')->group(function () use ($sParentNamespace) {
+            Route::get('read', "{$sParentNamespace}\AlumniGraduateThesisApiController@getAll");
+            Route::post('create', "{$sParentNamespace}\AlumniGraduateThesisApiController@create");
+            Route::post('update', "{$sParentNamespace}\AlumniGraduateThesisApiController@update");
+            Route::post('delete', "{$sParentNamespace}\AlumniGraduateThesisApiController@delete");
+        });
+
+        Route::prefix('undergraduate_job')->group(function () use ($sParentNamespace) {
+            Route::get('read', "{$sParentNamespace}\AlumniUndergraduateJobApiController@getAll");
+            Route::post('create', "{$sParentNamespace}\AlumniUndergraduateJobApiController@create");
+            Route::post('update', "{$sParentNamespace}\AlumniUndergraduateJobApiController@update");
+            Route::post('delete', "{$sParentNamespace}\AlumniUndergraduateJobApiController@delete");
+        });
 
     });
 
@@ -171,13 +178,15 @@ Route::prefix('v1')->group(function () {
      * - Account Type Management
      * - Post Type Management
      * - Industry Management
+     * - Branch Management
      */
     $aModules = [
         'course'          => 'CourseApiController',
         'acc_type'        => 'AccountTypeApiController',
         'post_type'       => 'PostTypeApiController',
         'industry'        => 'IndustryApiController',
-        'degree'          => 'DegreeApiController'
+        'degree'          => 'DegreeApiController',
+        'branch'          => 'BranchApiController'
     ];
     foreach ($aModules as $sModuleGroupName => $sModuleController) {
         Route::prefix($sModuleGroupName)->group(function () use($sModuleController) {

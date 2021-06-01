@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API\Form_Management;
 
 use App\Core\API\CoreApiController;
 use App\Http\Repositories\Form_Management\QuestionTypeRepository;
-use App\Http\Rules\API\Form_Management\FormRules;
+use App\Http\Rules\API\Form_Management\QuestionRules;
 use App\Libraries\API\ArrayLib;
 use App\Libraries\API\WhereLib;
 use App\Libraries\Common\LogLib;
@@ -72,14 +72,14 @@ class QuestionTypeApiController extends CoreApiController
     /**
      * Creates a question type record
      *
-     * @param FormRules $oRules
+     * @param QuestionRules $oRules
      * @return array
      * @throws QueryException|ValidationException
      */
-    public function create(FormRules $oRules)
+    public function create(QuestionRules $oRules)
     {
         try {
-            $aRequest = $this->validate($this->oRequest, $oRules->aFormCreate);
+            $aRequest = $this->validate($this->oRequest, $oRules->aQuestionTypeCreate);
             $aData = ArrayLib::filterKeys($aRequest, $this->oRepository->aSearch);
             $aResponse = $this->oRepository->createRecord($aData);
 
@@ -92,14 +92,14 @@ class QuestionTypeApiController extends CoreApiController
     /**
      * Updates a question type record
      *
-     * @param FormRules $oRules
+     * @param QuestionRules $oRules
      * @return array
      * @throws QueryException|ValidationException
      */
-    public function update(FormRules $oRules)
+    public function update(QuestionRules $oRules)
     {
         try {
-            $aRequest = $this->validate($this->oRequest, $oRules->aFormUpdate);
+            $aRequest = $this->validate($this->oRequest, $oRules->aQuestionTypeUpdate);
             $iId = intval($this->oRequest->input($this->oRepository->sPrimaryKey));
             $aData = ArrayLib::filterKeys($aRequest, $this->oRepository->aSearch);
             $aResponse = $this->oRepository->updateRecord($iId, $aData);

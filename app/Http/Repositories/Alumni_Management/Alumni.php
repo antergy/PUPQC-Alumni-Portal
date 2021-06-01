@@ -40,20 +40,25 @@ class Alumni extends CoreApiRepository
      * @var string[]
      */
     public $aSearch = [
-        'al_id',
-        'al_acc_id',
-        'al_firstname',
-        'al_middlename',
-        'al_lastname',
-        'al_birthdate',
-        'al_address',
-        'al_email',
-        'al_tel_num',
-        'al_mobile_num',
-        'al_student_num',
-        'al_civil_status',
-        'al_course_id',
-        'al_year_graduated',
+        'alumni_id',
+        'alumni_acc_id',
+        'alumni_firstname',
+        'alumni_middlename',
+        'alumni_lastname',
+        'alumni_birthdate',
+        'alumni_gender',
+        'alumni_address',
+        'alumni_email',
+        'alumni_tel_num',
+        'alumni_mobile_num',
+        'alumni_student_num',
+        'alumni_civil_status',
+        'alumni_course_id',
+        'alumni_year_graduated',
+        'alumni_year_grad_complete_program',
+        'alumni_age_graduate_enrolled',
+        'alumni_employ_status',
+        'alumni_unemploy_status',
         't_alumni.updated_at',
     ];
 
@@ -63,10 +68,10 @@ class Alumni extends CoreApiRepository
      * @var string[]
      */
     public $aEncryptedKeys = [
-        'al_address',
-        'al_email',
-        'al_tel_num',
-        'al_mobile_num'
+        'alumni_address',
+        'alumni_email',
+        'alumni_tel_num',
+        'alumni_mobile_num'
     ];
 
     /**
@@ -75,7 +80,7 @@ class Alumni extends CoreApiRepository
      */
     public function joinAccountsTable($sType = 'inner')
     {
-        $sReferenceKey = 't_alumni.al_acc_id';
+        $sReferenceKey = 't_alumni.alumni_acc_id';
         $sForeignKey = 't_accounts.acc_id';
         $sOperator = '=';
         $this->oModel = $this->oModel->join('t_accounts', $sReferenceKey, $sOperator, $sForeignKey, $sType);
@@ -87,7 +92,7 @@ class Alumni extends CoreApiRepository
      */
     public function joinCourseTable($sType = 'inner')
     {
-        $sReferenceKey = 't_alumni.al_course_id';
+        $sReferenceKey = 't_alumni.alumni_course_id';
         $sForeignKey = 'r_courses.course_id';
         $sOperator = '=';
         $this->oModel = $this->oModel->join('r_courses', $sReferenceKey, $sOperator, $sForeignKey, $sType);

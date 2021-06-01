@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\API\Form_Management;
+namespace App\Http\Controllers\API\Alumni_Management;
 
 use App\Core\API\CoreApiController;
-use App\Http\Repositories\Form_Management\FormAnswerRepository;
-use App\Http\Rules\API\Form_Management\FormRules;
+use App\Http\Repositories\Alumni_Management\AlumniGraduateThesisRepository;
+use App\Http\Rules\API\Alumni_Management\AlumniRules;
 use App\Libraries\API\ArrayLib;
 use App\Libraries\API\WhereLib;
 use App\Libraries\Common\LogLib;
@@ -14,30 +14,28 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
 /**
- * Class FormAnswerApiController
- *
- * @package App\Http\Controllers\API\Form_Management
+ * Class AlumniGraduateThesisApiController
+ * @package App\Http\Controllers\API\Alumni_Management
  * @author  Gerard O. Maglaque <maglaquegerard@gmail.com>
- * @since   05/01/2021
+ * @since   05/25/2021
  * @version 1.0
  */
-class FormAnswerApiController extends CoreApiController
+class AlumniGraduateThesisApiController extends CoreApiController
 {
     /**
-     * FormAnswerApiController constructor.
-     *
+     * AlumniGraduateThesisApiController constructor.
      * @param Request $oRequest
-     * @param FormAnswerRepository $oFormRepository
+     * @param AlumniGraduateThesisRepository $oAlumniGraduateThesisRepository
      */
-    public function __construct(Request $oRequest, FormAnswerRepository $oFormRepository)
+    public function __construct(Request $oRequest, AlumniGraduateThesisRepository $oAlumniGraduateThesisRepository)
     {
         $this->oRequest = $oRequest;
         LogLib::$sTraceId = $this->oRequest->input(LogLib::TRACE_ID, LogLib::DEFAULT_TRACE_ID);
-        $this->oRepository = $oFormRepository;
+        $this->oRepository = $oAlumniGraduateThesisRepository;
     }
 
     /**
-     * Retrieves form answer record(s)
+     * Retrieves alumni graduate thesis record(s)
      *
      * @return array
      */
@@ -45,8 +43,7 @@ class FormAnswerApiController extends CoreApiController
     {
         try {
             /** Initialize foreign key constraint */
-            $this->oRepository->joinFormQuestionTable('left');
-            $this->oRepository->joinAccountTable('left');
+            $this->oRepository->joinAlumniTable('left');
 
             /** Initialize where clause from default table */
             $aSearch = $this->oRepository->aSearch;
@@ -67,24 +64,28 @@ class FormAnswerApiController extends CoreApiController
             /** Execute get query */
             $aResponse = $this->oRepository->getAll($aSelect);
 
-            return ResponseLib::formatSuccessResponse($aResponse, ResponseLib::SUCCESS_RETRIEVE_MESSAGE);
+            /** Decrypt encrypted values */
+            $aDecryptedResponse = $this->oRepository->decryptValues((json_decode(json_encode($aResponse), true)), $this->oRepository->aEncryptedKeys);
+
+            return ResponseLib::formatSuccessResponse($aDecryptedResponse, ResponseLib::SUCCESS_RETRIEVE_MESSAGE);
         } catch (QueryException $oException) {
             return ResponseLib::formatErrorResponse($oException);
         }
     }
 
     /**
-     * Creates a form answer record
+     * Creates an alumni graduate thesis record
      *
-     * @param FormRules $oRules
+     * @param AlumniRules $oRules
      * @return array
      * @throws QueryException|ValidationException
      */
-    public function create(FormRules $oRules)
+    public function create(AlumniRules $oRules)
     {
         try {
-            $aRequest = $this->validate($this->oRequest, $oRules->aFormAnswerCreate);
+            $aRequest = $this->validate($this->oRequest, $oRules->aAlumniGraduateThesisCreate);
             $aData = ArrayLib::filterKeys($aRequest, $this->oRepository->aSearch);
+            $aData = $this->oRepository->encryptValues($aData, $this->oRepository->aEncryptedKeys);
             $aResponse = $this->oRepository->createRecord($aData);
 
             return ResponseLib::formatSuccessResponse($aResponse, ResponseLib::SUCCESS_CREATE_MESSAGE);
@@ -94,24 +95,24 @@ class FormAnswerApiController extends CoreApiController
     }
 
     /**
-     * Updates a form answer record
+     * Updates an alumni graduate thesis record
      *
-     * @param FormRules $oRules
+     * @param AlumniRules $oRules
      * @return array
      * @throws QueryException|ValidationException
      */
-    public function update(FormRules $oRules)
+    public function update(AlumniRules $oRules)
     {
         try {
-            $aRequest = $this->validate($this->oRequest, $oRules->aFormAnswerUpdate);
+            $aRequest = $this->validate($this->oRequest, $oRules->aAlumniGraduateThesisUpdate);
             $iId = intval($this->oRequest->input($this->oRepository->sPrimaryKey));
             $aData = ArrayLib::filterKeys($aRequest, $this->oRepository->aSearch);
+            $aData = $this->oRepository->encryptValues($aData, $this->oRepository->aEncryptedKeys);
             $aResponse = $this->oRepository->updateRecord($iId, $aData);
             $sMessage = ResponseLib::SUCCESS_UPDATE_MESSAGE;
             if ($aResponse === 0) {
                 $sMessage = 'There is nothing to update';
             }
-
             return ResponseLib::formatSuccessResponse($aResponse, $sMessage);
         } catch (QueryException | ValidationException $oException) {
             return ResponseLib::formatErrorResponse($oException);
@@ -119,7 +120,7 @@ class FormAnswerApiController extends CoreApiController
     }
 
     /**
-     * Deletes a form answer record
+     * Deletes an alumni graduate thesis record
      *
      * @return array
      */
@@ -132,7 +133,6 @@ class FormAnswerApiController extends CoreApiController
             if ($mResponse === 0) {
                 $sMessage = ResponseLib::NO_RECORD_DELETE_MESSAGE;
             }
-
             return ResponseLib::formatSuccessResponse($mResponse, $sMessage);
         } catch (QueryException $oException) {
             return ResponseLib::formatErrorResponse($oException);

@@ -17,93 +17,72 @@ class AlumniRules
      * @var \string[][]
      */
     public $aAlumniCreate = [
-        'al_acc_id'                  => [
+        'alumni_acc_id'                     => [
             'required',
             'exists:t_accounts,acc_id'
         ],
-        'al_firstname'               => [
+        'alumni_firstname'                  => [
             'required',
             'string'
         ],
-        'al_middlename'              => [
+        'alumni_middlename'                 => [
             'string'
         ],
-        'al_lastname'                => [
+        'alumni_lastname'                   => [
             'required',
             'string'
         ],
-        'al_birthdate'               => [
+        'alumni_birthdate'                  => [
             'required',
             'string'
         ],
-        'al_address'                 => [
+        'alumni_gender'                     => [
             'required',
             'string'
         ],
-        'al_email'                   => [
+        'alumni_address'                    => [
             'required',
             'string'
         ],
-        'al_tel_num'                 => [
-            'string'
-        ],
-        'al_mobile_num'              => [
+        'alumni_email'                      => [
             'required',
             'string'
         ],
-        'al_student_num'             => [
+        'alumni_tel_num'                    => [
             'string'
         ],
-        'al_civil_status'            => [
+        'alumni_mobile_num'                 => [
+            'required',
+            'string'
+        ],
+        'alumni_student_num'                => [
+            'string'
+        ],
+        'alumni_civil_status'               => [
             'required',
             'numeric'
         ],
-        'al_course_id'               => [
+        'alumni_course_id'                  => [
             'required',
             'exists:r_courses,course_id'
         ],
-        'al_year_graduated'          => [
+        'alumni_year_graduated'             => [
             'required',
             'numeric'
         ],
-        'al_honors_received'         => [
+        'alumni_year_grad_complete_program' => [
             'required',
-            'exists:r_honors_received,honor_id'
-        ],
-        'al_educ_attainment'         => [
-            'required',
-            'exists:r_educational_attainment,educ_attain_id'
-        ],
-        'al_educ_attainment_others'  => [
             'string'
         ],
-        'al_prof_exam_passed'        => [
+        'alumni_age_graduate_enrolled'      => [
             'required',
-            'exists:r_professional_exams,profex_id'
-        ],
-        'al_prof_exam_passed_others' => [
-            'string'
-        ],
-        'al_employment_status'       => [
-            'required',
-        ],
-        'al_first_job_desc'          => [
-            'string'
-        ],
-        'al_first_job_discover'      => [
-            'exists:r_first_job_discover,fjd_id'
-        ],
-        'al_first_job_timeframe'     => [
-            'exists:r_first_job_timeframe,fjtf_id'
-        ],
-        'al_work_place'              => [
             'numeric'
         ],
-        'al_work_place_intl'         => [
-            'string'
+        'alumni_employ_status'              => [
+            'required',
         ],
-        'al_self_employ_salary'      => [
-            'exists:r_self_employed_salary,se_salary_id'
+        'alumni_unemploy_status'            => [
+            'required',
         ],
     ];
 
@@ -113,84 +92,332 @@ class AlumniRules
      * @var \string[][]
      */
     public $aAlumniUpdate = [
-        'al_id'                      => [
+        'alumni_id'                         => [
             'required',
-            'exists:t_alumni,al_id'
+            'exists:t_alumni,alumni_id'
         ],
-        'al_acc_id'                  => [
+        'alumni_acc_id'                     => [
+            'required',
             'exists:t_accounts,acc_id'
         ],
-        'al_firstname'               => [
+        'alumni_firstname'                  => [
+            'required',
             'string'
         ],
-        'al_middlename'              => [
+        'alumni_middlename'                 => [
             'string'
         ],
-        'al_lastname'                => [
+        'alumni_lastname'                   => [
+            'required',
             'string'
         ],
-        'al_birthdate'               => [
+        'alumni_birthdate'                  => [
+            'required',
             'string'
         ],
-        'al_address'                 => [
+        'alumni_gender'                     => [
+            'required',
             'string'
         ],
-        'al_email'                   => [
+        'alumni_address'                    => [
+            'required',
             'string'
         ],
-        'al_tel_num'                 => [
+        'alumni_email'                      => [
+            'required',
             'string'
         ],
-        'al_mobile_num'              => [
+        'alumni_tel_num'                    => [
             'string'
         ],
-        'al_student_num'             => [
+        'alumni_mobile_num'                 => [
+            'required',
             'string'
         ],
-        'al_civil_status'            => [
-            'numeric',
-        ],
-        'al_course_id'               => [
-            'exists:r_courses,course_id'
-        ],
-        'al_year_graduated'          => [
-            'numeric',
-        ],
-        'al_honors_received'         => [
-            'exists:r_honors_received,honor_id'
-        ],
-        'al_educ_attainment'         => [
-            'exists:r_educational_attainment,educ_attain_id'
-        ],
-        'al_educ_attainment_others'  => [
+        'alumni_student_num'                => [
             'string'
         ],
-        'al_prof_exam_passed'        => [
-            'exists:r_professional_exams,profex_id'
-        ],
-        'al_prof_exam_passed_others' => [
-            'string'
-        ],
-        'al_employment_status'       => [
-            'numeric',
-        ],
-        'al_first_job_desc'          => [
-            'string'
-        ],
-        'al_first_job_discover'      => [
-            'exists:r_first_job_discover,fjd_id'
-        ],
-        'al_first_job_timeframe'     => [
-            'exists:r_first_job_timeframe,fjtf_id'
-        ],
-        'al_work_place'              => [
+        'alumni_civil_status'               => [
+            'required',
             'numeric'
         ],
-        'al_work_place_intl'         => [
+        'alumni_course_id'                  => [
+            'required',
+            'exists:r_courses,course_id'
+        ],
+        'alumni_year_graduated'             => [
+            'required',
+            'numeric'
+        ],
+        'alumni_year_grad_complete_program' => [
+            'required',
             'string'
         ],
-        'al_self_employ_salary'      => [
-            'exists:r_self_employed_salary,se_salary_id'
+        'alumni_age_graduate_enrolled'      => [
+            'required',
+            'numeric'
+        ],
+        'alumni_employ_status'              => [
+            'required',
+        ],
+        'alumni_unemploy_status'            => [
+            'required',
+        ],
+    ];
+
+    /**
+     * Rules for creating alumni company profile record
+     *
+     * @var \string[][]
+     */
+    public $aAlumniCompanyProfileCreate = [
+        'acp_alumni_id'                     => [
+            'required',
+            'exists:t_alumni,alumni_id'
+        ],
+        'company_name'                      => [
+            'required',
+            'string'
+        ],
+        'company_address'                   => [
+            'required',
+            'string'
+        ],
+        'company_nature'                    => [
+            'required',
+            'string'
+        ],
+        'acp_industry_id'                   => [
+            'required',
+            'exists:r_industry,industry_id'
+        ],
+        'acp_industry_others'               => [
+            'required',
+            'string'
+        ],
+        'acp_department_section'            => [
+            'required',
+            'string'
+        ],
+        'acp_work_area'                     => [
+            'required',
+            'string'
+        ],
+        'acp_work_status'                   => [
+            'required',
+            'string'
+        ],
+    ];
+
+    /**
+     * Rules for updating alumni company profile record
+     *
+     * @var \string[][]
+     */
+    public $aAlumniCompanyProfileUpdate = [
+        'acp_id'                            => [
+            'required',
+            'exists:t_alumni_company_profile,acp_id'
+        ],
+        'acp_alumni_id'                     => [
+            'required',
+            'exists:t_alumni,alumni_id'
+        ],
+        'company_name'                      => [
+            'required',
+            'string'
+        ],
+        'company_address'                   => [
+            'required',
+            'string'
+        ],
+        'company_nature'                    => [
+            'required',
+            'string'
+        ],
+        'acp_industry_id'                   => [
+            'required',
+            'exists:r_industry,industry_id'
+        ],
+        'acp_industry_others'               => [
+            'required',
+            'string'
+        ],
+        'acp_department_section'            => [
+            'required',
+            'string'
+        ],
+        'acp_work_area'                     => [
+            'required',
+            'string'
+        ],
+        'acp_work_status'                   => [
+            'required',
+            'string'
+        ],
+    ];
+
+    /**
+     * Rules for updating alumni graduate job record
+     *
+     * @var \string[][]
+     */
+    public $aAlumniGraduateJobCreate = [
+        'agj_alumni_id'                        => [
+            'required',
+            'exists:t_alumni,alumni_id'
+        ],
+        'agj_curr_job_title'                   => [
+            'required',
+            'string'
+        ],
+        'agj_prev_job_title'                   => [
+            'required',
+            'string'
+        ],
+    ];
+
+    /**
+     * Rules for updating alumni graduate job record
+     *
+     * @var \string[][]
+     */
+    public $aAlumniGraduateJobUpdate = [
+        'agj_id'                               => [
+            'required',
+            'exists:t_alumni_graduate_job,agj_id'
+        ],
+        'agj_alumni_id'                        => [
+            'required',
+            'exists:t_alumni,alumni_id'
+        ],
+        'agj_curr_job_title'                   => [
+            'required',
+            'string'
+        ],
+        'agj_prev_job_title'                   => [
+            'required',
+            'string'
+        ],
+    ];
+
+    /**
+     * Rules for updating alumni graduate thesis record
+     *
+     * @var \string[][]
+     */
+    public $aAlumniGraduateThesisCreate = [
+        'agt_alumni_id'                 => [
+            'required',
+            'exists:t_alumni,alumni_id'
+        ],
+        'agt_title'                     => [
+            'required',
+            'string'
+        ],
+        'agt_adviser'                   => [
+            'required',
+            'string'
+        ],
+    ];
+
+    /**
+     * Rules for updating alumni graduate thesis record
+     *
+     * @var \string[][]
+     */
+    public $aAlumniGraduateThesisUpdate = [
+        'agt_id'                        => [
+            'required',
+            'exists:t_alumni_graduate_thesis,agt_id'
+        ],
+        'agt_alumni_id'                 => [
+            'required',
+            'exists:t_alumni,alumni_id'
+        ],
+        'agt_title'                     => [
+            'required',
+            'string'
+        ],
+        'agt_adviser'                   => [
+            'required',
+            'string'
+        ],
+    ];
+
+    /**
+     * Rules for updating alumni undergraduate job record
+     *
+     * @var \string[][]
+     */
+    public $aAlumniUndergraduateJobCreate = [
+        'auj_alumni_id'                => [
+            'required',
+            'exists:t_alumni,alumni_id'
+        ],
+        'auj_first_job'                => [
+            'required',
+            'string'
+        ],
+        'auj_first_job_discover'       => [
+            'required',
+            'string'
+        ],
+        'auj_first_job_timeframe'      => [
+            'required',
+            'string'
+        ],
+        'auj_first_job_level_position' => [
+            'required',
+            'string'
+        ],
+        'auj_curr_job_level_position'  => [
+            'required',
+            'string'
+        ],
+        'auj_self_employ_salary'       => [
+            'required',
+            'string'
+        ],
+    ];
+
+    /**
+     * Rules for updating alumni undergraduate job record
+     *
+     * @var \string[][]
+     */
+    public $aAlumniUndergraduateJobUpdate = [
+        'auj_id'                       => [
+            'required',
+            'exists:t_alumni_undergraduate_job,auj_id'
+        ],
+        'auj_alumni_id'                => [
+            'required',
+            'exists:t_alumni,alumni_id'
+        ],
+        'auj_first_job'                => [
+            'required',
+            'string'
+        ],
+        'auj_first_job_discover'       => [
+            'required',
+            'string'
+        ],
+        'auj_first_job_timeframe'      => [
+            'required',
+            'string'
+        ],
+        'auj_first_job_level_position' => [
+            'required',
+            'string'
+        ],
+        'auj_curr_job_level_position'  => [
+            'required',
+            'string'
+        ],
+        'auj_self_employ_salary'       => [
+            'required',
+            'string'
         ],
     ];
 }
