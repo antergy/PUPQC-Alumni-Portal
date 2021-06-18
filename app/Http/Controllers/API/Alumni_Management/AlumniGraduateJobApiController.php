@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\API\Post_Management;
+namespace App\Http\Controllers\API\Alumni_Management;
 
 use App\Core\API\CoreApiController;
-use App\Http\Repositories\Post_Management\PostRepository;
-use App\Http\Rules\API\Post_Management\PostRules;
+use App\Http\Repositories\Alumni_Management\AlumniGraduateJobRepository;
+use App\Http\Rules\API\Alumni_Management\AlumniRules;
 use App\Libraries\API\ArrayLib;
 use App\Libraries\API\WhereLib;
 use App\Libraries\Common\LogLib;
@@ -14,28 +14,28 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
 /**
- * Class PostApiController
- * @package App\Http\Controllers\API\Post_Management
- * @author  Cristian O. Balatbat <ian26balatbat@gmail.com>
- * @since   01/21/2021
+ * Class AlumniCompanyProfileApiController
+ * @package App\Http\Controllers\API\Alumni_Management
+ * @author  Gerard O. Maglaque <maglaquegerard@gmail.com>
+ * @since   05/25/2021
  * @version 1.0
  */
-class PostApiController extends CoreApiController
+class AlumniGraduateJobApiController extends CoreApiController
 {
     /**
-     * PostApiController constructor.
+     * AlumniGraduateJobApiController constructor.
      * @param Request $oRequest
-     * @param PostRepository $oPostRepository
+     * @param AlumniGraduateJobRepository $oAlumniGraduateJobRepository
      */
-    public function __construct(Request $oRequest, PostRepository $oPostRepository)
+    public function __construct(Request $oRequest, AlumniGraduateJobRepository $oAlumniGraduateJobRepository)
     {
         $this->oRequest = $oRequest;
         LogLib::$sTraceId = $this->oRequest->input(LogLib::TRACE_ID, LogLib::DEFAULT_TRACE_ID);
-        $this->oRepository = $oPostRepository;
+        $this->oRepository = $oAlumniGraduateJobRepository;
     }
 
     /**
-     * Retrieves post record(s)
+     * Retrieves alumni graduate job record(s)
      *
      * @return array
      */
@@ -43,15 +43,11 @@ class PostApiController extends CoreApiController
     {
         try {
             /** Initialize foreign key constraint */
-            $this->oRepository->joinAccountTable();
-            $this->oRepository->joinPostTypeTable('left');
-            $this->oRepository->joinDegreeTable('left');
-            $this->oRepository->joinCourseTable('left');
+            $this->oRepository->joinAlumniTable('left');
 
             /** Initialize where clause from default table */
             $aSearch = $this->oRepository->aSearch;
             $aMainWhere = $this->oRequest->only($aSearch);
-            $aWhereDates = $this->oRequest->only(['start_date', 'end_date']);
 
             /** $Included fields from reference table to the where clause */
             $aForeignSearch = array_keys($this->oRepository->aForeignColumns);
@@ -62,15 +58,12 @@ class PostApiController extends CoreApiController
             $aWhere = WhereLib::makeArray($aWhere);
             $this->oRepository->searchParams($aWhere);
 
-            /** If there is a given date range */
-            if (!empty($aWhereDates) === true) {
-                $this->oRepository->whereDateBetween($this->oRepository->sTableName, $aWhereDates, $this->oRepository->sCreatedDateColumn);
-            }
             $aSelect = array_merge($aForeignSearch, $aSearch);
             array_unshift($aSelect, $this->oRepository->sPrimaryKey);
 
             /** Execute get query */
             $aResponse = $this->oRepository->getAll($aSelect);
+
             /** Decrypt encrypted values */
             $aDecryptedResponse = $this->oRepository->decryptValues((json_decode(json_encode($aResponse), true)), $this->oRepository->aEncryptedKeys);
 
@@ -81,16 +74,16 @@ class PostApiController extends CoreApiController
     }
 
     /**
-     * Creates a post record
+     * Creates an alumni graduate job record
      *
-     * @param PostRules $oRules
+     * @param AlumniRules $oRules
      * @return array
      * @throws QueryException|ValidationException
      */
-    public function create(PostRules $oRules)
+    public function create(AlumniRules $oRules)
     {
         try {
-            $aRequest = $this->validate($this->oRequest, $oRules->aPostCreate);
+            $aRequest = $this->validate($this->oRequest, $oRules->aAlumniGraduateJobCreate);
             $aData = ArrayLib::filterKeys($aRequest, $this->oRepository->aSearch);
             $aData = $this->oRepository->encryptValues($aData, $this->oRepository->aEncryptedKeys);
             $aResponse = $this->oRepository->createRecord($aData);
@@ -102,16 +95,16 @@ class PostApiController extends CoreApiController
     }
 
     /**
-     * Updates a post record
+     * Updates an alumni graduate job record
      *
-     * @param PostRules $oRules
+     * @param AlumniRules $oRules
      * @return array
      * @throws QueryException|ValidationException
      */
-    public function update(PostRules $oRules)
+    public function update(AlumniRules $oRules)
     {
         try {
-            $aRequest = $this->validate($this->oRequest, $oRules->aPostCreate);
+            $aRequest = $this->validate($this->oRequest, $oRules->aAlumniGraduateJobUpdate);
             $iId = intval($this->oRequest->input($this->oRepository->sPrimaryKey));
             $aData = ArrayLib::filterKeys($aRequest, $this->oRepository->aSearch);
             $aData = $this->oRepository->encryptValues($aData, $this->oRepository->aEncryptedKeys);
@@ -127,7 +120,7 @@ class PostApiController extends CoreApiController
     }
 
     /**
-     * Deletes a post record
+     * Deletes an alumni graduate job record
      *
      * @return array
      */

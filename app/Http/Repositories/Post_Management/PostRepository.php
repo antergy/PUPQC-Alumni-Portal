@@ -23,7 +23,7 @@ class PostRepository extends CoreApiRepository
      * Primary key of the table
      * @var string
      */
-    public $sPrimaryKey = 'p_id';
+    public $sPrimaryKey = 'post_id';
 
     /**
      * Foreign table columns to displayed in the result
@@ -31,7 +31,7 @@ class PostRepository extends CoreApiRepository
      */
     public $aForeignColumns = [
         'acc_username' => 't_accounts',
-        'pt_desc'      => 'r_post_types',
+        'post_desc'    => 'r_post_types',
     ];
 
     /**
@@ -40,13 +40,14 @@ class PostRepository extends CoreApiRepository
      * @var string[]
      */
     public $aSearch = [
-        'p_id',
-        'p_title',
-        'p_desc',
-        'p_picture',
-        'p_acc_id',
-        'p_type_id',
-        'p_course_id',
+        'post_id',
+        'post_title',
+        'post_desc',
+        'post_picture',
+        'post_acc_id',
+        'post_pt_id',
+        'post_degree_id',
+        'post_course_id',
         't_posts.created_at',
         't_posts.updated_at',
     ];
@@ -56,7 +57,7 @@ class PostRepository extends CoreApiRepository
      * @var string[]
      */
     public $aEncryptedKeys = [
-        'p_desc'
+        'post_desc'
     ];
 
     /**
@@ -65,7 +66,7 @@ class PostRepository extends CoreApiRepository
      */
     public function joinAccountTable($sType = 'inner')
     {
-        $sReferenceKey = 't_posts.p_acc_id';
+        $sReferenceKey = 't_posts.post_acc_id';
         $sForeignKey = 't_accounts.acc_id';
         $sOperator = '=';
         $this->oModel = $this->oModel->join('t_accounts', $sReferenceKey, $sOperator, $sForeignKey, $sType);
@@ -77,10 +78,23 @@ class PostRepository extends CoreApiRepository
      */
     public function joinPostTypeTable($sType = 'inner')
     {
-        $sReferenceKey = 't_posts.p_type_id';
+        $sReferenceKey = 't_posts.post_pt_id';
         $sForeignKey = 'r_post_types.pt_id';
         $sOperator = '=';
         $this->oModel = $this->oModel->join('r_post_types', $sReferenceKey, $sOperator, $sForeignKey, $sType);
+    }
+
+    /**
+     * Inner join the degree table
+     *
+     * @param string $sType
+     */
+    public function joinDegreeTable($sType = 'inner')
+    {
+        $sReferenceKey = 't_posts.post_degree_id';
+        $sForeignKey = 'r_degree.degree_id';
+        $sOperator = '=';
+        $this->oModel = $this->oModel->join('r_degree', $sReferenceKey, $sOperator, $sForeignKey, $sType);
     }
 
     /**
@@ -89,7 +103,7 @@ class PostRepository extends CoreApiRepository
      */
     public function joinCourseTable($sType = 'inner')
     {
-        $sReferenceKey = 't_posts.p_course_id';
+        $sReferenceKey = 't_posts.post_course_id';
         $sForeignKey = 'r_courses.course_id';
         $sOperator = '=';
         $this->oModel = $this->oModel->join('r_courses', $sReferenceKey, $sOperator, $sForeignKey, $sType);

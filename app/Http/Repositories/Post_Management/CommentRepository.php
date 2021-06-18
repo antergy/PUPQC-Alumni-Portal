@@ -62,7 +62,7 @@ class CommentRepository extends CoreApiRepository
     public function joinPostTable($sType = 'inner')
     {
         $sReferenceKey = 't_comments.cm_post_id';
-        $sForeignKey = 't_posts.p_id';
+        $sForeignKey = 't_posts.post_id';
         $sOperator = '=';
         $this->oModel = $this->oModel->join('t_posts', $sReferenceKey, $sOperator, $sForeignKey, $sType);
     }

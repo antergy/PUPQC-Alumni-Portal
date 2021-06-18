@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\API\Post_Management;
+namespace App\Http\Controllers\API\Form_Management;
 
 use App\Core\API\CoreApiController;
-use App\Http\Repositories\Post_Management\PostRepository;
-use App\Http\Rules\API\Post_Management\PostRules;
+use App\Http\Repositories\Form_Management\FormRepository;
+use App\Http\Rules\API\Form_Management\FormRules;
 use App\Libraries\API\ArrayLib;
 use App\Libraries\API\WhereLib;
 use App\Libraries\Common\LogLib;
@@ -14,28 +14,30 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
 /**
- * Class PostApiController
- * @package App\Http\Controllers\API\Post_Management
- * @author  Cristian O. Balatbat <ian26balatbat@gmail.com>
- * @since   01/21/2021
+ * Class FormApiController
+ *
+ * @package App\Http\Controllers\API\Form_Management
+ * @author  Gerard O. Maglaque <maglaquegerard@gmail.com>
+ * @since   04/23/2021
  * @version 1.0
  */
-class PostApiController extends CoreApiController
+class FormApiController extends CoreApiController
 {
     /**
-     * PostApiController constructor.
+     * FormApiController constructor.
+     *
      * @param Request $oRequest
-     * @param PostRepository $oPostRepository
+     * @param FormRepository $oFormRepository
      */
-    public function __construct(Request $oRequest, PostRepository $oPostRepository)
+    public function __construct(Request $oRequest, FormRepository $oFormRepository)
     {
         $this->oRequest = $oRequest;
         LogLib::$sTraceId = $this->oRequest->input(LogLib::TRACE_ID, LogLib::DEFAULT_TRACE_ID);
-        $this->oRepository = $oPostRepository;
+        $this->oRepository = $oFormRepository;
     }
 
     /**
-     * Retrieves post record(s)
+     * Retrieves form record(s)
      *
      * @return array
      */
@@ -43,15 +45,12 @@ class PostApiController extends CoreApiController
     {
         try {
             /** Initialize foreign key constraint */
-            $this->oRepository->joinAccountTable();
-            $this->oRepository->joinPostTypeTable('left');
-            $this->oRepository->joinDegreeTable('left');
             $this->oRepository->joinCourseTable('left');
+            $this->oRepository->joinDegreeTable('left');
 
             /** Initialize where clause from default table */
             $aSearch = $this->oRepository->aSearch;
             $aMainWhere = $this->oRequest->only($aSearch);
-            $aWhereDates = $this->oRequest->only(['start_date', 'end_date']);
 
             /** $Included fields from reference table to the where clause */
             $aForeignSearch = array_keys($this->oRepository->aForeignColumns);
@@ -62,37 +61,30 @@ class PostApiController extends CoreApiController
             $aWhere = WhereLib::makeArray($aWhere);
             $this->oRepository->searchParams($aWhere);
 
-            /** If there is a given date range */
-            if (!empty($aWhereDates) === true) {
-                $this->oRepository->whereDateBetween($this->oRepository->sTableName, $aWhereDates, $this->oRepository->sCreatedDateColumn);
-            }
             $aSelect = array_merge($aForeignSearch, $aSearch);
             array_unshift($aSelect, $this->oRepository->sPrimaryKey);
 
             /** Execute get query */
             $aResponse = $this->oRepository->getAll($aSelect);
-            /** Decrypt encrypted values */
-            $aDecryptedResponse = $this->oRepository->decryptValues((json_decode(json_encode($aResponse), true)), $this->oRepository->aEncryptedKeys);
 
-            return ResponseLib::formatSuccessResponse($aDecryptedResponse, ResponseLib::SUCCESS_RETRIEVE_MESSAGE);
+            return ResponseLib::formatSuccessResponse($aResponse, ResponseLib::SUCCESS_RETRIEVE_MESSAGE);
         } catch (QueryException $oException) {
             return ResponseLib::formatErrorResponse($oException);
         }
     }
 
     /**
-     * Creates a post record
+     * Creates a form record
      *
-     * @param PostRules $oRules
+     * @param FormRules $oRules
      * @return array
      * @throws QueryException|ValidationException
      */
-    public function create(PostRules $oRules)
+    public function create(FormRules $oRules)
     {
         try {
-            $aRequest = $this->validate($this->oRequest, $oRules->aPostCreate);
+            $aRequest = $this->validate($this->oRequest, $oRules->aFormCreate);
             $aData = ArrayLib::filterKeys($aRequest, $this->oRepository->aSearch);
-            $aData = $this->oRepository->encryptValues($aData, $this->oRepository->aEncryptedKeys);
             $aResponse = $this->oRepository->createRecord($aData);
 
             return ResponseLib::formatSuccessResponse($aResponse, ResponseLib::SUCCESS_CREATE_MESSAGE);
@@ -102,24 +94,24 @@ class PostApiController extends CoreApiController
     }
 
     /**
-     * Updates a post record
+     * Updates a form record
      *
-     * @param PostRules $oRules
+     * @param FormRules $oRules
      * @return array
      * @throws QueryException|ValidationException
      */
-    public function update(PostRules $oRules)
+    public function update(FormRules $oRules)
     {
         try {
-            $aRequest = $this->validate($this->oRequest, $oRules->aPostCreate);
+            $aRequest = $this->validate($this->oRequest, $oRules->aFormUpdate);
             $iId = intval($this->oRequest->input($this->oRepository->sPrimaryKey));
             $aData = ArrayLib::filterKeys($aRequest, $this->oRepository->aSearch);
-            $aData = $this->oRepository->encryptValues($aData, $this->oRepository->aEncryptedKeys);
             $aResponse = $this->oRepository->updateRecord($iId, $aData);
             $sMessage = ResponseLib::SUCCESS_UPDATE_MESSAGE;
             if ($aResponse === 0) {
                 $sMessage = 'There is nothing to update';
             }
+
             return ResponseLib::formatSuccessResponse($aResponse, $sMessage);
         } catch (QueryException | ValidationException $oException) {
             return ResponseLib::formatErrorResponse($oException);
@@ -127,7 +119,7 @@ class PostApiController extends CoreApiController
     }
 
     /**
-     * Deletes a post record
+     * Deletes a form record
      *
      * @return array
      */
@@ -140,9 +132,11 @@ class PostApiController extends CoreApiController
             if ($mResponse === 0) {
                 $sMessage = ResponseLib::NO_RECORD_DELETE_MESSAGE;
             }
+
             return ResponseLib::formatSuccessResponse($mResponse, $sMessage);
         } catch (QueryException $oException) {
             return ResponseLib::formatErrorResponse($oException);
         }
     }
 }
+
