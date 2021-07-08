@@ -106,7 +106,9 @@ class QuestionRules
      * @var \string[][]
      */
     public $aQuestionTypeCreate = [
-
+        'fqt_desc'   => [
+            'required'
+        ]
     ];
 
     /**

@@ -46,8 +46,55 @@ Route::prefix('admin')->group(function () {
      */
     Route::prefix('message')->group(function () {
         Route::get('read', 'InboxAdminController@manageRequest');
+        Route::get('readDetails', 'PostAdminController@getDetailedForm');
         Route::post('create', 'InboxAdminController@manageRequest');
         Route::post('delete', 'InboxAdminController@manageRequest');
+    });
+
+    /**
+     * Route group for form management
+     */
+    Route::prefix('form')->group(function() {
+        Route::get('read', "FormAdminController@readForms");
+        Route::post('create', "FormAdminController@createForm");
+        Route::post('update', "FormAdminController@updateForm");
+        Route::post('delete', "FormAdminController@deleteForm");
+
+        Route::prefix('questions')->group(function() {
+            Route::get('read', "QuestionAdminController@readQuestions");
+            Route::post('create', "QuestionAdminController@createQuestion");
+            Route::post('update', "QuestionAdminController@updateQuestion");
+            Route::post('delete', "QuestionAdminController@deleteQuestion");
+
+
+            Route::prefix('choices')->group(function() {
+                Route::get('read', "ChoicesAdminController@readChoices");
+                Route::post('create', "ChoicesAdminController@createChoice");
+                Route::post('update', "ChoicesAdminController@updateChoice");
+                Route::post('delete', "ChoicesAdminController@deleteChoice");
+            });
+
+            Route::prefix('answers')->group(function() {
+                Route::get('read', "QuestionAnswerAdminController@readAnswers");
+                Route::post('create', "QuestionAnswerAdminController@createAnswer");
+                Route::post('update', "QuestionAnswerAdminController@updateAnswer");
+                Route::post('delete', "QuestionAnswerAdminController@deleteAnswer");
+            });
+
+            Route::prefix('group')->group(function() {
+                Route::get('read', "QuestionGroupAdminController@readQuestionGroups");
+                Route::post('create', "QuestionGroupAdminController@createQuestionGroup");
+                Route::post('update', "QuestionGroupAdminController@updateQuestionGroup");
+                Route::post('delete', "QuestionGroupAdminController@deleteQuestionGroup");
+            });
+
+            Route::prefix('type')->group(function() {
+                Route::get('read', "QuestionTypeAdminController@readQuestionTypes");
+                Route::post('create', "QuestionTypeAdminController@createQuestionType");
+                Route::post('update', "QuestionTypeAdminController@updateQuestionType");
+                Route::post('delete', "QuestionTypeAdminController@deleteQuestionType");
+            });
+        });
     });
 
     /**

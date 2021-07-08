@@ -61,12 +61,7 @@ Route::prefix('v1')->group(function () {
         Route::post('update', "{$sParentNamespace}\FormApiController@update");
         Route::post('delete', "{$sParentNamespace}\FormApiController@delete");
 
-        Route::prefix('answers')->group(function() use ($sParentNamespace) {
-            Route::get('read', "{$sParentNamespace}\FormAnswerApiController@getAll");
-            Route::post('create', "{$sParentNamespace}\FormAnswerApiController@create");
-            Route::post('update', "{$sParentNamespace}\FormAnswerApiController@update");
-            Route::post('delete', "{$sParentNamespace}\FormAnswerApiController@delete");
-        });
+
 
         Route::prefix('questions')->group(function() use ($sParentNamespace) {
             Route::get('read', "{$sParentNamespace}\QuestionApiController@getAll");
@@ -74,11 +69,19 @@ Route::prefix('v1')->group(function () {
             Route::post('update', "{$sParentNamespace}\QuestionApiController@update");
             Route::post('delete', "{$sParentNamespace}\QuestionApiController@delete");
 
+
             Route::prefix('choices')->group(function() use ($sParentNamespace) {
                 Route::get('read', "{$sParentNamespace}\ChoicesApiController@getAll");
                 Route::post('create', "{$sParentNamespace}\ChoicesApiController@create");
                 Route::post('update', "{$sParentNamespace}\ChoicesApiController@update");
                 Route::post('delete', "{$sParentNamespace}\ChoicesApiController@delete");
+            });
+
+            Route::prefix('answers')->group(function() use ($sParentNamespace) {
+                Route::get('read', "{$sParentNamespace}\FormAnswerApiController@getAll");
+                Route::post('create', "{$sParentNamespace}\FormAnswerApiController@create");
+                Route::post('update', "{$sParentNamespace}\FormAnswerApiController@update");
+                Route::post('delete', "{$sParentNamespace}\FormAnswerApiController@delete");
             });
 
             Route::prefix('group')->group(function() use ($sParentNamespace) {

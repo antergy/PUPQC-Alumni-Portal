@@ -27,10 +27,7 @@ class FormRules
         ],
         'form_course_id'     => [
             'required'
-        ],
-        'form_active_status' => [
-            'required'
-        ],
+        ]
     ];
 
     /**
@@ -52,10 +49,7 @@ class FormRules
         ],
         'form_course_id'     => [
             'required'
-        ],
-        'form_active_status' => [
-            'required'
-        ],
+        ]
     ];
 
     /**
