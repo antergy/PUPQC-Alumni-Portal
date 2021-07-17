@@ -156,6 +156,7 @@ Route::prefix('admin')->group(function () {
     Route::prefix('system')->group(function () {
         $aModules = [
             'course',
+            'degree',
             'acc_type',
             'post_type',
             'educ_attain',

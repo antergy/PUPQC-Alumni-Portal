@@ -36,6 +36,7 @@ class AccountManagementService extends CoreAdminService
             $mResult = $this->getAccounts($aParams);
         } else if ($sAction === 'create' || $sAction === 'update') {
             /** Validate entered params */
+
             $aValidationResult = AccountValidator::validate($aParams);
             if ($aValidationResult['data'] === false) {
                 return $aValidationResult;

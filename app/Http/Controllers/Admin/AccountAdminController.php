@@ -35,9 +35,9 @@ class AccountAdminController extends Controller
      * @param AccountManagementService $oAccountAdminService
      */
     public function __construct(Request $oRequest, AccountManagementService $oAccountAdminService)
-    {
-        $this->oRequest = $oRequest;
+    { $this->oRequest = $oRequest;
         $this->oAccountAdminService = $oAccountAdminService;
+
     }
 
     /**

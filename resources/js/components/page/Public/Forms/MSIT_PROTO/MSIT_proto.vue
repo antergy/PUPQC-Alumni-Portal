@@ -3,14 +3,14 @@
         <div class="form outline">
             <div class="form__input-group xx-lg">
                 <label class="form__label">Select the program you previously graduated from:</label>
-                <select id="program" name="branch" class="form__input">
-                    <option selected disabled>-- Select Program --</option>
+                <select id="program" name="branch" class="form__input" v-model="selectedCourse">
+                    <option selected disabled value="0">-- Select Program --</option>
                     <option value="1">Master of Science in Information Technology</option>
                 </select>
             </div>
         </div>
         <br>
-        <div class="form outline">
+        <div class="form outline" id="msit_form" style="display: none">
             <span class="form__title">MSIT Tracer Survey Form</span>
             <span class="form__subtitle">Please answer the following:</span>
             <br>
@@ -433,7 +433,7 @@
                     <div class="form__input-group">
                         <div class="grid grid-flow-col auto-cols-max place-self-center">
                             <div class="m-1">
-                                <button type="button" class="form__button error info w-full place-self-center">Cancel</button>
+                                <button type="button" class="form__button error info w-full place-self-center" @click="doCancel()">Cancel</button>
                             </div>
                             <div class="m-1">
                                 <button type="button" class="form__button success w-full place-self-center">Save and Continue</button>
@@ -449,17 +449,38 @@
 
 <script lang="js">
 export default {
-  data() {
-    return {
-
+    data() {
+        return {
+            selectedCourse: 0
+        }
+    },
+    created() {
+        this.$root.sLayout = 'custom'
+    },
+    watch: {
+        selectedCourse: function () {
+            $('#msit_form').css('display', '');
+        }
+    },
+    methods: {
+        doCancel: function () {
+            let mSelf = this;
+            Swal.fire({
+                title: "Are you sure you want to cancel answering the form?",
+                text: "By cancelling, all your inputs will be reset and you will be redirected to homepage.",
+                icon: "warning",
+                showDenyButton: false,
+                showCancelButton: true,
+                confirmButtonText: `Yes`,
+                denyButtonText: `No`,
+                backdrop: `rgba(128, 128, 128, 0.4)`,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.$router.push('/home');
+                }
+            });
+        },
     }
-  },
-  created() {
-    this.$root.sLayout = 'custom'
-  },
-  methods: {
-
-  }
 }
 </script>
 

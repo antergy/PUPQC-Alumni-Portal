@@ -13,13 +13,17 @@
 			<List title="Navigation Title">
 				<ListItem text="Home" to="/home" />
 				<ListItem text="Messaging" to="/profile" />
-				<ListItem text="Alumni Directory" />
-				<ListItem text="Reports" >
+				<ListItem v-if="this.$root.sRootAccPos === 'Administrator'" text="Alumni Directory" />
+                <ListItem v-if="this.$root.sRootAccPos === 'Administrator'" text="Accounts Management" to="/admin/accounts"/>
+				<ListItem v-if="this.$root.sRootAccPos === 'Administrator'" text="Reports" >
 					<ListItem text="Post Activities" />
 					<ListItem text="Alumni Tracer Study" />
 					<ListItem text="System Logs" />
 				</ListItem>
-				<ListItem text="System Configuration" />
+				<ListItem v-if="this.$root.sRootAccPos === 'Administrator'" text="System Configuration">
+                    <ListItem text="Account Entities" to="/sysconfig/acc_entities" />
+                    <ListItem text="Form Entities" />
+                </ListItem>
 			</List>
 		</div>
 	</div>
@@ -39,6 +43,14 @@ export default {
 			active: false,
 		};
 	},
+    created() {
+	    this.test();
+    },
+    methods: {
+	    test: function () {
+
+        }
+    }
 };
 </script>
 

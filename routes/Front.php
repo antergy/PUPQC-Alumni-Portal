@@ -18,7 +18,9 @@ use Illuminate\Support\Facades\Route;
 /** NOTE: It is important that the vue routes are different from the web routes */
 $aAuthenticatedVueRoutes = [
     '/',
-    '/home'
+    '/home',
+    '/admin/accounts',
+    '/admin/sysconfig/acc_entities'
 ];
 foreach ($aAuthenticatedVueRoutes as $sRoute) {
     Route::get($sRoute, function () use ($sRoute) {
@@ -46,7 +48,8 @@ foreach ($aAuthenticatedVueRoutes as $sRoute) {
 $aPublicVueRoutes = [
   '/register',
   '/tracerIntro',
-  '/tracerForm'
+  '/tracerForm',
+  '/ug_tracerForm'
 ];
 foreach ($aPublicVueRoutes as $sRoute) {
     Route::get($sRoute, function () use ($sRoute) {
@@ -56,5 +59,6 @@ foreach ($aPublicVueRoutes as $sRoute) {
 
 Route::post('/login', 'AuthController@login');
 Route::post('/logout', 'AuthController@logout');
+Route::post('/alumni/account/create', 'RegistrationPageController@register');
 Route::get('/getSession', 'AuthController@getSession');
 

@@ -2,7 +2,7 @@
         <div class="login">
            <div style="width: 100%; height: 100%; display: flex">
                <div style="width: 70%; display: inline-block; box-shadow: 5px 10px 8px #888888; background-color: #ffffff">
-
+                   <img src="/img/wallpaper.jpg" style="width: 100%; height: 100%"/>
                </div>
                <div style="width: 30%; display: inline-block; text-align: left; background-color: #lightgrey;">
                    <div class="login__panel" style="width: 60%; margin: 20%">

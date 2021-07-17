@@ -35,18 +35,22 @@ class AccountValidator extends BaseValidator
     private static function rules()
     {
         return [
-            'acc_username' => ['required',
-                               'string'],
-            'acc_password' => ['required',
-                               'string'],
-            'acc_name'     => ['required',
-                               'string'],
-            'acc_email'    => ['required',
-                               'string'],
-            'acc_type'     => ['required',
-                               'numeric'],
-            'acc_status'   => ['required',
-                               'numeric'],
+            'acc_username'        => ['required',
+                                      'string'],
+            'acc_password'        => ['required',
+                                      'string'],
+            'acc_name'            => ['required',
+                                      'string'],
+            'acc_email'           => ['required',
+                                      'string'],
+            'acc_at_id'           => ['required',
+                                      'numeric'],
+            'acc_status'          => ['required',
+                                      'numeric'],
+            'acc_assoc_degree_id' => ['required',
+                                      'numeric'],
+            'acc_assoc_branch_id' => ['required',
+                                      'numeric'],
         ];
     }
 
