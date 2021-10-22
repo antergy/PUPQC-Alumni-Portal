@@ -6,21 +6,27 @@ import vueRouter from './plugins/router'
 import uiKit from './plugins/uiKit'
 import './plugins/fontawesome'
 import "tailwindcss/tailwind.css"
+import DataTable from 'laravel-vue-datatable';
+
+Vue.use(DataTable);
 
 const app = new Vue({
     el: '#app',
     router: vueRouter.router,
-    data : {
-        oToast    : null,
-        sRootUserId   : '',
-        sRootUsername : '',
-        sRootFullname : '',
-        sRootAccPos   : '',
-        sRootUserkey  : '',
-        sRootUserProfPic : '',
-        sLayout: ''
+    data: {
+        oToast: null,
+        sRootUserId: '',
+        sRootUsername: '',
+        sRootFullname: '',
+        sRootAccPos: '',
+        sRootUserkey: '',
+        sRootUserProfPic: '',
+        sLayout: '',
+        isModalModifyVisible: false,
+        isModalDisableVisible: false,
+        oSystemEntityModalData: []
     },
-    created(){
+    created() {
         uiKit()
         this.oToast = Swal.mixin({
             toast: true,
@@ -30,6 +36,7 @@ const app = new Vue({
         });
     },
     methods: {
+
 
         redirect: function (sRoute) {
             window.location.href = '/' + sRoute;

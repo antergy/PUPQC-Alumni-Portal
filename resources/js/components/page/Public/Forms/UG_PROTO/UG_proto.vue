@@ -39,7 +39,7 @@
                     <div class="form__input-group">
                         <div class="grid grid-flow-col auto-cols-max place-self-center">
                             <div class="m-1">
-                                <button type="button" class="form__button error info w-full place-self-center" @click="doCancel()">Cancel</button>
+                                <button type="button" class="form__button error info w-full place-self-center" @click="doCancel()" >Cancel</button>
                             </div>
                             <div class="m-1">
                                 <button type="button" class="form__button success w-full place-self-center">Save and Continue</button>

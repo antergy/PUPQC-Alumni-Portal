@@ -6,6 +6,8 @@ import CleanLayout from './layout/Layout/Clean/Clean.vue'
 import TopNav from './layout/Public/TopNav.vue'
 import CustomLayout from './layout/Layout/Public/Custom.vue'
 
+import SystemManageBranches from './page/Admin/SysConfig/SystemEntities/Manage_Branches.vue'
+
 const aComponentList = [
     { component: Layout, name: 'Layout' },
     { component: DefaultLayout, name: 'default' },
@@ -13,7 +15,8 @@ const aComponentList = [
     { component: CustomLayout, name: 'custom' },
     { component: Navigation, name: 'Navigation' },
     { component: Sidebar, name: 'Sidebar' },
-    { component: TopNav, name: 'TopNav' }
+    { component: TopNav, name: 'TopNav' },
+    { component: SystemManageBranches, name: 'SystemManageBranches'},
 ]
 
 export default aComponentList

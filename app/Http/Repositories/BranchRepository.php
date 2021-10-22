@@ -33,6 +33,7 @@ class BranchRepository extends CoreApiRepository
     public $aSearch = [
         'branch_id',
         'branch_name',
-        'branch_address'
+        'branch_address',
+        'status'
     ];
 }

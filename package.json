@@ -32,7 +32,11 @@
         "@fortawesome/free-solid-svg-icons": "^5.15.2",
         "@fortawesome/vue-fontawesome": "^2.0.2",
         "autoprefixer": "^10.2.4",
+        "bootstrap": "^5.1.0",
+        "datatables.net-dt": "^1.1.0",
+        "jquery": "^3.6.0",
         "laravel-mix-postcss-config": "^1.4.0",
+        "laravel-vue-datatable": "^0.6.0",
         "tailwindcss": "^2.0.2",
         "vue": "^2.6.12",
         "vue-router": "^3.4.9"

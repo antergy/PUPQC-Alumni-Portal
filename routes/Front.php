@@ -20,7 +20,8 @@ $aAuthenticatedVueRoutes = [
     '/',
     '/home',
     '/admin/accounts',
-    '/admin/sysconfig/acc_entities'
+    '/admin/sysconfig/acc_entities',
+    '/admin/sysconfig/sys_entities'
 ];
 foreach ($aAuthenticatedVueRoutes as $sRoute) {
     Route::get($sRoute, function () use ($sRoute) {

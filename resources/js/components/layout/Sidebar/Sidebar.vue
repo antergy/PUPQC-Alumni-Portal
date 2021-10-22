@@ -13,16 +13,17 @@
 			<List title="Navigation Title">
 				<ListItem text="Home" to="/home" />
 				<ListItem text="Messaging" to="/profile" />
-				<ListItem v-if="this.$root.sRootAccPos === 'Administrator'" text="Alumni Directory" />
-                <ListItem v-if="this.$root.sRootAccPos === 'Administrator'" text="Accounts Management" to="/admin/accounts"/>
-				<ListItem v-if="this.$root.sRootAccPos === 'Administrator'" text="Reports" >
+				<ListItem v-if="this.$root.sRootAccPos === 'Administrator' || this.$root.sRootAccPos === 'Superadmin'" text="Alumni Directory" />
+                <ListItem v-if="this.$root.sRootAccPos === 'Administrator' || this.$root.sRootAccPos === 'Superadmin'" text="Accounts Management" to="/admin/accounts"/>
+				<ListItem v-if="this.$root.sRootAccPos === 'Administrator' || this.$root.sRootAccPos === 'Superadmin'" text="Reports" >
 					<ListItem text="Post Activities" />
 					<ListItem text="Alumni Tracer Study" />
-					<ListItem text="System Logs" />
+					<ListItem v-if="this.$root.sRootAccPos === 'Superadmin'" text="System Logs" />
 				</ListItem>
-				<ListItem v-if="this.$root.sRootAccPos === 'Administrator'" text="System Configuration">
-                    <ListItem text="Account Entities" to="/sysconfig/acc_entities" />
+				<ListItem v-if="this.$root.sRootAccPos === 'Administrator' || this.$root.sRootAccPos === 'Superadmin'" text="System Configuration">
+                    <ListItem text="Account Entities" to="/admin/sysconfig/acc_entities" />
                     <ListItem text="Form Entities" />
+                    <ListItem  v-if="this.$root.sRootAccPos === 'Superadmin'" text="System Entities" to="/admin/sysconfig/sys_entities"/>
                 </ListItem>
 			</List>
 		</div>

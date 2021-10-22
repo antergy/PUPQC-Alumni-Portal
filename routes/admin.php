@@ -155,6 +155,7 @@ Route::prefix('admin')->group(function () {
      */
     Route::prefix('system')->group(function () {
         $aModules = [
+            'branch',
             'course',
             'degree',
             'acc_type',

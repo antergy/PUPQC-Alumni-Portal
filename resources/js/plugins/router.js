@@ -10,6 +10,7 @@ import TracerForm from "../components/page/Public/Forms/MSIT_PROTO/MSIT_proto.vu
 import TracerFormUG from "../components/page/Public/Forms/UG_PROTO/UG_proto.vue";
 import AdminMgt from "../components/page/Admin/AccountMgt.vue";
 import SysConfigAccEntities from "../components/page/Admin/SysConfig/AccountEntities.vue";
+import SysConfigSysEntities from "../components/page/Admin/SysConfig/SystemEntities.vue";
 
 Vue.use(VueRouter);
 
@@ -61,6 +62,11 @@ export default {
                 path: '/admin/sysconfig/acc_entities',
                 name: 'SysConfigAccEntities',
                 component: SysConfigAccEntities
+            },
+            {
+                path: '/admin/sysconfig/sys_entities',
+                name: 'SysConfigSysEntities',
+                component: SysConfigSysEntities
             }
         ]
     })
