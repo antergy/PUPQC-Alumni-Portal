@@ -6,26 +6,57 @@
             <span class="form__subtitle">Please answer the following:</span>
             <br>
             <div class="form__input-group">
-                <div v-if="questions !== null">
-                    <div v-for="question in questions" class="m-2 w-5/12" >
-                        <div class="m-2" v-if="question.fq_fqt_id === 1">
-                            <label class="form__label"> {{ question.fq_desc }} </label>
-                            <input type="text" :placeholder="question.fq_desc" class="form__input" :id="question.fq_id">
+                <div v-for="group in question_groups">
+                    <h1 class="question_group_title">{{ group.fqg_sequence_no }}. {{ group.fqg_desc }}</h1>
+                    <hr>
+                    <div v-if="questions !== null">
+                        <div v-for="question in questions" class="m-2 w-5/12" >
+                            <div v-if="question.fq_fqg_id === group.fqg_id">
+                                <!-- If question type is Fill in the blank -->
+                                <div class="m-2" v-if="question.fq_fqt_id === 1">
+                                    <label class="form__label"> {{ question.fq_desc }}: </label>
+                                    <input type="text" :placeholder="question.fq_desc" class="form__input" :id="question.fq_id">
+                                </div>
+                                <!-- If question type is Dropdown -->
+                                <div class="m-2" v-if="question.fq_fqt_id === 2">
+                                    <label class="form__label"> {{ question.fq_desc }}: </label>
+                                    <select name="branch" class="form__input place-self-center">
+                                        <option selected disabled> -- </option>
+                                        <option v-if="question.fq_id === choice.fqc_fq_id" v-for="choice in choices" v-bind:value="choice.fqc_id">
+                                            {{ choice.fqc_desc }}
+                                        </option>
+                                    </select>
+                                </div>
+                                <!-- If question type is radio button -->
+                                <div class="m-2" v-if="question.fq_fqt_id === 4">
+                                    <label class="form__label"> {{ question.fq_desc }}: </label>
+                                    <div v-for="choice in choices">
+                                        <div v-if="question.fq_id === choice.fqc_fq_id">
+                                            <input type="radio" :id="choice.fqc_id" :name="question.fq_desc"/>
+                                            <label :for="choice.fqc_desc">{{ choice.fqc_desc }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- If question type is checkboxes -->
+                                <div class="m-2" v-if="question.fq_fqt_id === 5">
+                                    <label class="form__label"> {{ question.fq_desc }}: </label>
+                                    <div v-for="choice in choices">
+                                        <div v-if="question.fq_id === choice.fqc_fq_id">
+                                            <input type="checkbox" :id="choice.fqc_id" :name="choice.fqc_desc"/>
+                                            <label :for="choice.fqc_desc">{{ choice.fqc_desc }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- If question type is ranking -->
+                                <div class="m-2" v-if="question.fq_fqt_id === 6">
+                                    <label class="form__label"> {{ question.fq_desc }}: </label>
+                                    <div>-- input field pending --</div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="m-2" v-if="question.fq_fqt_id === 2">
-                            <label class="form__label"> {{ question.fq_desc }} </label>
-                            <select name="branch" class="form__input place-self-center">
-                                <option v-for="choice in choices" v-bind:value="choice.fqc_id">
-                                    {{ choice.fqc_desc }}
-                                </option>
-                            </select>
-                        </div>
-                        <br>
                     </div>
                 </div>
             </div>
-            <p class="form__subtitle">Form Questions are still on the process of consolidation and development...</p>
-            <img src="/img/udercons.gif" style="width: 100%; height: 100%"/>
             <div>
                 <br><br>
                 <span class="form__title"> </span>
@@ -55,10 +86,11 @@
 <script lang="js">
 export default {
   data() {
-    return {
-        questions: [],
-        choices: []
-    }
+      return {
+          question_groups: [],
+          questions      : [],
+          choices        : []
+      }
   },
     created() {
         this.$root.sLayout = 'custom'
@@ -69,10 +101,17 @@ export default {
     },
     methods: {
         initForm: function () {
+            /** Get the form question groups by given form id */
+            this.$root.getRequest('admin/form/questions/group/read', (mResult) => {
+                this.question_groups = mResult.data
+            }, {fqg_form_id:1})
+
+            /** Get the form questions by active status = 1 */
             this.$root.getRequest('admin/form/questions/read', (mResult) => {
                this.questions = mResult.data
             }, {fq_active_status:1})
 
+            /** Get the form question choices */
             this.$root.getRequest('admin/form/questions/choices/read', (mResult) => {
                 this.choices = mResult.data
             })
