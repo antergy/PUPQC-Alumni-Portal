@@ -31,7 +31,6 @@ class GuzzleLib
 
         try {
             $sResult = $oClient->request($sMethod, $sUrl, $aOption)->getBody()->getContents();
-
             LogLib::LogProcesses($sMethod, $sUrl, $aOption, 'Successfully executed the request');
             return json_decode($sResult, true);
         } catch (GuzzleException $oException) {

@@ -1,5 +1,28 @@
 <template>
     <div>
+        <!-- FORM -->
+        <div class="mt-6 w-full ">
+            <div class="form outline w-full">
+                <h1 style="font-size: 18px; font-weight: bold">Add new branch details:</h1><br>
+                <div class="form__input-group w-7/12">
+                    <label class="form__label">Branch Name</label>
+                    <input id="branch_name_new" type="text" class="form__input">
+                </div>
+                <div class="form__input-group w-7/12">
+                    <label class="form__label">Branch Address</label>
+                    <input id="branch_addr_new" type="text" class="form__input">
+                </div>
+                <div class="grid grid-flow-col auto-cols-max">
+                    <div class="m-1">
+                        <button type="button" class="form__button w-full" @click="resetForm"> Clear All Entries&nbsp;</button>
+                    </div>
+                    <div class="m-1">
+                        <button type="button" class="form__button success w-full" @click="addBranch">&nbsp;Save&nbsp;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
         <!-- TABLE -->
         <table id="tbl_branch_list" class="cell-border m-2">
             <thead>
@@ -10,7 +33,8 @@
             </tr>
             </thead>
         </table>
-        <!-- MODAL -->
+
+        <!-- MODIFY MODAL -->
         <div v-show="$root.isModalModifyVisible" class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog"
              aria-modal="true">
             <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
@@ -60,6 +84,49 @@
                 </div>
             </div>
         </div>
+        <!-- DISABLE MODAL -->
+        <div v-show="$root.isModalDisableVisible" class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog"
+             aria-modal="true">
+            <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                <!-- Background overlay, show/hide based on modal state.-->
+                <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                <!-- This element is to trick the browser into centering the modal contents. -->
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                <!-- Modal Container -->
+                <div
+                    class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 lg:align-middle lg:max-w-lg lg:w-full">
+                    <!-- Modal Body -->
+                    <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                        <div class="sm:flex sm:items-start">
+                            <div class="text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
+                                <!-- Modal Header -->
+                                <h3 class="text-lg leading-6 font-medium text-gray-900">
+                                    Disable this record
+                                </h3>
+                                <!-- Modal Content -->
+                                <div class="mt-6 w-full">
+                                    By disabling this record, it will not be seen in the public pages and records. <br>
+                                    Are you sure you want to proceed?
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal Footer -->
+                    <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                        <button type="button"
+                                class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                                style="background-color: #EF4444; color: white; border-radius: 10px">
+                            Disable
+                        </button>
+                        <button type="button"
+                                class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                                @click="closeModal">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -94,6 +161,7 @@ export default {
         getBranchList: function () {
             let mSelf = this;
             let sUrl = '/admin/system/branch/read';
+            $('#tbl_branch_list').DataTable().destroy();
             $('#tbl_branch_list').DataTable({
                 "ajax": {
                     url: sUrl,
@@ -119,18 +187,45 @@ export default {
         },
 
         /**
-         *
+         * Resets form for adding new branch details
+         */
+        resetForm: function () {
+            $('#branch_name_new').val('');
+            $('#branch_addr_new').val('');
+        },
+
+        /**
+         * Add new branch details
+         */
+        addBranch: function () {
+            let oParam = {
+                'branch_name'   : $('#branch_name_new').val(),
+                'branch_address': $('#branch_addr_new').val()
+            };
+            this.$root.postRequest('admin/system/branch/create', oParam, (mResponse) => {
+                if (mResponse.code === 200) {
+                    this.$root.showSuccessToast('Success', 'Successfully registered an account');
+                    this.resetForm();
+                    this.getBranchList();
+                } else {
+                    this.$root.showErrorToast('Error', mResponse.message);
+                }
+            });
+        },
+
+        /**
+         * Initialize button modal trigger
          */
         initActionBtnModalTrigger: function () {
             let mSelf = this;
+            /** Init behavior for modify button */
             $(document).on('click', '.sys_ent_modify', function () {
                 mSelf.showModal('Modify');
                 mSelf.oModalData = JSON.parse(decodeURIComponent(this.dataset.response));
                 $('#branch_name').val(mSelf.oModalData.data.branch_name);
                 $('#branch_addr').val(mSelf.oModalData.data.branch_address);
             });
-
-
+            /** Init behavior for disable button */
             $(document).on('click', '.sys_ent_disable', function () {
                 mSelf.$root.oSystemEntityModalData = JSON.parse(decodeURIComponent(this.dataset.response));
                 mSelf.showModal('Disable');
