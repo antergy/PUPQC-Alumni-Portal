@@ -28,24 +28,16 @@
                     <Manage_Branches />
                 </div>
                 <div id="second" class="hidden p-4">
-                    <table id="tbl_course_list" class="cell-border m-2">
-                        <thead>
-                        <tr>
-                            <th>Course / Program Acronym</th>
-                            <th>Course / Program Desc</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-                    </table>
+                    <Manage_Courses />
                 </div>
                 <div id="third" class="hidden p-4">
-                    Third tab
+                    <Manage_Degree />
                 </div>
                 <div id="fourth" class="hidden p-4">
-                    Fourth tab
+                    <Manage_PostTypes />
                 </div>
                 <div id="fifth" class="hidden p-4">
-                    Fourth tab
+                    <Manage_Industry />
                 </div>
             </div>
         </div>
@@ -54,9 +46,17 @@
 
 <script>
 import Manage_Branches from "./SystemEntities/Manage_Branches";
+import Manage_Courses from "./SystemEntities/Manage_Courses";
+import Manage_Degree from "./SystemEntities/Manage_Degree";
+import Manage_PostTypes from "./SystemEntities/Manage_PostTypes";
+import Manage_Industry from "./SystemEntities/Manage_Industry";
 export default {
     components: {
-        Manage_Branches
+        Manage_Branches,
+        Manage_Courses,
+        Manage_Degree,
+        Manage_PostTypes,
+        Manage_Industry,
     },
     data() {
         return {
