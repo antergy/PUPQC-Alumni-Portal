@@ -3,32 +3,27 @@
         <!-- FORM -->
         <div class="mt-6 w-full ">
             <div class="form outline w-full">
-                <h1 style="font-size: 18px; font-weight: bold">Add new branch details:</h1><br>
+                <h1 style="font-size: 18px; font-weight: bold">Add new academic degree record:</h1><br>
                 <div class="form__input-group w-7/12">
-                    <label class="form__label">Branch Name</label>
-                    <input id="branch_name_new" type="text" class="form__input">
-                </div>
-                <div class="form__input-group w-7/12">
-                    <label class="form__label">Branch Address</label>
-                    <input id="branch_addr_new" type="text" class="form__input">
+                    <label class="form__label">Academic Degree Description</label>
+                    <input id="degree_desc_new" type="text" class="form__input">
                 </div>
                 <div class="grid grid-flow-col auto-cols-max">
                     <div class="m-1">
-                        <button type="button" class="form__button w-full" @click="resetForm"> Clear All Entries&nbsp;</button>
+                        <button type="button" class="form__button w-full" @click="resetForm"> Clear Entry&nbsp;</button>
                     </div>
                     <div class="m-1">
-                        <button type="button" class="form__button success w-full" @click="addBranch">&nbsp;Save&nbsp;</button>
+                        <button type="button" class="form__button success w-full" @click="addDegree">&nbsp;Save&nbsp;</button>
                     </div>
                 </div>
             </div>
         </div>
         <br>
         <!-- TABLE -->
-        <table id="tbl_branch_list" class="cell-border m-2">
+        <table id="tbl_degree_list" class="cell-border m-2" style="width: 100%">
             <thead>
             <tr>
-                <th>Branch Name</th>
-                <th>Address</th>
+                <th>Academic Degree</th>
                 <th>Action</th>
             </tr>
             </thead>
@@ -57,12 +52,8 @@
                                 <div class="mt-6 w-full">
                                     <div class="form outline w-full">
                                         <div class="form__input-group w-11/12">
-                                            <label class="form__label">Branch Name</label>
-                                            <input id="branch_name" type="text" class="form__input">
-                                        </div>
-                                        <div class="form__input-group w-11/12">
-                                            <label class="form__label">Branch Address</label>
-                                            <input id="branch_addr" type="text" class="form__input">
+                                            <label class="form__label">Academic Degree Description</label>
+                                            <input id="course_desc" type="text" class="form__input">
                                         </div>
                                     </div>
                                 </div>
@@ -139,8 +130,7 @@ export default {
     ],
     data() {
         return {
-            aBranchesData    : [],
-            oModalData       : [],
+            oModalData: [],
         };
     },
     watch: {
@@ -152,25 +142,24 @@ export default {
         this.initActionBtnModalTrigger();
     },
     mounted() {
-        this.getBranchList();
+        this.getDegreeList();
     },
     methods: {
         /**
-         * Get all registered accounts
+         * Get all academic degree
          */
-        getBranchList: function () {
+        getDegreeList: function () {
             let mSelf = this;
-            let sUrl = '/admin/system/branch/read';
-            $('#tbl_branch_list').DataTable().destroy();
-            $('#tbl_branch_list').DataTable({
+            let sUrl = '/admin/system/degree/read';
+            $('#tbl_degree_list').DataTable().destroy();
+            $('#tbl_degree_list').DataTable({
                 "ajax": {
                     url: sUrl,
                     dataSrc: function (json) {
                         var reformatted_data = [];
                         $.each(json.data, function (key, value) {
                             reformatted_data.push({
-                                'branch_name': value.branch_name,
-                                'branch_address': value.branch_address,
+                                'degree_desc': value.degree_desc,
                                 'action': mSelf.setActionButton(sUrl, value, value.status),
                             })
                         });
@@ -178,8 +167,7 @@ export default {
                     }
                 },
                 "columns": [
-                    {data: 'branch_name'},
-                    {data: 'branch_address'},
+                    {data: 'degree_desc'},
                     {data: 'action'}
                 ],
                 "order": [[0, "asc"]]
@@ -190,23 +178,21 @@ export default {
          * Resets form for adding new branch details
          */
         resetForm: function () {
-            $('#branch_name_new').val('');
-            $('#branch_addr_new').val('');
+            $('#degree_desc_new').val('');
         },
 
         /**
          * Add new branch details
          */
-        addBranch: function () {
+        addDegree: function () {
             let oParam = {
-                'branch_name'   : $('#branch_name_new').val(),
-                'branch_address': $('#branch_addr_new').val()
+                'degree_desc'   : $('#degree_desc_new').val(),
             };
-            this.$root.postRequest('admin/system/branch/create', oParam, (mResponse) => {
+            this.$root.postRequest('admin/system/degree/create', oParam, (mResponse) => {
                 if (mResponse.code === 200) {
-                    this.$root.showSuccessToast('Success', 'Successfully registered an account');
+                    this.$root.showSuccessToast('Success', 'Successfully created a degree record');
                     this.resetForm();
-                    this.getBranchList();
+                    this.getDegreeList();
                 } else {
                     this.$root.showErrorToast('Error', mResponse.message);
                 }
@@ -222,8 +208,8 @@ export default {
             $(document).on('click', '.sys_ent_modify', function () {
                 mSelf.showModal('Modify');
                 mSelf.oModalData = JSON.parse(decodeURIComponent(this.dataset.response));
-                $('#branch_name').val(mSelf.oModalData.data.branch_name);
-                $('#branch_addr').val(mSelf.oModalData.data.branch_address);
+                $('#course_desc').val(mSelf.oModalData.data.course_desc);
+                $('#course_acronym').val(mSelf.oModalData.data.course_acronym);
             });
             /** Init behavior for disable button */
             $(document).on('click', '.sys_ent_disable', function () {

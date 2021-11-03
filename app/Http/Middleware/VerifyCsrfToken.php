@@ -177,5 +177,8 @@ class VerifyCsrfToken extends Middleware
         // Alumni Competencies Management API routes (temp exclusion)
         'v1/alumni/competency/create',
         'v1/alumni/competency/deleteByAlumni',
+
+        // New routes from system mgt
+        'v1/branch/create',
     ];
 }

@@ -7,6 +7,10 @@ import TopNav from './layout/Public/TopNav.vue'
 import CustomLayout from './layout/Layout/Public/Custom.vue'
 
 import SystemManageBranches from './page/Admin/SysConfig/SystemEntities/Manage_Branches.vue'
+import SystemManageCourses from './page/Admin/SysConfig/SystemEntities/Manage_Courses.vue'
+import SystemManageDegree from './page/Admin/SysConfig/SystemEntities/Manage_Degree.vue'
+import SystemManagePostTypes from './page/Admin/SysConfig/SystemEntities/Manage_PostTypes.vue'
+import SystemManageIndustry from './page/Admin/SysConfig/SystemEntities/Manage_Industry.vue'
 
 const aComponentList = [
     { component: Layout, name: 'Layout' },
@@ -17,6 +21,10 @@ const aComponentList = [
     { component: Sidebar, name: 'Sidebar' },
     { component: TopNav, name: 'TopNav' },
     { component: SystemManageBranches, name: 'SystemManageBranches'},
+    { component: SystemManageCourses, name: 'SystemManageCourses'},
+    { component: SystemManageDegree, name: 'SystemManageDegree'},
+    { component: SystemManagePostTypes, name: 'SystemManagePostTypes'},
+    { component: SystemManageIndustry, name: 'SystemManageIndustry'},
 ]
 
 export default aComponentList

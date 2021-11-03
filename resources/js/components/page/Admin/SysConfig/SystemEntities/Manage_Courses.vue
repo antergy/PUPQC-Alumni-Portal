@@ -3,14 +3,14 @@
         <!-- FORM -->
         <div class="mt-6 w-full ">
             <div class="form outline w-full">
-                <h1 style="font-size: 18px; font-weight: bold">Add new branch details:</h1><br>
+                <h1 style="font-size: 18px; font-weight: bold">Add new course record:</h1><br>
                 <div class="form__input-group w-7/12">
-                    <label class="form__label">Branch Name</label>
-                    <input id="branch_name_new" type="text" class="form__input">
+                    <label class="form__label">Course Description</label>
+                    <input id="course_desc_new" type="text" class="form__input">
                 </div>
                 <div class="form__input-group w-7/12">
-                    <label class="form__label">Branch Address</label>
-                    <input id="branch_addr_new" type="text" class="form__input">
+                    <label class="form__label">Course Acronym</label>
+                    <input id="course_acronym_new" type="text" class="form__input">
                 </div>
                 <div class="grid grid-flow-col auto-cols-max">
                     <div class="m-1">
@@ -24,11 +24,11 @@
         </div>
         <br>
         <!-- TABLE -->
-        <table id="tbl_branch_list" class="cell-border m-2">
+        <table id="tbl_course_list" class="cell-border m-2" style="width: 100%">
             <thead>
             <tr>
-                <th>Branch Name</th>
-                <th>Address</th>
+                <th>Course Desc</th>
+                <th>Course Acronym</th>
                 <th>Action</th>
             </tr>
             </thead>
@@ -57,12 +57,12 @@
                                 <div class="mt-6 w-full">
                                     <div class="form outline w-full">
                                         <div class="form__input-group w-11/12">
-                                            <label class="form__label">Branch Name</label>
-                                            <input id="branch_name" type="text" class="form__input">
+                                            <label class="form__label">Course Description</label>
+                                            <input id="course_desc" type="text" class="form__input">
                                         </div>
                                         <div class="form__input-group w-11/12">
-                                            <label class="form__label">Branch Address</label>
-                                            <input id="branch_addr" type="text" class="form__input">
+                                            <label class="form__label">Course Acronym</label>
+                                            <input id="course_acronym" type="text" class="form__input">
                                         </div>
                                     </div>
                                 </div>
@@ -139,8 +139,7 @@ export default {
     ],
     data() {
         return {
-            aBranchesData    : [],
-            oModalData       : [],
+            oModalData: [],
         };
     },
     watch: {
@@ -152,25 +151,25 @@ export default {
         this.initActionBtnModalTrigger();
     },
     mounted() {
-        this.getBranchList();
+        this.getCourseList();
     },
     methods: {
         /**
          * Get all registered accounts
          */
-        getBranchList: function () {
+        getCourseList: function () {
             let mSelf = this;
-            let sUrl = '/admin/system/branch/read';
-            $('#tbl_branch_list').DataTable().destroy();
-            $('#tbl_branch_list').DataTable({
+            let sUrl = '/admin/system/course/read';
+            $('#tbl_course_list').DataTable().destroy();
+            $('#tbl_course_list').DataTable({
                 "ajax": {
                     url: sUrl,
                     dataSrc: function (json) {
                         var reformatted_data = [];
                         $.each(json.data, function (key, value) {
                             reformatted_data.push({
-                                'branch_name': value.branch_name,
-                                'branch_address': value.branch_address,
+                                'course_desc': value.course_desc,
+                                'course_acronym': value.course_acronym,
                                 'action': mSelf.setActionButton(sUrl, value, value.status),
                             })
                         });
@@ -178,8 +177,8 @@ export default {
                     }
                 },
                 "columns": [
-                    {data: 'branch_name'},
-                    {data: 'branch_address'},
+                    {data: 'course_desc'},
+                    {data: 'course_acronym'},
                     {data: 'action'}
                 ],
                 "order": [[0, "asc"]]
@@ -190,8 +189,8 @@ export default {
          * Resets form for adding new branch details
          */
         resetForm: function () {
-            $('#branch_name_new').val('');
-            $('#branch_addr_new').val('');
+            $('#course_desc_new').val('');
+            $('#course_acronym_new').val('');
         },
 
         /**
@@ -199,14 +198,14 @@ export default {
          */
         addBranch: function () {
             let oParam = {
-                'branch_name'   : $('#branch_name_new').val(),
-                'branch_address': $('#branch_addr_new').val()
+                'course_desc'   : $('#course_desc_new').val(),
+                'branch_address': $('#course_acronym_new').val()
             };
-            this.$root.postRequest('admin/system/branch/create', oParam, (mResponse) => {
+            this.$root.postRequest('admin/system/course/create', oParam, (mResponse) => {
                 if (mResponse.code === 200) {
-                    this.$root.showSuccessToast('Success', 'Successfully registered an account');
+                    this.$root.showSuccessToast('Success', 'Successfully created a course record');
                     this.resetForm();
-                    this.getBranchList();
+                    this.getCourseList();
                 } else {
                     this.$root.showErrorToast('Error', mResponse.message);
                 }
@@ -222,8 +221,8 @@ export default {
             $(document).on('click', '.sys_ent_modify', function () {
                 mSelf.showModal('Modify');
                 mSelf.oModalData = JSON.parse(decodeURIComponent(this.dataset.response));
-                $('#branch_name').val(mSelf.oModalData.data.branch_name);
-                $('#branch_addr').val(mSelf.oModalData.data.branch_address);
+                $('#course_desc').val(mSelf.oModalData.data.course_desc);
+                $('#course_acronym').val(mSelf.oModalData.data.course_acronym);
             });
             /** Init behavior for disable button */
             $(document).on('click', '.sys_ent_disable', function () {
