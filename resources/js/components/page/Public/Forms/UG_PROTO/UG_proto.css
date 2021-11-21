@@ -7,7 +7,7 @@ table, td, th {
 }
 
 .tracer_form {
-    @apply px-4 mt-4 w-8/12;
+    @apply px-4 mt-4 w-4/5;
 }
 .question_group_title {
     font-size: 18px;
@@ -125,4 +125,18 @@ table, td, th {
  }
 }
 }
+}
+
+.form__generated {
+    margin-bottom: 15px;
+    margin-left: 10px;
+}
+
+.form__input_box, .form__select {
+    width: 30%;
+    display: inline-block;
+}
+
+.hidden {
+    display: none !important;
 }

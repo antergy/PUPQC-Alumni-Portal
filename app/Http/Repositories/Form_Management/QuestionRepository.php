@@ -49,6 +49,7 @@ class QuestionRepository extends CoreApiRepository
         'fq_fqg_id',
         'fq_fqt_id',
         'fq_secondary_fqt_id',
+        'fq_is_required',
         'fq_active_status',
     ];
 
@@ -93,4 +94,5 @@ class QuestionRepository extends CoreApiRepository
         $sOperator = '=';
         $this->oModel = $this->oModel->join('r_form_question_type', $sReferenceKey, $sOperator, $sForeignKey, $sType);
     }
+
 }
