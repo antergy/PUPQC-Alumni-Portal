@@ -62,7 +62,7 @@
                                 <button type="button" class="form__button error info w-full place-self-center" @click="doCancel()" >Cancel</button>
                             </div>
                             <div class="m-1">
-                                <button type="button" class="form__button success w-full place-self-center">Save and Continue</button>
+                                <button type="button" class="form__button success w-full place-self-center" @click="save()">Save and Continue</button>
                             </div>
                         </div>
                     </div>
@@ -83,7 +83,8 @@
             return {
                 question_groups: [],
                 questions: [],
-                choices: []
+                choices: [],
+                answered_form: []
             }
         },
         created() {
@@ -130,6 +131,8 @@
                 let oTempLabel = oTempMedium.find('.form__label');
                 oTempLabel.text(this.generateTextForQuestionLabel(sQuestionDesc, bIsRequired));
                 oTempMedium.attr('id', 'textBox-' + iQuestionId + '-' + iSequence);
+                oTempMedium.find('input').attr('form_question_id', iQuestionId);
+                oTempMedium.find('input').attr('form_question_type', 'input');
                 oTempMedium.find('input').prop('required', bIsRequired);
                 $('#form_questions').append(oTempMedium);
             },
@@ -150,6 +153,8 @@
                     oTempChoices.find('input').attr('type', sButtonType);
                     oTempChoices.find('input').attr('value', oChoice.fqc_desc);
                     oTempChoices.find('input').prop('required', bIsRequired);
+                    oTempChoices.find('input').attr('form_question_id', iQuestionId);
+                    oTempChoices.find('input').attr('form_question_type', sButtonType);
                     oTempMedium.append(oTempChoices);
                 });
                 $('#form_questions').append(oTempMedium);
@@ -162,6 +167,8 @@
                 let oTempLabel = oTempMedium.find('.form__label');
                 oTempLabel.text(this.generateTextForQuestionLabel(sQuestionDesc, bIsRequired));
                 oTempSelect.prop('required', bIsRequired);
+                oTempSelect.attr('form_question_id', iQuestionId);
+                oTempSelect.attr('form_question_type', 'select');
                 this.choices.filter(oValues => { return (oValues.fqc_fq_id ===  iQuestionId)}).forEach((oChoice) => {
                     let oTempChoices = oTempSelect.find('option.template').clone().removeClass(['hidden', 'template']);
                     oTempChoices.text(oChoice.fqc_desc);
@@ -202,12 +209,18 @@
                     let oTdInput = oTempTbodyTr.find('.td_rank_button.template').clone().removeClass(['hidden', 'template']);
                     oTdInput.find('input').val(oRank.value);
                     oTdInput.find('input').attr('name', 'radio1-'  + iQuestionGroupId + '-' + iQuestionType + '-' + iSecondaryQuestionType);
+                    oTdInput.find('input').attr('form_question_id', iQuestionId);
+                    oTdInput.find('input').attr('form_question_type', 'ranking');
+                    oTdInput.find('input').attr('is_secondary', false);
                     oTempTbodyTr.find('.td_rank_desc').after(oTdInput);
                 });
                 oRankSet2.forEach((oRank) => {
                     let oTdInput = oTempTbodyTr.find('.td_rank_button.template').clone().removeClass(['hidden', 'template']);
                     oTdInput.find('input').val(oRank.value);
                     oTdInput.find('input').attr('name', 'radio2-'  + iQuestionGroupId + '-' + iQuestionType + '-' + iSecondaryQuestionType);
+                    oTdInput.find('input').attr('form_question_id', iQuestionId);
+                    oTdInput.find('input').attr('form_question_type', 'ranking');
+                    oTdInput.find('input').attr('is_secondary', true);
                     oTempTbodyTr.find('.td_rank_desc').before(oTdInput);
                 });
                 $('#' + sCurrId).find('tbody').append(oTempTbodyTr);
@@ -248,6 +261,24 @@
                     }
                 });
             },
+            save: function() {
+                let oThis = this;
+                oThis.answered_form = [];
+                $('[form_question_id]').not('.template').each(function(iIndex, oElement) {
+                    oElement = $(oElement);
+                    let sType = oElement.attr('form_question_type');
+                    let iQuestionId = oElement.attr('form_question_id');
+                    let mAnswer = (sType === 'input' || sType === 'select') ?  oElement.val() : ((oElement.is(':checked') === true) ? oElement.val() : null);
+                    let bIsSecondary = (oElement.attr('is_secondary') === "true");
+                    if(mAnswer !== null) {
+                        oThis.answered_form.push({
+                            fa_fq_id : iQuestionId,
+                            fa_answer : mAnswer,
+                            fa_is_secondary_answer : bIsSecondary
+                        });
+                    }
+                });
+            }
         }
     }
 </script>
