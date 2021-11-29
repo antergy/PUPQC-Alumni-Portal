@@ -5,11 +5,11 @@
             <h1 class="question_group_title template hidden"></h1>
             <hr class="form__hr template hidden"/>
             <div class="form__generated form__input_box template hidden">
-                <label class="form__label"></label>
+                <label class="form__label form_error_handler"></label>
                 <input type="text" class="form__input ">
             </div>
             <div class="form__generated form__select template hidden">
-                <label class="form__label"></label>
+                <label class="form__label form_error_handler"></label>
                 <select class="form__input place-self-center">
                     <option selected disabled> -- </option>
                     <option class="template hidden"> -- </option>
@@ -17,7 +17,7 @@
             </div>
 
             <div class="form__generated form__button_choices template hidden">
-                <label class="form__label"></label>
+                <label class="form__label form_error_handler"></label>
                 <div class="form__choices template hidden">
                     <input />
                     <label />
@@ -32,8 +32,10 @@
                 </thead>
                 <tbody>
                     <tr class="tr_rank template hidden">
-                        <td class="td_rank_desc"></td>
-                        <td class="td_rank_button template hidden"> <input type="radio" class="form__input"></td>
+                        <td class="td_rank_desc form_error_handler"></td>
+                        <td class="td_rank_button template hidden">
+                            <input type="radio" class="form__input">
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -108,14 +110,16 @@
             initGeneration() {
                 $('#form_questions').html('');
                 let oThis = this;
+                let iSequence = 0;
                 oThis.question_groups.forEach((mQuestionGroupValue, mQuestionGroupIndex) => {
                     oThis.generateHeader(mQuestionGroupValue.fqg_sequence_no, mQuestionGroupValue.fqg_desc);
                     oThis.questions.filter(oValues => { return (oValues.fq_fqg_id ===  mQuestionGroupValue.fqg_id)}).forEach((mQuestionValue, mQuestionIndex) => {
                         let bIsRequired = mQuestionValue.fq_is_required === 1;
+                        iSequence ++;
                         oThis.generateTextBoxQuestions(mQuestionValue.fq_fqt_id, mQuestionValue.fq_id, mQuestionValue.fq_sequence_no, mQuestionValue.fq_desc, bIsRequired);
                         oThis.generateButtonQuestions(mQuestionValue.fq_fqt_id, mQuestionValue.fq_id, mQuestionValue.fq_sequence_no, mQuestionValue.fq_desc, bIsRequired);
                         oThis.generateDropdownQuestions(mQuestionValue.fq_fqt_id, mQuestionValue.fq_id, mQuestionValue.fq_sequence_no, mQuestionValue.fq_desc, bIsRequired);
-                        oThis.generateRankingQuestions(mQuestionValue.fq_fqt_id, mQuestionValue.fq_secondary_fqt_id, mQuestionGroupValue.fqg_id, mQuestionValue.fq_id, mQuestionValue.fq_sequence_no, mQuestionValue.fq_desc, bIsRequired);
+                        oThis.generateRankingQuestions(mQuestionValue.fq_fqt_id, mQuestionValue.fq_secondary_fqt_id, mQuestionGroupValue.fqg_id, mQuestionValue.fq_id, iSequence, mQuestionValue.fq_desc, bIsRequired);
                     });
                 })
             },
@@ -155,6 +159,7 @@
                     oTempChoices.find('input').prop('required', bIsRequired);
                     oTempChoices.find('input').attr('form_question_id', iQuestionId);
                     oTempChoices.find('input').attr('form_question_type', sButtonType);
+                    oTempChoices.find('input').prop('checked', true);
                     oTempMedium.append(oTempChoices);
                 });
                 $('#form_questions').append(oTempMedium);
@@ -205,22 +210,27 @@
                 }
                 let oTempTbodyTr = $('#' + sCurrId).find('.tr_rank.template').clone().removeClass(['hidden', 'template']);
                 oTempTbodyTr.find('.td_rank_desc').text(sQuestionDesc);
+                oTempTbodyTr.attr('required', bIsRequired);
+                let sCurrName = iQuestionGroupId + '-' + iQuestionType + '-' + iSecondaryQuestionType + '-' + iSequence;
+                iSequence++;
                 oRankSet1.forEach((oRank) => {
                     let oTdInput = oTempTbodyTr.find('.td_rank_button.template').clone().removeClass(['hidden', 'template']);
                     oTdInput.find('input').val(oRank.value);
-                    oTdInput.find('input').attr('name', 'radio1-'  + iQuestionGroupId + '-' + iQuestionType + '-' + iSecondaryQuestionType);
+                    oTdInput.find('input').attr('name', 'radio1-'  + sCurrName);
                     oTdInput.find('input').attr('form_question_id', iQuestionId);
                     oTdInput.find('input').attr('form_question_type', 'ranking');
                     oTdInput.find('input').attr('is_secondary', false);
+                    oTdInput.find('input').prop('checked', true);
                     oTempTbodyTr.find('.td_rank_desc').after(oTdInput);
                 });
                 oRankSet2.forEach((oRank) => {
                     let oTdInput = oTempTbodyTr.find('.td_rank_button.template').clone().removeClass(['hidden', 'template']);
                     oTdInput.find('input').val(oRank.value);
-                    oTdInput.find('input').attr('name', 'radio2-'  + iQuestionGroupId + '-' + iQuestionType + '-' + iSecondaryQuestionType);
+                    oTdInput.find('input').attr('name', 'radio2-'  + sCurrName);
                     oTdInput.find('input').attr('form_question_id', iQuestionId);
                     oTdInput.find('input').attr('form_question_type', 'ranking');
                     oTdInput.find('input').attr('is_secondary', true);
+                    oTdInput.find('input').prop('checked', true);
                     oTempTbodyTr.find('.td_rank_desc').before(oTdInput);
                 });
                 $('#' + sCurrId).find('tbody').append(oTempTbodyTr);
@@ -264,18 +274,26 @@
             save: function() {
                 let oThis = this;
                 oThis.answered_form = [];
+                $('.form_error_handler').css('color', '');
                 $('[form_question_id]').not('.template').each(function(iIndex, oElement) {
                     oElement = $(oElement);
                     let sType = oElement.attr('form_question_type');
                     let iQuestionId = oElement.attr('form_question_id');
                     let mAnswer = (sType === 'input' || sType === 'select') ?  oElement.val() : ((oElement.is(':checked') === true) ? oElement.val() : null);
                     let bIsSecondary = (oElement.attr('is_secondary') === "true");
-                    if(mAnswer !== null) {
+                    if (mAnswer !== null && mAnswer.length > 0) {
                         oThis.answered_form.push({
                             fa_fq_id : iQuestionId,
                             fa_answer : mAnswer,
                             fa_is_secondary_answer : bIsSecondary
                         });
+                        oElement.siblings('.form_error_handler').addClass('exclude').css('color', '');
+                        oElement.closest('.form__choices').siblings('.form_error_handler').addClass('exclude').css('color', '');
+                        oElement.closest('.tr_rank').find('.form_error_handler').addClass('exclude').css('color', '');
+                    } else if (oElement.prop('required') === true || oElement.attr('required') === 'true' || oElement.attr('required') === 'required' || oElement.closest('.tr_rank').attr('required') === 'required') {
+                        oElement.siblings('.form_error_handler').not('.exclude').css('color', 'red');
+                        oElement.closest('.form__choices').siblings('.form_error_handler').not('.exclude').css('color', 'red');
+                        oElement.closest('.tr_rank').find('.form_error_handler').not('.exclude').css('color', 'red');
                     }
                 });
             }
