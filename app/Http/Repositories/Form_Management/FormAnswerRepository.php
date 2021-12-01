@@ -47,7 +47,9 @@ class FormAnswerRepository extends CoreApiRepository
         'fa_answer',
         'fa_fq_id',
         'fa_acc_id',
+        'fa_is_secondary_answer'
     ];
+
 
     /**
      * Fields allowed to be filtered by "LIKE"

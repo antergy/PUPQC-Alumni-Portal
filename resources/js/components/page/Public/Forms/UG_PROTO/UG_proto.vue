@@ -86,7 +86,8 @@
                 question_groups: [],
                 questions: [],
                 choices: [],
-                answered_form: []
+                answered_form: [],
+                answered_error: [],
             }
         },
         created() {
@@ -252,7 +253,7 @@
                 /** Get the form question choices */
                 this.$root.getRequest('admin/form/questions/choices/read', (mResult) => {
                     this.choices = mResult.data
-                })
+                });
             },
             doCancel: function () {
                 let mSelf = this;
@@ -274,6 +275,7 @@
             save: function() {
                 let oThis = this;
                 oThis.answered_form = [];
+                oThis.answered_error = [];
                 $('.form_error_handler').css('color', '');
                 $('[form_question_id]').not('.template').each(function(iIndex, oElement) {
                     oElement = $(oElement);
@@ -285,16 +287,34 @@
                         oThis.answered_form.push({
                             fa_fq_id : iQuestionId,
                             fa_answer : mAnswer,
-                            fa_is_secondary_answer : bIsSecondary
+                            fa_is_secondary_answer : bIsSecondary,
+                            fa_acc_id  : 1
                         });
                         oElement.siblings('.form_error_handler').addClass('exclude').css('color', '');
                         oElement.closest('.form__choices').siblings('.form_error_handler').addClass('exclude').css('color', '');
                         oElement.closest('.tr_rank').find('.form_error_handler').addClass('exclude').css('color', '');
-                    } else if (oElement.prop('required') === true || oElement.attr('required') === 'true' || oElement.attr('required') === 'required' || oElement.closest('.tr_rank').attr('required') === 'required') {
+                    } else if (oElement.prop('required') === true || oElement.attr('required') === 'true' || oElement.attr('required') === 'required'  || oElement.closest('.tr_rank').attr('required') === 'required') {
                         oElement.siblings('.form_error_handler').not('.exclude').css('color', 'red');
                         oElement.closest('.form__choices').siblings('.form_error_handler').not('.exclude').css('color', 'red');
                         oElement.closest('.tr_rank').find('.form_error_handler').not('.exclude').css('color', 'red');
+                        if ($(oElement).parents('.exclude').length <= 0 && sType !== 'radio' && sType !== 'checkbox' && sType !== 'ranking') {
+                            oThis.answered_error.push(oElement);
+                        }
+
                     }
+                });
+                if (oThis.answered_error.length > 0) {
+                    return $(oThis.answered_error[0])[0].scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'start' });
+                }
+
+                this.$root.postRequest('v1/form/questions/answers/create/multiple', { oData : oThis.answered_form}, (mResult) => {
+                    Swal.fire({
+                        title: "Success",
+                        text: mResult.message,
+                        icon: "success",
+                        showDenyButton: false,
+                        backdrop: `rgba(128, 128, 128, 0.4)`,
+                    });
                 });
             }
         }

@@ -80,6 +80,7 @@ Route::prefix('v1')->group(function () {
             Route::prefix('answers')->group(function() use ($sParentNamespace) {
                 Route::get('read', "{$sParentNamespace}\FormAnswerApiController@getAll");
                 Route::post('create', "{$sParentNamespace}\FormAnswerApiController@create");
+                Route::post('create/multiple', "{$sParentNamespace}\FormAnswerApiController@createMultiple");
                 Route::post('update', "{$sParentNamespace}\FormAnswerApiController@update");
                 Route::post('delete', "{$sParentNamespace}\FormAnswerApiController@delete");
             });

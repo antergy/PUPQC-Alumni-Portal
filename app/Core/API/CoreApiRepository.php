@@ -143,9 +143,10 @@ abstract class CoreApiRepository
      */
     public function createRecord($aData)
     {
+
         $sSql = $this->oModel->getGrammar()->compileInsert($this->oModel, $aData);
         foreach ($aData as $mData) {
-            $sSql = str_replace('?', $mData, $sSql);
+            $sSql = preg_replace('/\?/', $mData, $sSql, 1);
         }
 
         /** Logs before executing query */
@@ -167,6 +168,40 @@ abstract class CoreApiRepository
         LogLib::LogAPI($aProcessInfo, $sSql, 'Done executing query', $aData);
 
         return $aData;
+    }
+
+    /**
+     * Method for creating/inserting rows
+     *
+     * @param array $aData
+     * @return mixed
+     */
+    public function createMultipleRecord($aData)
+    {
+        $sSql = $this->oModel->getGrammar()->compileInsert($this->oModel, $aData);
+        foreach ($aData as $mRows) {
+            foreach ($mRows as $mData) {
+                $sSql = preg_replace('/\?/', $mData, $sSql, 1);
+            }
+        }
+        /** Logs before executing query */
+        $aProcessInfo[LogLib::MODULE_KEY] = data_get((explode('-', LogLib::$sTraceId)), 0, LogLib::MODULE);
+        LogLib::LogAPI($aProcessInfo, $sSql);
+
+        $iLastIdInsertedId = $this->oModel->max($this->sPrimaryKey);
+        /** Execute query */
+        $bResult = $this->oModel->insert($aData);
+        $aInsertedIds = [];
+        if ($bResult === true) {
+            for ($iIncr = 1; $iIncr <= count($aData); $iIncr ++) {
+                array_push($aInsertedIds, $iLastIdInsertedId + $iIncr);
+            }
+        }
+        /** Logs after executing query */
+        $aProcessInfo[LogLib::REQUEST_TYPE_KEY] = 'Result';
+        LogLib::LogAPI($aProcessInfo, $sSql, 'Done executing query', $aData);
+
+        return $aInsertedIds;
     }
 
     /**

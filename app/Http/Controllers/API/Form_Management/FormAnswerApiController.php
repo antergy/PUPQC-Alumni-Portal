@@ -94,6 +94,26 @@ class FormAnswerApiController extends CoreApiController
     }
 
     /**
+     * Creates a form answer record
+     *
+     * @param Request $oRequest
+     * @return array
+     */
+    public function createMultiple(Request $oRequest)
+    {
+        try {
+            $aData = array_filter($oRequest->get('oData'), function($aRequestData) {
+                return array_diff_key(array_flip($this->oRepository->aSearch), $aRequestData);
+            });
+            $aResponse = $this->oRepository->createMultipleRecord($aData);
+
+            return ResponseLib::formatSuccessResponse($aResponse, ResponseLib::SUCCESS_CREATE_MESSAGE);
+        } catch (QueryException | ValidationException $oException) {
+            return ResponseLib::formatErrorResponse($oException);
+        }
+    }
+
+    /**
      * Updates a form answer record
      *
      * @param FormRules $oRules
