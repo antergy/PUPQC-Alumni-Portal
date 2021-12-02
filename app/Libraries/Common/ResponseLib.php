@@ -26,6 +26,10 @@ class ResponseLib
     const SUCCESS_UPDATE_MESSAGE = 'Successfully updated the record(s).';
     /** Constant message for succeeded delete request */
     const SUCCESS_DELETE_MESSAGE = 'Successfully deleted the record(s).';
+    /** Constant message for succeeded enable-switched update request */
+    const SUCCESS_ENABLE_MESSAGE = 'Successfully enabled the record.';
+    /** Constant message for succeeded disabled-switched update request */
+    const SUCCESS_DISABLE_MESSAGE = 'Successfully disabled the record.';
     /** Constant message for deleting non existing record */
     const NO_RECORD_DELETE_MESSAGE = 'There is no record to delete.';
 

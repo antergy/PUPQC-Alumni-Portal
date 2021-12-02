@@ -117,4 +117,23 @@ class BranchApiController extends CoreApiController
             return ResponseLib::formatErrorResponse($oException);
         }
     }
+
+    /**
+     * Disable a branch record
+     *
+     * @return array
+     */
+    public function switchUpdate()
+    {
+        try {
+            $iId = $this->oRequest->input($this->oRepository->sPrimaryKey);
+            $iStatus = $this->oRequest->input('status');
+            $mResponse = $this->oRepository->updateRecord($iId, ['status' => $iStatus]);
+            $sMessage = $iStatus === 1 ? ResponseLib::SUCCESS_ENABLE_MESSAGE : ResponseLib::SUCCESS_DISABLE_MESSAGE;
+
+            return ResponseLib::formatSuccessResponse($mResponse, $sMessage);
+        } catch (QueryException $oException) {
+            return ResponseLib::formatErrorResponse($oException);
+        }
+    }
 }
