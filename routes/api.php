@@ -198,7 +198,7 @@ Route::prefix('v1')->group(function () {
             Route::post('create', "{$sModuleController}@create");
             Route::post('update', "{$sModuleController}@update");
             Route::post('delete', "{$sModuleController}@delete");
+            Route::post('switch', "{$sModuleController}@switchUpdate");
         });
     }
-
 });

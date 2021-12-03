@@ -33,61 +33,12 @@ class VerifyCsrfToken extends Middleware
         'v1/post_type/create',
         'v1/post_type/update',
         'v1/post_type/delete',
-
-        // Educational Attainment Management routes (temp exclusion)
-        'v1/educ_attain/create',
-        'v1/educ_attain/update',
-        'v1/educ_attain/delete',
-
-        // Honors Received Management routes (temp exclusion)
-        'v1/honors/create',
-        'v1/honors/update',
-        'v1/honors/delete',
-
-        // Professional Education Management routes (temp exclusion)
-        'v1/profex/create',
-        'v1/profex/update',
-        'v1/profex/delete',
-
-        // First Job Timeframe Management routes (temp exclusion)
-        'v1/fjtf/create',
-        'v1/fjtf/update',
-        'v1/fjtf/delete',
-
-        // First Job Discover Management routes (temp exclusion)
-        'v1/fjd/create',
-        'v1/fjd/update',
-        'v1/fjd/delete',
-
-        // Job Level Management routes (temp exclusion)
-        'v1/job_level/create',
-        'v1/job_level/update',
-        'v1/job_level/delete',
-
-        // Self Employed Salary Management routes (temp exclusion)
-        'v1/se_salary/create',
-        'v1/se_salary/update',
-        'v1/se_salary/delete',
-
-        // Unemployement Reason Management routes (temp exclusion)
-        'v1/unemploy_reason/create',
-        'v1/unemploy_reason/update',
-        'v1/unemploy_reason/delete',
+        'v1/post_type/switch',
 
         // Industry Management routes (temp exclusion)
         'v1/industry/create',
         'v1/industry/update',
         'v1/industry/delete',
-
-        // Competency Management routes (temp exclusion)
-        'v1/competency/create',
-        'v1/competency/update',
-        'v1/competency/delete',
-
-        // Impact of Education Management routes (temp exclusion)
-        'v1/ioe/create',
-        'v1/ioe/update',
-        'v1/ioe/delete',
 
         // Account Management routes (temp exclusion)
         'v1/account/create',
@@ -140,7 +91,6 @@ class VerifyCsrfToken extends Middleware
         'admin/posts/comments/update',
         'admin/posts/comments/delete',
 
-
         // Alumni Management API routes (temp exclusion)
         'v1/alumni/create',
         'v1/alumni/update',
@@ -180,5 +130,7 @@ class VerifyCsrfToken extends Middleware
 
         // New routes from system mgt
         'v1/branch/create',
+        'v1/branch/update',
+        'v1/branch/switch',
     ];
 }

@@ -32,6 +32,7 @@ class PostTypeRepository extends CoreApiRepository
      */
     public $aSearch = [
         'pt_id',
-        'pt_desc'
+        'pt_desc',
+        'status'
     ];
 }

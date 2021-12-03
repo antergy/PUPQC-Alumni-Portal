@@ -138,20 +138,12 @@ Route::prefix('admin')->group(function () {
      * Set the Admin route group for the following sub-modules
      * in system admin under system route group:
      *
+     * - Branch Management
      * - Course Management
+     * - Degree Management
      * - Account Type Management
      * - Post Type Management
-     * - Educational Attainment Management
-     * - Honors Received Management
-     * - Professional Exam Management
-     * - First Job Timeframe Management
-     * - First Job Discover Management
-     * - Job Level Management
-     * - Self Employed Salary Management
-     * - Unemployment Reason Management
      * - Industry Management
-     * - Competency Management
-     * - Impact of Education Management
      */
     Route::prefix('system')->group(function () {
         $aModules = [
@@ -160,17 +152,7 @@ Route::prefix('admin')->group(function () {
             'degree',
             'acc_type',
             'post_type',
-            'educ_attain',
-            'honors',
-            'profex',
-            'fjtf',
-            'fjd',
-            'job_level',
-            'se_salary',
-            'unemploy_reason',
-            'industry',
-            'competency',
-            'ioe'
+            'industry'
         ];
         foreach ($aModules as $sModule) {
             Route::prefix($sModule)->group(function () {
@@ -178,6 +160,7 @@ Route::prefix('admin')->group(function () {
                 Route::post('create', 'SystemAdminController@manageRequest');
                 Route::post('update', 'SystemAdminController@manageRequest');
                 Route::post('delete', 'SystemAdminController@manageRequest');
+                Route::post('switch', 'SystemAdminController@manageRequest');
             });
         }
     });

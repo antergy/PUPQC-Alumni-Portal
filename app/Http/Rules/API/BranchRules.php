@@ -39,7 +39,7 @@ class BranchRules
         ],
         'branch_address' => [
             'required',
-            'max:20'
+            'max:225'
         ],
     ];
 }

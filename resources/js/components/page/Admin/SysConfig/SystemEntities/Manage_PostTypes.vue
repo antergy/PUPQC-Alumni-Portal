@@ -63,7 +63,8 @@
                     <!-- Modal Footer -->
                     <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                         <button type="button"
-                                class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+                                class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                                @click="updatePostType">
                             Save
                         </button>
                         <button type="button"
@@ -106,7 +107,8 @@
                     <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                         <button type="button"
                                 class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-                                style="background-color: #EF4444; color: white; border-radius: 10px">
+                                style="background-color: #EF4444; color: white; border-radius: 10px"
+                                @click="switchUpdatePostType">
                             Disable
                         </button>
                         <button type="button"
@@ -131,6 +133,8 @@ export default {
     data() {
         return {
             oModalData: [],
+            iId          : 0,
+            iRecordStatus: 0,
         };
     },
     watch: {
@@ -199,6 +203,46 @@ export default {
             });
         },
 
+        /*
+         *
+         */
+        updatePostType: function () {
+            let oParam = {
+                'pt_id'   : this.iId,
+                'pt_desc' : $('#pt_desc').val(),
+            };
+            this.$root.postRequest('admin/system/post_type/update', oParam, (mResponse) => {
+                if (mResponse.code === 200) {
+                    this.$root.showSuccessToast('Success', 'Successfully updated the post type description');
+                    this.getPostTypeList();
+                    this.closeModal()
+                } else {
+                    this.$root.showErrorToast('Error', mResponse.message);
+                }
+            });
+        },
+
+        /**
+         *
+         */
+        switchUpdatePostType: function () {
+            let iChangedStatus = this.iRecordStatus === 1 ? 0 : 1;
+            let sMessage = iChangedStatus === 0 ? 'Successfully disabled the record' : 'Successfully enabled the record';
+            let oParam = {
+                'pt_id'  : this.iId,
+                'status' : iChangedStatus,
+            };
+            this.$root.postRequest('admin/system/post_type/switch', oParam, (mResponse) => {
+                if (mResponse.code === 200) {
+                    this.$root.showSuccessToast('Success', sMessage);
+                    this.getPostTypeList();
+                    this.closeModal()
+                } else {
+                    this.$root.showErrorToast('Error', mResponse.message);
+                }
+            });
+        },
+
         /**
          * Initialize button modal trigger
          */
@@ -210,9 +254,19 @@ export default {
                 mSelf.oModalData = JSON.parse(decodeURIComponent(this.dataset.response));
                 $('#pt_desc').val(mSelf.oModalData.data.pt_desc);
             });
+
+            /** Init behavior for enable button */
+            $(document).on('click', '.sys_entenable', function () {
+                mSelf.$root.oSystemEntityModalData = JSON.parse(decodeURIComponent(this.dataset.response));
+                mSelf.iId = mSelf.$root.oSystemEntityModalData.data.pt_id;
+                mSelf.iRecordStatus = mSelf.$root.oSystemEntityModalData.data.status;
+                mSelf.switchUpdatePostType();
+            });
             /** Init behavior for disable button */
             $(document).on('click', '.sys_ent_disable', function () {
                 mSelf.$root.oSystemEntityModalData = JSON.parse(decodeURIComponent(this.dataset.response));
+                mSelf.iId = mSelf.$root.oSystemEntityModalData.data.pt_id;
+                mSelf.iRecordStatus = mSelf.$root.oSystemEntityModalData.data.status;
                 mSelf.showModal('Disable');
             });
         },

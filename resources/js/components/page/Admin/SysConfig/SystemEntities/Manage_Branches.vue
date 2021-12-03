@@ -72,7 +72,8 @@
                     <!-- Modal Footer -->
                     <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                         <button type="button"
-                                class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+                                class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                                @click="updateBranch">
                             Save
                         </button>
                         <button type="button"
@@ -115,7 +116,8 @@
                     <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                         <button type="button"
                                 class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-                                style="background-color: #EF4444; color: white; border-radius: 10px">
+                                style="background-color: #EF4444; color: white; border-radius: 10px"
+                                @click="switchUpdateBranch()">
                             Disable
                         </button>
                         <button type="button"
@@ -139,8 +141,10 @@ export default {
     ],
     data() {
         return {
-            aBranchesData    : [],
-            oModalData       : [],
+            aBranchesData: [],
+            oModalData   : [],
+            iId          : 0,
+            iRecordStatus: 0,
         };
     },
     watch: {
@@ -214,6 +218,47 @@ export default {
         },
 
         /**
+         *
+         */
+        updateBranch: function () {
+            let oParam = {
+                'branch_id'     : this.iId,
+                'branch_name'   : $('#branch_name').val(),
+                'branch_address': $('#branch_addr').val()
+            };
+            this.$root.postRequest('admin/system/branch/update', oParam, (mResponse) => {
+                if (mResponse.code === 200) {
+                    this.$root.showSuccessToast('Success', 'Successfully updated the branch details');
+                    this.getBranchList();
+                    this.closeModal()
+                } else {
+                    this.$root.showErrorToast('Error', mResponse.message);
+                }
+            });
+        },
+
+        /**
+         *
+         */
+        switchUpdateBranch: function () {
+            let iChangedStatus = this.iRecordStatus === 1 ? 0 : 1;
+            let sMessage = iChangedStatus === 0 ? 'Successfully disabled the record' : 'Successfully enabled the record';
+            let oParam = {
+                'branch_id': this.iId,
+                'status'   : iChangedStatus,
+            };
+            this.$root.postRequest('admin/system/branch/switch', oParam, (mResponse) => {
+                if (mResponse.code === 200) {
+                    this.$root.showSuccessToast('Success', sMessage);
+                    this.getBranchList();
+                    this.closeModal()
+                } else {
+                    this.$root.showErrorToast('Error', mResponse.message);
+                }
+            });
+        },
+
+        /**
          * Initialize button modal trigger
          */
         initActionBtnModalTrigger: function () {
@@ -222,12 +267,24 @@ export default {
             $(document).on('click', '.sys_ent_modify', function () {
                 mSelf.showModal('Modify');
                 mSelf.oModalData = JSON.parse(decodeURIComponent(this.dataset.response));
+                mSelf.iId = mSelf.oModalData.data.branch_id;
                 $('#branch_name').val(mSelf.oModalData.data.branch_name);
                 $('#branch_addr').val(mSelf.oModalData.data.branch_address);
             });
+
+            /** Init behavior for enable button */
+            $(document).on('click', '.sys_entenable', function () {
+                mSelf.$root.oSystemEntityModalData = JSON.parse(decodeURIComponent(this.dataset.response));
+                mSelf.iId = mSelf.$root.oSystemEntityModalData.data.branch_id;
+                mSelf.iRecordStatus = mSelf.$root.oSystemEntityModalData.data.status;
+                mSelf.switchUpdateBranch();
+            });
+
             /** Init behavior for disable button */
             $(document).on('click', '.sys_ent_disable', function () {
                 mSelf.$root.oSystemEntityModalData = JSON.parse(decodeURIComponent(this.dataset.response));
+                mSelf.iId = mSelf.$root.oSystemEntityModalData.data.branch_id;
+                mSelf.iRecordStatus = mSelf.$root.oSystemEntityModalData.data.status;
                 mSelf.showModal('Disable');
             });
         },
