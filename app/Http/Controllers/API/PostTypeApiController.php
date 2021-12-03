@@ -118,7 +118,7 @@ class PostTypeApiController extends CoreApiController
     }
 
     /**
-     * Disable a post type record
+     * Enable/Disable a post type record
      *
      * @return array
      */

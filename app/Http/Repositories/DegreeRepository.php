@@ -33,7 +33,8 @@ class DegreeRepository extends CoreApiRepository
      */
     public $aSearch = [
         'degree_id',
-        'degree_desc'
+        'degree_desc',
+        'status'
     ];
 }
 

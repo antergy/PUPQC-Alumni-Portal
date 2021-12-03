@@ -33,6 +33,8 @@ class CourseRepository extends CoreApiRepository
     public $aSearch = [
         'course_id',
         'course_desc',
-        'course_acronym'
+        'course_acronym',
+        'course_degree_id',
+        'status'
     ];
 }

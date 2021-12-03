@@ -63,7 +63,8 @@
                     <!-- Modal Footer -->
                     <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                         <button type="button"
-                                class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+                                class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                                @click="updateIndustry">
                             Save
                         </button>
                         <button type="button"
@@ -106,7 +107,8 @@
                     <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                         <button type="button"
                                 class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-                                style="background-color: #EF4444; color: white; border-radius: 10px">
+                                style="background-color: #EF4444; color: white; border-radius: 10px"
+                                @click="switchUpdateIndustry">
                             Disable
                         </button>
                         <button type="button"
@@ -130,13 +132,10 @@ export default {
     ],
     data() {
         return {
-            oModalData       : [],
+            oModalData     : [],
+            iId            : 0,
+            iRecordStatus  : 0,
         };
-    },
-    watch: {
-        oSystemEntityModalData (data) {
-            console.log(data);
-        }
     },
     created() {
         this.initActionBtnModalTrigger();
@@ -145,8 +144,9 @@ export default {
         this.getIndustryList();
     },
     methods: {
+
         /**
-         * Get all registered accounts
+         * Get industry list
          */
         getIndustryList: function () {
             let mSelf = this;
@@ -175,24 +175,64 @@ export default {
         },
 
         /**
-         * Resets form for adding new branch details
+         * Resets form for adding new industry details
          */
         resetForm: function () {
             $('#industry_desc_new').val('');
         },
 
         /**
-         * Add new branch details
+         * Add new industry details
          */
         addIndustry: function () {
             let oParam = {
-                'industry_desc'   : $('#industry_desc_new').val(),
+                'industry_desc' : $('#industry_desc_new').val(),
             };
             this.$root.postRequest('admin/system/industry/create', oParam, (mResponse) => {
                 if (mResponse.code === 200) {
                     this.$root.showSuccessToast('Success', 'Successfully created an industry record');
                     this.resetForm();
                     this.getIndustryList();
+                } else {
+                    this.$root.showErrorToast('Error', mResponse.message);
+                }
+            });
+        },
+
+        /**
+         * Update industry details
+         */
+        updateIndustry: function () {
+            let oParam = {
+                'industry_id'   : this.iId,
+                'industry_desc' : $('#industry_desc').val(),
+            };
+            this.$root.postRequest('admin/system/industry/update', oParam, (mResponse) => {
+                if (mResponse.code === 200) {
+                    this.$root.showSuccessToast('Success', 'Successfully updated the industry description');
+                    this.getIndustryList();
+                    this.closeModal()
+                } else {
+                    this.$root.showErrorToast('Error', mResponse.message);
+                }
+            });
+        },
+
+        /**
+         * Enable / Disable industry (Update)
+         */
+        switchUpdateIndustry: function () {
+            let iChangedStatus = this.iRecordStatus === 1 ? 0 : 1;
+            let sMessage = iChangedStatus === 0 ? 'Successfully disabled the record' : 'Successfully enabled the record';
+            let oParam = {
+                'industry_id' : this.iId,
+                'status'      : iChangedStatus,
+            };
+            this.$root.postRequest('admin/system/industry/switch', oParam, (mResponse) => {
+                if (mResponse.code === 200) {
+                    this.$root.showSuccessToast('Success', sMessage);
+                    this.getIndustryList();
+                    this.closeModal()
                 } else {
                     this.$root.showErrorToast('Error', mResponse.message);
                 }
@@ -208,11 +248,21 @@ export default {
             $(document).on('click', '.sys_ent_modify', function () {
                 mSelf.showModal('Modify');
                 mSelf.oModalData = JSON.parse(decodeURIComponent(this.dataset.response));
+                mSelf.iId = mSelf.oModalData.data.industry_id;
                 $('#industry_desc').val(mSelf.oModalData.data.industry_desc);
+            });
+            /** Init behavior for enable button */
+            $(document).on('click', '.sys_entenable', function () {
+                mSelf.$root.oSystemEntityModalData = JSON.parse(decodeURIComponent(this.dataset.response));
+                mSelf.iId = mSelf.$root.oSystemEntityModalData.data.industry_id;
+                mSelf.iRecordStatus = mSelf.$root.oSystemEntityModalData.data.status;
+                mSelf.switchUpdateIndustry();
             });
             /** Init behavior for disable button */
             $(document).on('click', '.sys_ent_disable', function () {
                 mSelf.$root.oSystemEntityModalData = JSON.parse(decodeURIComponent(this.dataset.response));
+                mSelf.iId = mSelf.$root.oSystemEntityModalData.data.industry_id;
+                mSelf.iRecordStatus = mSelf.$root.oSystemEntityModalData.data.status;
                 mSelf.showModal('Disable');
             });
         },

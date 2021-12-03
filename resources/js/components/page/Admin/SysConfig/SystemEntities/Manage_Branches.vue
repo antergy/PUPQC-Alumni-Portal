@@ -3,7 +3,7 @@
         <!-- FORM -->
         <div class="mt-6 w-full ">
             <div class="form outline w-full">
-                <h1 style="font-size: 18px; font-weight: bold">Add new branch details:</h1><br>
+                <h1 style="font-size: 18px; font-weight: bold">Add new branch record:</h1><br>
                 <div class="form__input-group w-7/12">
                     <label class="form__label">Branch Name</label>
                     <input id="branch_name_new" type="text" class="form__input">
@@ -141,16 +141,11 @@ export default {
     ],
     data() {
         return {
-            aBranchesData: [],
-            oModalData   : [],
-            iId          : 0,
-            iRecordStatus: 0,
+            aBranchesData : [],
+            oModalData    : [],
+            iId           : 0,
+            iRecordStatus : 0,
         };
-    },
-    watch: {
-        oSystemEntityModalData (data) {
-            console.log(data);
-        }
     },
     created() {
         this.initActionBtnModalTrigger();
@@ -159,8 +154,9 @@ export default {
         this.getBranchList();
     },
     methods: {
+
         /**
-         * Get all registered accounts
+         * Get branch list
          */
         getBranchList: function () {
             let mSelf = this;
@@ -173,9 +169,9 @@ export default {
                         var reformatted_data = [];
                         $.each(json.data, function (key, value) {
                             reformatted_data.push({
-                                'branch_name': value.branch_name,
-                                'branch_address': value.branch_address,
-                                'action': mSelf.setActionButton(sUrl, value, value.status),
+                                'branch_name'    : value.branch_name,
+                                'branch_address' : value.branch_address,
+                                'action'         : mSelf.setActionButton(sUrl, value, value.status),
                             })
                         });
                         return reformatted_data;
@@ -203,8 +199,8 @@ export default {
          */
         addBranch: function () {
             let oParam = {
-                'branch_name'   : $('#branch_name_new').val(),
-                'branch_address': $('#branch_addr_new').val()
+                'branch_name'    : $('#branch_name_new').val(),
+                'branch_address' : $('#branch_addr_new').val()
             };
             this.$root.postRequest('admin/system/branch/create', oParam, (mResponse) => {
                 if (mResponse.code === 200) {
@@ -218,13 +214,13 @@ export default {
         },
 
         /**
-         *
+         * Update branch details
          */
         updateBranch: function () {
             let oParam = {
-                'branch_id'     : this.iId,
-                'branch_name'   : $('#branch_name').val(),
-                'branch_address': $('#branch_addr').val()
+                'branch_id'      : this.iId,
+                'branch_name'    : $('#branch_name').val(),
+                'branch_address' : $('#branch_addr').val()
             };
             this.$root.postRequest('admin/system/branch/update', oParam, (mResponse) => {
                 if (mResponse.code === 200) {
@@ -238,14 +234,14 @@ export default {
         },
 
         /**
-         *
+         * Enable / Disable Branch (Update)
          */
         switchUpdateBranch: function () {
             let iChangedStatus = this.iRecordStatus === 1 ? 0 : 1;
             let sMessage = iChangedStatus === 0 ? 'Successfully disabled the record' : 'Successfully enabled the record';
             let oParam = {
-                'branch_id': this.iId,
-                'status'   : iChangedStatus,
+                'branch_id' : this.iId,
+                'status'    : iChangedStatus,
             };
             this.$root.postRequest('admin/system/branch/switch', oParam, (mResponse) => {
                 if (mResponse.code === 200) {
@@ -271,7 +267,6 @@ export default {
                 $('#branch_name').val(mSelf.oModalData.data.branch_name);
                 $('#branch_addr').val(mSelf.oModalData.data.branch_address);
             });
-
             /** Init behavior for enable button */
             $(document).on('click', '.sys_entenable', function () {
                 mSelf.$root.oSystemEntityModalData = JSON.parse(decodeURIComponent(this.dataset.response));
@@ -279,7 +274,6 @@ export default {
                 mSelf.iRecordStatus = mSelf.$root.oSystemEntityModalData.data.status;
                 mSelf.switchUpdateBranch();
             });
-
             /** Init behavior for disable button */
             $(document).on('click', '.sys_ent_disable', function () {
                 mSelf.$root.oSystemEntityModalData = JSON.parse(decodeURIComponent(this.dataset.response));

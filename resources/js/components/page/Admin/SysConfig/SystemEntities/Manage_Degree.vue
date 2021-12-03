@@ -53,7 +53,7 @@
                                     <div class="form outline w-full">
                                         <div class="form__input-group w-11/12">
                                             <label class="form__label">Academic Degree Description</label>
-                                            <input id="course_desc" type="text" class="form__input">
+                                            <input id="degree_desc" type="text" class="form__input">
                                         </div>
                                     </div>
                                 </div>
@@ -63,7 +63,8 @@
                     <!-- Modal Footer -->
                     <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                         <button type="button"
-                                class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+                                class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                                @click="updateDegree">
                             Save
                         </button>
                         <button type="button"
@@ -106,7 +107,8 @@
                     <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                         <button type="button"
                                 class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-                                style="background-color: #EF4444; color: white; border-radius: 10px">
+                                style="background-color: #EF4444; color: white; border-radius: 10px"
+                                @click="switchUpdateDegree">
                             Disable
                         </button>
                         <button type="button"
@@ -130,13 +132,10 @@ export default {
     ],
     data() {
         return {
-            oModalData: [],
+            oModalData    : [],
+            iId           : 0,
+            iRecordStatus : 0,
         };
-    },
-    watch: {
-        oSystemEntityModalData (data) {
-            console.log(data);
-        }
     },
     created() {
         this.initActionBtnModalTrigger();
@@ -145,8 +144,9 @@ export default {
         this.getDegreeList();
     },
     methods: {
+
         /**
-         * Get all academic degree
+         * Get all degrees
          */
         getDegreeList: function () {
             let mSelf = this;
@@ -159,8 +159,8 @@ export default {
                         var reformatted_data = [];
                         $.each(json.data, function (key, value) {
                             reformatted_data.push({
-                                'degree_desc': value.degree_desc,
-                                'action': mSelf.setActionButton(sUrl, value, value.status),
+                                'degree_desc' : value.degree_desc,
+                                'action'      : mSelf.setActionButton(sUrl, value, value.status),
                             })
                         });
                         return reformatted_data;
@@ -175,24 +175,64 @@ export default {
         },
 
         /**
-         * Resets form for adding new branch details
+         * Resets form for adding new degree details
          */
         resetForm: function () {
             $('#degree_desc_new').val('');
         },
 
         /**
-         * Add new branch details
+         * Add new degree details
          */
         addDegree: function () {
             let oParam = {
-                'degree_desc'   : $('#degree_desc_new').val(),
+                'degree_desc': $('#degree_desc_new').val(),
             };
             this.$root.postRequest('admin/system/degree/create', oParam, (mResponse) => {
                 if (mResponse.code === 200) {
                     this.$root.showSuccessToast('Success', 'Successfully created a degree record');
                     this.resetForm();
                     this.getDegreeList();
+                } else {
+                    this.$root.showErrorToast('Error', mResponse.message);
+                }
+            });
+        },
+
+       /**
+        * Update degree details
+        */
+        updateDegree: function () {
+            let oParam = {
+                'degree_id'   : this.iId,
+                'degree_desc' : $('#degree_desc').val(),
+            };
+            this.$root.postRequest('admin/system/degree/update', oParam, (mResponse) => {
+                if (mResponse.code === 200) {
+                    this.$root.showSuccessToast('Success', 'Successfully updated the degree description');
+                    this.getDegreeList();
+                    this.closeModal()
+                } else {
+                    this.$root.showErrorToast('Error', mResponse.message);
+                }
+            });
+        },
+
+        /**
+         * Enable / Disable degree (Update)
+         */
+        switchUpdateDegree: function () {
+            let iChangedStatus = this.iRecordStatus === 1 ? 0 : 1;
+            let sMessage = iChangedStatus === 0 ? 'Successfully disabled the record' : 'Successfully enabled the record';
+            let oParam = {
+                'degree_id' : this.iId,
+                'status'    : iChangedStatus,
+            };
+            this.$root.postRequest('admin/system/degree/switch', oParam, (mResponse) => {
+                if (mResponse.code === 200) {
+                    this.$root.showSuccessToast('Success', sMessage);
+                    this.getDegreeList();
+                    this.closeModal()
                 } else {
                     this.$root.showErrorToast('Error', mResponse.message);
                 }
@@ -208,12 +248,21 @@ export default {
             $(document).on('click', '.sys_ent_modify', function () {
                 mSelf.showModal('Modify');
                 mSelf.oModalData = JSON.parse(decodeURIComponent(this.dataset.response));
-                $('#course_desc').val(mSelf.oModalData.data.course_desc);
-                $('#course_acronym').val(mSelf.oModalData.data.course_acronym);
+                mSelf.iId = mSelf.oModalData.data.degree_id;
+                $('#degree_desc').val(mSelf.oModalData.data.degree_desc);
+            });
+            /** Init behavior for enable button */
+            $(document).on('click', '.sys_entenable', function () {
+                mSelf.$root.oSystemEntityModalData = JSON.parse(decodeURIComponent(this.dataset.response));
+                mSelf.iId = mSelf.$root.oSystemEntityModalData.data.degree_id;
+                mSelf.iRecordStatus = mSelf.$root.oSystemEntityModalData.data.status;
+                mSelf.switchUpdateDegree();
             });
             /** Init behavior for disable button */
             $(document).on('click', '.sys_ent_disable', function () {
                 mSelf.$root.oSystemEntityModalData = JSON.parse(decodeURIComponent(this.dataset.response));
+                mSelf.iId = mSelf.$root.oSystemEntityModalData.data.degree_id;
+                mSelf.iRecordStatus = mSelf.$root.oSystemEntityModalData.data.status;
                 mSelf.showModal('Disable');
             });
         },

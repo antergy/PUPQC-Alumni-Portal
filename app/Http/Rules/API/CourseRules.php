@@ -25,5 +25,9 @@ class CourseRules
             'required',
             'max:20'
         ],
+        'course_degree_id' => [
+            'required',
+            'exists:r_degree,degree_id'
+        ],
     ];
 }

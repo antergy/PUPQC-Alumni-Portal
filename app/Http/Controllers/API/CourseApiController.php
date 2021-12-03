@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Core\API\CoreApiController;
+use App\Http\Collections\CourseCollection;
 use App\Http\Repositories\CourseRepository;
 use App\Http\Rules\API\CourseRules;
 use App\Libraries\API\ArrayLib;
@@ -112,6 +113,25 @@ class CourseApiController extends CoreApiController
             if ($mResponse === 0) {
                 $sMessage = ResponseLib::NO_RECORD_DELETE_MESSAGE;
             }
+            return ResponseLib::formatSuccessResponse($mResponse, $sMessage);
+        } catch (QueryException $oException) {
+            return ResponseLib::formatErrorResponse($oException);
+        }
+    }
+
+    /**
+     * Enable/Disable a course record
+     *
+     * @return array
+     */
+    public function switchUpdate()
+    {
+        try {
+            $iId = $this->oRequest->input($this->oRepository->sPrimaryKey);
+            $iStatus = $this->oRequest->input('status');
+            $mResponse = $this->oRepository->updateRecord($iId, ['status' => $iStatus]);
+            $sMessage = $iStatus === 1 ? ResponseLib::SUCCESS_ENABLE_MESSAGE : ResponseLib::SUCCESS_DISABLE_MESSAGE;
+
             return ResponseLib::formatSuccessResponse($mResponse, $sMessage);
         } catch (QueryException $oException) {
             return ResponseLib::formatErrorResponse($oException);

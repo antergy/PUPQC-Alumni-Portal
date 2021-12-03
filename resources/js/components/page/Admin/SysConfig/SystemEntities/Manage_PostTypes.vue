@@ -132,15 +132,10 @@ export default {
     ],
     data() {
         return {
-            oModalData: [],
-            iId          : 0,
-            iRecordStatus: 0,
+            oModalData    : [],
+            iId           : 0,
+            iRecordStatus : 0,
         };
-    },
-    watch: {
-        oSystemEntityModalData (data) {
-            console.log(data);
-        }
     },
     created() {
         this.initActionBtnModalTrigger();
@@ -149,8 +144,9 @@ export default {
         this.getPostTypeList();
     },
     methods: {
+
         /**
-         * Get all registered accounts
+         * Get post types
          */
         getPostTypeList: function () {
             let mSelf = this;
@@ -163,8 +159,8 @@ export default {
                         var reformatted_data = [];
                         $.each(json.data, function (key, value) {
                             reformatted_data.push({
-                                'pt_desc': value.pt_desc,
-                                'action': mSelf.setActionButton(sUrl, value, value.status),
+                                'pt_desc' : value.pt_desc,
+                                'action'  : mSelf.setActionButton(sUrl, value, value.status),
                             })
                         });
                         return reformatted_data;
@@ -179,18 +175,18 @@ export default {
         },
 
         /**
-         * Resets form for adding new branch details
+         * Resets form for adding new post type details
          */
         resetForm: function () {
             $('#pt_desc_new').val('');
         },
 
         /**
-         * Add new branch details
+         * Add new post type details
          */
         addPostType: function () {
             let oParam = {
-                'pt_desc'   : $('#pt_desc_new').val(),
+                'pt_desc' : $('#pt_desc_new').val(),
             };
             this.$root.postRequest('admin/system/post_type/create', oParam, (mResponse) => {
                 if (mResponse.code === 200) {
@@ -203,8 +199,8 @@ export default {
             });
         },
 
-        /*
-         *
+        /**
+         * Update post type details
          */
         updatePostType: function () {
             let oParam = {
@@ -223,7 +219,7 @@ export default {
         },
 
         /**
-         *
+         * Enable / Disable post types (Update)
          */
         switchUpdatePostType: function () {
             let iChangedStatus = this.iRecordStatus === 1 ? 0 : 1;
@@ -252,9 +248,9 @@ export default {
             $(document).on('click', '.sys_ent_modify', function () {
                 mSelf.showModal('Modify');
                 mSelf.oModalData = JSON.parse(decodeURIComponent(this.dataset.response));
+                mSelf.iId = mSelf.oModalData.data.pt_id;
                 $('#pt_desc').val(mSelf.oModalData.data.pt_desc);
             });
-
             /** Init behavior for enable button */
             $(document).on('click', '.sys_entenable', function () {
                 mSelf.$root.oSystemEntityModalData = JSON.parse(decodeURIComponent(this.dataset.response));

@@ -34,6 +34,7 @@ class IndustryRepository extends CoreApiRepository
      */
     public $aSearch = [
         'industry_id',
-        'industry_desc'
+        'industry_desc',
+        'status'
     ];
 }

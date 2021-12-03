@@ -12,12 +12,21 @@
                     <label class="form__label">Course Acronym</label>
                     <input id="course_acronym_new" type="text" class="form__input">
                 </div>
+                <div class="form__input-group w-7/12">
+                    <label class="form__label">Degree / Program Graduated: </label>
+                    <select id="branch" v-model="selectedDegree" name="branch" class="form__input place-self-center">
+                        <option selected disabled value="0">-- Select Degree --</option>
+                        <option v-for="degree in aDegree" v-bind:value="degree.degree_id">
+                            {{ degree.degree_desc }}
+                        </option>
+                    </select>
+                </div>
                 <div class="grid grid-flow-col auto-cols-max">
                     <div class="m-1">
                         <button type="button" class="form__button w-full" @click="resetForm"> Clear All Entries&nbsp;</button>
                     </div>
                     <div class="m-1">
-                        <button type="button" class="form__button success w-full" @click="addBranch">&nbsp;Save&nbsp;</button>
+                        <button type="button" class="form__button success w-full" @click="addCourse">&nbsp;Save&nbsp;</button>
                     </div>
                 </div>
             </div>
@@ -29,6 +38,7 @@
             <tr>
                 <th>Course Desc</th>
                 <th>Course Acronym</th>
+                <th>Degree</th>
                 <th>Action</th>
             </tr>
             </thead>
@@ -64,6 +74,15 @@
                                             <label class="form__label">Course Acronym</label>
                                             <input id="course_acronym" type="text" class="form__input">
                                         </div>
+                                        <div class="form__input-group w-11/12">
+                                            <label class="form__label">Degree / Program Graduated: </label>
+                                            <select id="selectToUpdate" v-model="selectedToUpdateDegree" name="branch" class="form__input place-self-center">
+                                                <option selected disabled value="0">-- Select Degree --</option>
+                                                <option v-for="degree in aDegree" v-bind:value="degree.degree_id">
+                                                    {{ degree.degree_desc }}
+                                                </option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -72,7 +91,8 @@
                     <!-- Modal Footer -->
                     <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                         <button type="button"
-                                class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+                                class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
+                                @click="updateCourse">
                             Save
                         </button>
                         <button type="button"
@@ -115,7 +135,8 @@
                     <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                         <button type="button"
                                 class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-                                style="background-color: #EF4444; color: white; border-radius: 10px">
+                                style="background-color: #EF4444; color: white; border-radius: 10px"
+                                @click="switchUpdateCourse">
                             Disable
                         </button>
                         <button type="button"
@@ -139,25 +160,39 @@ export default {
     ],
     data() {
         return {
-            oModalData: [],
+            oModalData             : [],
+            iId                    : 0,
+            iRecordStatus          : 0,
+            aDegree                : [],
+            selectedDegree         : 0,
+            selectedToUpdateDegree : 0,
         };
-    },
-    watch: {
-        oSystemEntityModalData (data) {
-            console.log(data);
-        }
     },
     created() {
         this.initActionBtnModalTrigger();
     },
     mounted() {
-        this.getCourseList();
+        this.initDegree();
     },
     methods: {
+
         /**
-         * Get all registered accounts
+         * Initialize degree details
+         */
+        initDegree: function () {
+            this.$root.getRequest('admin/system/degree/read', (mResult) => {
+                this.aDegree = mResult.data;
+                if (mResult.code === 200) {
+                    this.getCourseList();
+                }
+            })
+        },
+
+        /**
+         * Get course list
          */
         getCourseList: function () {
+            let degree = this.aDegree;
             let mSelf = this;
             let sUrl = '/admin/system/course/read';
             $('#tbl_course_list').DataTable().destroy();
@@ -168,9 +203,10 @@ export default {
                         var reformatted_data = [];
                         $.each(json.data, function (key, value) {
                             reformatted_data.push({
-                                'course_desc': value.course_desc,
-                                'course_acronym': value.course_acronym,
-                                'action': mSelf.setActionButton(sUrl, value, value.status),
+                                'course_desc'    : value.course_desc,
+                                'course_acronym' : value.course_acronym,
+                                'degree'         : degree.filter(obj => { return obj.degree_id === value.course_degree_id})[0].degree_desc,
+                                'action'         : mSelf.setActionButton(sUrl, value, value.status),
                             })
                         });
                         return reformatted_data;
@@ -179,6 +215,7 @@ export default {
                 "columns": [
                     {data: 'course_desc'},
                     {data: 'course_acronym'},
+                    {data: 'degree'},
                     {data: 'action'}
                 ],
                 "order": [[0, "asc"]]
@@ -186,26 +223,70 @@ export default {
         },
 
         /**
-         * Resets form for adding new branch details
+         * Resets form for adding new course details
          */
         resetForm: function () {
             $('#course_desc_new').val('');
             $('#course_acronym_new').val('');
+            this.selectedDegree = 0;
         },
 
         /**
-         * Add new branch details
+         * Add new course details
          */
-        addBranch: function () {
+        addCourse: function () {
             let oParam = {
-                'course_desc'   : $('#course_desc_new').val(),
-                'branch_address': $('#course_acronym_new').val()
+                'course_desc'      : $('#course_desc_new').val(),
+                'course_acronym'   : $('#course_acronym_new').val(),
+                'course_degree_id' : this.selectedDegree,
             };
             this.$root.postRequest('admin/system/course/create', oParam, (mResponse) => {
                 if (mResponse.code === 200) {
                     this.$root.showSuccessToast('Success', 'Successfully created a course record');
                     this.resetForm();
                     this.getCourseList();
+                } else {
+                    this.$root.showErrorToast('Error', mResponse.message);
+                }
+            });
+        },
+
+       /**
+        * Update course details
+        */
+        updateCourse: function () {
+            let oParam = {
+                'course_id'        : this.iId,
+                'course_desc'      : $('#course_desc').val(),
+                'course_acronym'   : $('#course_acronym').val(),
+                'course_degree_id' : $("#selectToUpdate :selected").val(),
+            };
+            this.$root.postRequest('admin/system/course/update', oParam, (mResponse) => {
+                if (mResponse.code === 200) {
+                    this.$root.showSuccessToast('Success', 'Successfully updated the degree description');
+                    this.getCourseList();
+                    this.closeModal()
+                } else {
+                    this.$root.showErrorToast('Error', mResponse.message);
+                }
+            });
+        },
+
+        /**
+         * Enable / Disable Course (Update)
+         */
+        switchUpdateCourse: function () {
+            let iChangedStatus = this.iRecordStatus === 1 ? 0 : 1;
+            let sMessage = iChangedStatus === 0 ? 'Successfully disabled the record' : 'Successfully enabled the record';
+            let oParam = {
+                'course_id' : this.iId,
+                'status'    : iChangedStatus,
+            };
+            this.$root.postRequest('admin/system/course/switch', oParam, (mResponse) => {
+                if (mResponse.code === 200) {
+                    this.$root.showSuccessToast('Success', sMessage);
+                    this.getCourseList();
+                    this.closeModal()
                 } else {
                     this.$root.showErrorToast('Error', mResponse.message);
                 }
@@ -221,12 +302,23 @@ export default {
             $(document).on('click', '.sys_ent_modify', function () {
                 mSelf.showModal('Modify');
                 mSelf.oModalData = JSON.parse(decodeURIComponent(this.dataset.response));
+                mSelf.iId = mSelf.oModalData.data.course_id;
                 $('#course_desc').val(mSelf.oModalData.data.course_desc);
                 $('#course_acronym').val(mSelf.oModalData.data.course_acronym);
+                mSelf.selectedToUpdateDegree = mSelf.oModalData.data.course_degree_id
+            });
+            /** Init behavior for enable button */
+            $(document).on('click', '.sys_entenable', function () {
+                mSelf.$root.oSystemEntityModalData = JSON.parse(decodeURIComponent(this.dataset.response));
+                mSelf.iId = mSelf.$root.oSystemEntityModalData.data.course_id;
+                mSelf.iRecordStatus = mSelf.$root.oSystemEntityModalData.data.status;
+                mSelf.switchUpdateCourse();
             });
             /** Init behavior for disable button */
             $(document).on('click', '.sys_ent_disable', function () {
                 mSelf.$root.oSystemEntityModalData = JSON.parse(decodeURIComponent(this.dataset.response));
+                mSelf.iId = mSelf.$root.oSystemEntityModalData.data.course_id;
+                mSelf.iRecordStatus = mSelf.$root.oSystemEntityModalData.data.status;
                 mSelf.showModal('Disable');
             });
         },

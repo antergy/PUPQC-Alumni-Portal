@@ -23,11 +23,17 @@ class VerifyCsrfToken extends Middleware
         'v1/course/create',
         'v1/course/update',
         'v1/course/delete',
+        'v1/course/switch',
 
         // Account type Management routes (temp exclusion)
         'v1/acc_type/create',
         'v1/acc_type/update',
         'v1/acc_type/delete',
+
+        // Degree Management routes (temp exclusion)
+        'v1/degree/create',
+        'v1/degree/update',
+        'v1/degree/switch',
 
         // Post type Management routes (temp exclusion)
         'v1/post_type/create',
@@ -39,6 +45,7 @@ class VerifyCsrfToken extends Middleware
         'v1/industry/create',
         'v1/industry/update',
         'v1/industry/delete',
+        'v1/industry/switch',
 
         // Account Management routes (temp exclusion)
         'v1/account/create',
