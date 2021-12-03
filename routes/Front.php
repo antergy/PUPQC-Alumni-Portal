@@ -20,6 +20,7 @@ $aAuthenticatedVueRoutes = [
     '/',
     '/home',
     '/admin/accounts',
+    '/admin/tracerForm',
     '/admin/sysconfig/acc_entities',
     '/admin/sysconfig/sys_entities'
 ];

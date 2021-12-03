@@ -15,6 +15,7 @@
 				<ListItem text="Messaging" to="/profile" />
 				<ListItem v-if="this.$root.sRootAccPos === 'Administrator' || this.$root.sRootAccPos === 'Superadmin'" text="Alumni Directory" />
                 <ListItem v-if="this.$root.sRootAccPos === 'Administrator' || this.$root.sRootAccPos === 'Superadmin'" text="Accounts Management" to="/admin/accounts"/>
+                <ListItem v-if="this.$root.sRootAccPos === 'Administrator' || this.$root.sRootAccPos === 'Superadmin'" text="Tracer Form Management" to="/admin/tracerForm"/>
 				<ListItem v-if="this.$root.sRootAccPos === 'Administrator' || this.$root.sRootAccPos === 'Superadmin'" text="Reports" >
 					<ListItem text="Post Activities" />
 					<ListItem text="Alumni Tracer Study" />
