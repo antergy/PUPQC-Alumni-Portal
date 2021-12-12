@@ -51,6 +51,10 @@ class QuestionRepository extends CoreApiRepository
         'fq_secondary_fqt_id',
         'fq_is_required',
         'fq_active_status',
+        'fqg_form_id',
+        'fqg_id',
+        'fqg_desc',
+        'fqt_desc'
     ];
 
     /**

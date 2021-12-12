@@ -45,6 +45,7 @@ class QuestionTypeRepository extends CoreApiRepository
     public $aSearch = [
         'fqt_id',
         'fqt_desc',
+        'status'
     ];
 
     /**

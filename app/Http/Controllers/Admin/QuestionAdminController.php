@@ -120,4 +120,24 @@ class QuestionAdminController extends Controller
             return ResponseLib::formatErrorResponse($oException);
         }
     }
+
+    /**
+     * Enable / Disable a question record
+     *
+     * @return array
+     */
+    public function switchUpdateQuestion()
+    {
+        try {
+            /** Prepares the parameters */
+            $aParams = $this->oRequest->all();
+
+            /** Executes the request */
+            $mResult = $this->oQuestionAdminService->switchUpdateQuestion($aParams);
+
+            return ResponseLib::formatSuccessResponse($mResult[AppConstants::DATA], $mResult[AppConstants::MESSAGE]);
+        } catch (\Throwable $oException) {
+            return ResponseLib::formatErrorResponse($oException);
+        }
+    }
 }

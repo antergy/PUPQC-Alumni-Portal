@@ -29,10 +29,7 @@ class QuestionRules
         ],
         'fq_fqt_id'        => [
             'required'
-        ],
-        'fq_active_status' => [
-            'required'
-        ],
+        ]
     ];
 
     /**
@@ -41,25 +38,28 @@ class QuestionRules
      * @var \string[][]
      */
     public $aQuestionUpdate = [
-        'fq_id'            => [
+        'fq_id'               => [
             'required',
             'exists:r_form_questions,fq_id'
         ],
-        'fq_sequence_no'   => [
+        'fq_sequence_no'      => [
             'required'
         ],
-        'fq_desc'          => [
+        'fq_desc'             => [
             'required'
         ],
-        'fq_fqg_id'        => [
+        'fq_fqg_id'           => [
             'required'
         ],
-        'fq_fqt_id'        => [
+        'fq_fqt_id'           => [
             'required'
         ],
-        'fq_active_status' => [
-            'required'
+        'fq_secondary_fqt_id' => [
+            'integer'
         ],
+        'fq_is_required'      => [
+            'integer'
+        ]
     ];
 
     /**

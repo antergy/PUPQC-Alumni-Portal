@@ -60,21 +60,21 @@ Route::prefix('v1')->group(function () {
         Route::post('create', "{$sParentNamespace}\FormApiController@create");
         Route::post('update', "{$sParentNamespace}\FormApiController@update");
         Route::post('delete', "{$sParentNamespace}\FormApiController@delete");
-
-
+        Route::post('switch', "{$sParentNamespace}\FormApiController@switchUpdate");
 
         Route::prefix('questions')->group(function() use ($sParentNamespace) {
             Route::get('read', "{$sParentNamespace}\QuestionApiController@getAll");
             Route::post('create', "{$sParentNamespace}\QuestionApiController@create");
             Route::post('update', "{$sParentNamespace}\QuestionApiController@update");
             Route::post('delete', "{$sParentNamespace}\QuestionApiController@delete");
-
+            Route::post('switch', "{$sParentNamespace}\QuestionApiController@switchUpdate");
 
             Route::prefix('choices')->group(function() use ($sParentNamespace) {
                 Route::get('read', "{$sParentNamespace}\ChoicesApiController@getAll");
                 Route::post('create', "{$sParentNamespace}\ChoicesApiController@create");
                 Route::post('update', "{$sParentNamespace}\ChoicesApiController@update");
                 Route::post('delete', "{$sParentNamespace}\ChoicesApiController@delete");
+                Route::post('delete_by_question', "{$sParentNamespace}\ChoicesApiController@deleteByQuestion");
             });
 
             Route::prefix('answers')->group(function() use ($sParentNamespace) {
@@ -90,6 +90,7 @@ Route::prefix('v1')->group(function () {
                 Route::post('create', "{$sParentNamespace}\QuestionGroupApiController@create");
                 Route::post('update', "{$sParentNamespace}\QuestionGroupApiController@update");
                 Route::post('delete', "{$sParentNamespace}\QuestionGroupApiController@delete");
+                Route::post('switch', "{$sParentNamespace}\QuestionGroupApiController@switchUpdate");
             });
 
             Route::prefix('type')->group(function() use ($sParentNamespace) {
@@ -97,6 +98,7 @@ Route::prefix('v1')->group(function () {
                 Route::post('create', "{$sParentNamespace}\QuestionTypeApiController@create");
                 Route::post('update', "{$sParentNamespace}\QuestionTypeApiController@update");
                 Route::post('delete', "{$sParentNamespace}\QuestionTypeApiController@delete");
+                Route::post('switch', "{$sParentNamespace}\QuestionTypeApiController@switchUpdate");
             });
         });
     });

@@ -137,4 +137,25 @@ class ChoicesApiController extends CoreApiController
             return ResponseLib::formatErrorResponse($oException);
         }
     }
+
+    /**
+     * Deletes a choices by question id
+     *
+     * @return array
+     */
+    public function deleteByQuestion()
+    {
+        try {
+            $iId = $this->oRequest->input('fqc_fq_id');
+            $mResponse = $this->oRepository->bulkDelete('fqc_fq_id', $iId);
+            $sMessage = ResponseLib::SUCCESS_DELETE_MESSAGE;
+            if ($mResponse === 0) {
+                $sMessage = ResponseLib::NO_RECORD_DELETE_MESSAGE;
+            }
+
+            return ResponseLib::formatSuccessResponse($mResponse, $sMessage);
+        } catch (QueryException $oException) {
+            return ResponseLib::formatErrorResponse($oException);
+        }
+    }
 }

@@ -12,6 +12,8 @@ import AdminMgt from "../components/page/Admin/AccountMgt.vue";
 import TracerFormMgt from "../components/page/Admin/TracerFormMgt.vue";
 import SysConfigAccEntities from "../components/page/Admin/SysConfig/AccountEntities.vue";
 import SysConfigSysEntities from "../components/page/Admin/SysConfig/SystemEntities.vue";
+import FormEntities_Basic from "../components/page/Admin/SysConfig/FormEntities/FormEntities_Basic.vue";
+import FormEntities_Questions from "../components/page/Admin/SysConfig/FormEntities/FormEntities_Questions.vue";
 
 Vue.use(VueRouter);
 
@@ -73,6 +75,16 @@ export default {
                 path: '/admin/sysconfig/sys_entities',
                 name: 'SysConfigSysEntities',
                 component: SysConfigSysEntities
+            },
+            {
+                path: '/admin/sysconfig/form/basic',
+                name: 'FormEntities_Basic',
+                component: FormEntities_Basic
+            },
+            {
+                path: '/admin/sysconfig/form/questions',
+                name: 'FormEntities_Questions',
+                component: FormEntities_Questions
             }
         ]
     })

@@ -48,6 +48,8 @@ class FormRepository extends CoreApiRepository
         'form_degree_id',
         'form_course_id',
         'form_active_status',
+        'degree_desc',
+        'course_desc'
     ];
 
     /**

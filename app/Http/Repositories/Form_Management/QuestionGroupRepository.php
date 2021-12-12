@@ -47,6 +47,8 @@ class QuestionGroupRepository extends CoreApiRepository
         'fqg_sequence_no',
         'fqg_desc',
         'fqg_form_id',
+        'status',
+        'form_desc'
     ];
 
     /**

@@ -139,4 +139,23 @@ class QuestionApiController extends CoreApiController
             return ResponseLib::formatErrorResponse($oException);
         }
     }
+
+    /**
+     * Enable/Disable a question record
+     *
+     * @return array
+     */
+    public function switchUpdate()
+    {
+        try {
+            $iId = $this->oRequest->input($this->oRepository->sPrimaryKey);
+            $iStatus = $this->oRequest->input('fq_active_status');
+            $mResponse = $this->oRepository->updateRecord($iId, ['fq_active_status' => $iStatus]);
+            $sMessage = $iStatus === 1 ? ResponseLib::SUCCESS_ENABLE_MESSAGE : ResponseLib::SUCCESS_DISABLE_MESSAGE;
+
+            return ResponseLib::formatSuccessResponse($mResponse, $sMessage);
+        } catch (QueryException $oException) {
+            return ResponseLib::formatErrorResponse($oException);
+        }
+    }
 }

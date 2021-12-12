@@ -12,6 +12,12 @@ import SystemManageDegree from './page/Admin/SysConfig/SystemEntities/Manage_Deg
 import SystemManagePostTypes from './page/Admin/SysConfig/SystemEntities/Manage_PostTypes.vue'
 import SystemManageIndustry from './page/Admin/SysConfig/SystemEntities/Manage_Industry.vue'
 
+import FormEntityBasicGeneral from './page/Admin/SysConfig/FormEntities/FE_Basic_General.vue'
+import FormEntityBasicTypes from './page/Admin/SysConfig/FormEntities/FE_Basic_Types.vue'
+import FormEntityQuestionGroupSetup from './page/Admin/SysConfig/FormEntities/FE_Questions_Group.vue'
+import FormEntityQuestionSetup from './page/Admin/SysConfig/FormEntities/FE_Questions_Setup.vue'
+import FormEntityQuestionList from './page/Admin/SysConfig/FormEntities/FE_Questions_List.vue'
+
 const aComponentList = [
     { component: Layout, name: 'Layout' },
     { component: DefaultLayout, name: 'default' },
@@ -25,6 +31,11 @@ const aComponentList = [
     { component: SystemManageDegree, name: 'SystemManageDegree'},
     { component: SystemManagePostTypes, name: 'SystemManagePostTypes'},
     { component: SystemManageIndustry, name: 'SystemManageIndustry'},
+    { component: FormEntityBasicGeneral, name: 'FormEntityBasicGeneral'},
+    { component: FormEntityBasicTypes, name: 'FormEntityBasicTypes'},
+    { component: FormEntityQuestionGroupSetup, name: 'FormEntityQuestionGroupSetup'},
+    { component: FormEntityQuestionSetup, name: 'FormEntityQuestionSetup'},
+    { component: FormEntityQuestionList, name: 'FormEntityQuestionList'},
 ]
 
 export default aComponentList

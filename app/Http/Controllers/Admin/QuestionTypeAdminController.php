@@ -120,4 +120,24 @@ class QuestionTypeAdminController extends Controller
             return ResponseLib::formatErrorResponse($oException);
         }
     }
+
+    /**
+     * Switch Update a Question Type record
+     *
+     * @return array
+     */
+    public function switchUpdateQuestionType()
+    {
+        try {
+            /** Prepares the parameters */
+            $aParams = $this->oRequest->all();
+
+            /** Executes the request */
+            $mResult = $this->oQuestionTypeAdminService->switchUpdateQuestionType($aParams);
+
+            return ResponseLib::formatSuccessResponse($mResult[AppConstants::DATA], $mResult[AppConstants::MESSAGE]);
+        } catch (\Throwable $oException) {
+            return ResponseLib::formatErrorResponse($oException);
+        }
+    }
 }

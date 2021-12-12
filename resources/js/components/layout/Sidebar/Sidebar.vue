@@ -10,7 +10,7 @@
 			</div>
 		</div>
 		<div class="section">
-			<List title="Navigation Title">
+			<List>
 				<ListItem text="Home" to="/home" />
 				<ListItem text="Messaging" to="/profile" />
 				<ListItem v-if="this.$root.sRootAccPos === 'Administrator' || this.$root.sRootAccPos === 'Superadmin'" text="Alumni Directory" />
@@ -23,7 +23,10 @@
 				</ListItem>
 				<ListItem v-if="this.$root.sRootAccPos === 'Administrator' || this.$root.sRootAccPos === 'Superadmin'" text="System Configuration">
                     <ListItem text="Account Entities" to="/admin/sysconfig/acc_entities" />
-                    <ListItem text="Form Entities" />
+                    <ListItem text="Form Entities">
+                        <ListItem text="Basic Components" to="/admin/sysconfig/form/basic"/>
+                        <ListItem text="Questions and Choices" to="/admin/sysconfig/form/questions"/>
+                    </ListItem>
                     <ListItem  v-if="this.$root.sRootAccPos === 'Superadmin'" text="System Entities" to="/admin/sysconfig/sys_entities"/>
                 </ListItem>
 			</List>

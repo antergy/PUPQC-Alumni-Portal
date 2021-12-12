@@ -43,6 +43,19 @@ class FormManagementService extends CoreAdminService
     const FORM_QUESTION_CHOICES_API_MODULE = 'choices';
 
     /**
+     * Retrieves only the form records
+     *
+     * @param array $aParams
+     * @return array|mixed
+     */
+    public function getFormOnly(array $aParams)
+    {
+        /** Build the request url and executes it */
+        $sApiRoute = sprintf('/%s/%s/read', self::API_VERSION, self::FORM_API_MODULE);
+        return $this->sendInternalApiRequest($sApiRoute, 'GET', $aParams);
+    }
+
+    /**
      * Retrieves form records
      *
      * @param array $aParams
@@ -193,11 +206,24 @@ class FormManagementService extends CoreAdminService
             $mResult = $aValidationResult;
         } else {
             /** Build the request url and executes it */
-            $sApiRoute = sprintf('/%s/%s/create', self::API_VERSION, self::FORM_API_MODULE);
+            $sApiRoute = sprintf('/%s/%s/update', self::API_VERSION, self::FORM_API_MODULE);
             $mResult = $this->sendInternalApiRequest($sApiRoute, 'POST', $aParams);
         }
 
         return $mResult;
+    }
+
+    /**
+     * Enable / Disable a form record
+     *
+     * @param array $aParams
+     * @return array|bool[]|mixed
+     */
+    public function switchUpdateForm(array $aParams)
+    {
+        /** Build the request url and executes it */
+        $sApiRoute = sprintf('/%s/%s/switch', self::API_VERSION, self::FORM_API_MODULE);
+        return $this->sendInternalApiRequest($sApiRoute, 'POST', $aParams);
     }
 
     /**
