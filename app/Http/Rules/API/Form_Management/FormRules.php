@@ -26,7 +26,7 @@ class FormRules
             'required'
         ],
         'form_course_id'     => [
-            'required'
+            'integer'
         ]
     ];
 
@@ -45,10 +45,10 @@ class FormRules
             'string'
         ],
         'form_degree_id'     => [
-            'required'
+            'integer'
         ],
         'form_course_id'     => [
-            'required'
+            'integer'
         ]
     ];
 

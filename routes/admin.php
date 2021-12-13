@@ -56,15 +56,18 @@ Route::prefix('admin')->group(function () {
      */
     Route::prefix('form')->group(function() {
         Route::get('read', "FormAdminController@readForms");
+        Route::get('read/only', "FormAdminController@readFormOnly");
         Route::post('create', "FormAdminController@createForm");
         Route::post('update', "FormAdminController@updateForm");
         Route::post('delete', "FormAdminController@deleteForm");
+        Route::post('switch', "FormAdminController@switchUpdateForm");
 
         Route::prefix('questions')->group(function() {
             Route::get('read', "QuestionAdminController@readQuestions");
             Route::post('create', "QuestionAdminController@createQuestion");
             Route::post('update', "QuestionAdminController@updateQuestion");
             Route::post('delete', "QuestionAdminController@deleteQuestion");
+            Route::post('switch', "QuestionAdminController@switchUpdateQuestion");
 
 
             Route::prefix('choices')->group(function() {
@@ -72,6 +75,7 @@ Route::prefix('admin')->group(function () {
                 Route::post('create', "ChoicesAdminController@createChoice");
                 Route::post('update', "ChoicesAdminController@updateChoice");
                 Route::post('delete', "ChoicesAdminController@deleteChoice");
+                Route::post('update_by_question', "ChoicesAdminController@updateChoicesByQuestion");
             });
 
             Route::prefix('answers')->group(function() {
@@ -86,6 +90,7 @@ Route::prefix('admin')->group(function () {
                 Route::post('create', "QuestionGroupAdminController@createQuestionGroup");
                 Route::post('update', "QuestionGroupAdminController@updateQuestionGroup");
                 Route::post('delete', "QuestionGroupAdminController@deleteQuestionGroup");
+                Route::post('switch', "QuestionGroupAdminController@switchUpdateQuestionGroup");
             });
 
             Route::prefix('type')->group(function() {
@@ -93,6 +98,7 @@ Route::prefix('admin')->group(function () {
                 Route::post('create', "QuestionTypeAdminController@createQuestionType");
                 Route::post('update', "QuestionTypeAdminController@updateQuestionType");
                 Route::post('delete', "QuestionTypeAdminController@deleteQuestionType");
+                Route::post('switch', "QuestionTypeAdminController@switchUpdateQuestionType");
             });
         });
     });

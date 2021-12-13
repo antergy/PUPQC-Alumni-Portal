@@ -71,11 +71,17 @@ class ChoicesAdminController extends Controller
         try {
             /** Prepares the parameters */
             $aParams = $this->oRequest->all();
+            $aChoices = explode(',', $aParams['fqc_desc']);
+            foreach ($aChoices as $sChoice) {
+                /** Executes the request */
+                $aParams = [
+                    'fqc_fq_id' => $aParams['fqc_fq_id'],
+                    'fqc_desc'  => $sChoice,
+                ];
+                $mResult = $this->oChoicesAdminService->createChoice($aParams);
+            }
 
-            /** Executes the request */
-            $mResult = $this->oChoicesAdminService->createChoice($aParams);
-
-            return ResponseLib::formatSuccessResponse($mResult[AppConstants::DATA], $mResult[AppConstants::MESSAGE]);
+            return ResponseLib::formatSuccessResponse($mResult[AppConstants::DATA], 'Successfully created choices');
         } catch (\Throwable $oException) {
             return ResponseLib::formatErrorResponse($oException);
         }
@@ -116,6 +122,37 @@ class ChoicesAdminController extends Controller
             $mResult = $this->oChoicesAdminService->deleteChoice($aParams);
 
             return ResponseLib::formatSuccessResponse($mResult[AppConstants::DATA], $mResult[AppConstants::MESSAGE]);
+        } catch (\Throwable $oException) {
+            return ResponseLib::formatErrorResponse($oException);
+        }
+    }
+
+    /**
+     * Update choices by question
+     * - Delete choices by questions and recreate records
+     *
+     * @return array
+     */
+    public function updateChoicesByQuestion()
+    {
+        try {
+            /** Prepares the parameters */
+            $aParams = $this->oRequest->all();
+
+            /** Executes the request */
+            $iQuestionId = $aParams['fqc_fq_id'];
+            $mResult = $this->oChoicesAdminService->deleteChoiceByQuestion(['fqc_fq_id' => $iQuestionId]);
+            $aChoices = explode(',', $aParams['fqc_desc']);
+            foreach ($aChoices as $sChoice) {
+                /** Executes the request */
+                $aParams = [
+                    'fqc_fq_id' => $iQuestionId,
+                    'fqc_desc'  => $sChoice,
+                ];
+                $mResult = $this->oChoicesAdminService->createChoice($aParams);
+            }
+
+            return ResponseLib::formatSuccessResponse($mResult[AppConstants::DATA], 'Successfully updated question choices');
         } catch (\Throwable $oException) {
             return ResponseLib::formatErrorResponse($oException);
         }

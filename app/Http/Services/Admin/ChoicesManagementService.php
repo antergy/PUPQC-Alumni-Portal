@@ -89,4 +89,17 @@ class ChoicesManagementService extends CoreAdminService
 
         return $this->sendInternalApiRequest($sApiRoute, 'POST', $aParams);
     }
+
+    /**
+     * Delete a choices by question
+     *
+     * @param array $aParams
+     * @return array|bool[]|mixed
+     */
+    public function deleteChoiceByQuestion(array $aParams)
+    {
+        $sApiRoute = sprintf('/v1/%s/delete_by_question', self::QUESTION_CHOICES_API_MODULE);
+
+        return $this->sendInternalApiRequest($sApiRoute, 'POST', $aParams);
+    }
 }

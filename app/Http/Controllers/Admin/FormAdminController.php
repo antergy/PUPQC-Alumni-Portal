@@ -62,6 +62,25 @@ class FormAdminController extends Controller
     }
 
     /**
+     * Retrieves only the forms
+     *
+     * @return array
+     */
+    public function readFormOnly()
+    {
+        try {
+            /** Prepare the parameters */
+            $aParams = $this->oRequest->all();
+
+            /** Execute request */
+            $mResult = $this->oFormAdminService->getFormOnly($aParams);
+            return ResponseLib::formatSuccessResponse($mResult[AppConstants::DATA], $mResult[AppConstants::MESSAGE]);
+        } catch (\Throwable $oException) {
+            return ResponseLib::formatErrorResponse($oException);
+        }
+    }
+
+    /**
      * Create a form record
      *
      * @return array
@@ -114,6 +133,26 @@ class FormAdminController extends Controller
 
             /** Executes the request */
             $mResult = $this->oFormAdminService->deactivateForm($aParams);
+
+            return ResponseLib::formatSuccessResponse($mResult[AppConstants::DATA], $mResult[AppConstants::MESSAGE]);
+        } catch (\Throwable $oException) {
+            return ResponseLib::formatErrorResponse($oException);
+        }
+    }
+
+    /**
+     * Enable / Disable a form record
+     *
+     * @return array
+     */
+    public function switchUpdateForm()
+    {
+        try {
+            /** Prepares the parameters */
+            $aParams = $this->oRequest->all();
+
+            /** Executes the request */
+            $mResult = $this->oFormAdminService->switchUpdateForm($aParams);
 
             return ResponseLib::formatSuccessResponse($mResult[AppConstants::DATA], $mResult[AppConstants::MESSAGE]);
         } catch (\Throwable $oException) {

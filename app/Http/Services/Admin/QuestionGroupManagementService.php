@@ -77,6 +77,19 @@ class QuestionGroupManagementService extends CoreAdminService
     }
 
     /**
+     * Enable/Disable a Question Group record
+     *
+     * @param array $aParams
+     * @return array|bool[]|mixed
+     */
+    public function switchUpdateQuestionGroup(array $aParams)
+    {
+        /** Build the request url and executes it */
+        $sApiRoute = sprintf('/%s/%s/switch', self::API_VERSION, self::QUESTION_GROUP_API_MODULE);
+        return $this->sendInternalApiRequest($sApiRoute, 'POST', $aParams);
+    }
+
+    /**
      * Delete a Question Group record
      *
      * @param array $aParams

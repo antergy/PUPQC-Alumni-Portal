@@ -88,4 +88,17 @@ class QuestionManagementService extends CoreAdminService
 
         return $this->sendInternalApiRequest($sApiRoute, 'POST', $aParams);
     }
+
+    /**
+     * Enable / Disable a form record
+     *
+     * @param array $aParams
+     * @return array|bool[]|mixed
+     */
+    public function switchUpdateQuestion(array $aParams)
+    {
+        /** Build the request url and executes it */
+        $sApiRoute = sprintf('/%s/%s/switch', self::API_VERSION, self::QUESTION_API_MODULE);
+        return $this->sendInternalApiRequest($sApiRoute, 'POST', $aParams);
+    }
 }

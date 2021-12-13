@@ -120,4 +120,24 @@ class QuestionGroupAdminController extends Controller
             return ResponseLib::formatErrorResponse($oException);
         }
     }
+
+    /**
+     * Enable / Disable a Question Group record
+     *
+     * @return array
+     */
+    public function switchUpdateQuestionGroup()
+    {
+        try {
+            /** Prepares the parameters */
+            $aParams = $this->oRequest->all();
+
+            /** Executes the request */
+            $mResult = $this->oQuestionGroupAdminService->switchUpdateQuestionGroup($aParams);
+
+            return ResponseLib::formatSuccessResponse($mResult[AppConstants::DATA], $mResult[AppConstants::MESSAGE]);
+        } catch (\Throwable $oException) {
+            return ResponseLib::formatErrorResponse($oException);
+        }
+    }
 }

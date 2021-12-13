@@ -88,4 +88,17 @@ class QuestionTypeManagementService extends CoreAdminService
 
         return $this->sendInternalApiRequest($sApiRoute, 'POST', $aParams);
     }
+
+    /**
+     * Switch Updated a Question Type record
+     *
+     * @param array $aParams
+     * @return array|bool[]|mixed
+     */
+    public function switchUpdateQuestionType(array $aParams)
+    {
+        $sApiRoute = sprintf('/v1/%s/switch', self::QUESTION_TYPE_API_MODULE);
+
+        return $this->sendInternalApiRequest($sApiRoute, 'POST', $aParams);
+    }
 }

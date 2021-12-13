@@ -103,41 +103,32 @@ class VerifyCsrfToken extends Middleware
         'v1/alumni/update',
         'v1/alumni/delete',
 
-        // Alumni Shared Contacts Management API routes (temp exclusion)
-        'v1/alumni/shared_contacts/create',
-        'v1/alumni/shared_contacts/update',
-        'v1/alumni/shared_contacts/delete',
-        'v1/alumni/shared_contacts/deleteByAlumni',
-
-        // Alumni impact of education Management API routes (temp exclusion)
-        'v1/alumni/ioe/create',
-        'v1/alumni/ioe/deleteByAlumni',
-
-        // Alumni Work Exp Management API routes (temp exclusion)
-        'v1/alumni/work_exp/create',
-        'v1/alumni/work_exp/update',
-        'v1/alumni/work_exp/delete',
-        'v1/alumni/work_exp/deleteByAlumni',
-
-        // Alumni Unemployed Reason Management API routes (temp exclusion)
-        'v1/alumni/unemploy_reason/create',
-        'v1/alumni/unemploy_reason/update',
-        'v1/alumni/unemploy_reason/delete',
-        'v1/alumni/unemploy_reason/deleteByAlumni',
-
-        // Alumni Job Level Classification Management API routes (temp exclusion)
-        'v1/alumni/ajle/create',
-        'v1/alumni/ajle/update',
-        'v1/alumni/ajle/delete',
-        'v1/alumni/ajle/deleteByAlumni',
-
-        // Alumni Competencies Management API routes (temp exclusion)
-        'v1/alumni/competency/create',
-        'v1/alumni/competency/deleteByAlumni',
-
         // New routes from system mgt
         'v1/branch/create',
         'v1/branch/update',
         'v1/branch/switch',
+
+        // Routes for Form (API)
+        'v1/form/create',
+        'v1/form/update',
+        'v1/form/switch',
+
+        // Routes for Form Question Type (API)
+        'v1/form/questions/type/create',
+        'v1/form/questions/type/update',
+        'v1/form/questions/type/switch',
+
+        // Routes for Form Question Group (API)
+        'v1/form/questions/group/create',
+        'v1/form/questions/group/update',
+        'v1/form/questions/group/switch',
+
+        // Routes for Form Question Group (API)
+        'v1/form/questions/create',
+        'v1/form/questions/update',
+        'v1/form/questions/switch',
+        'v1/form/questions/choices/create',
+        'v1/form/questions/choices/update',
+        'v1/form/questions/choices/delete_by_question',
     ];
 }
