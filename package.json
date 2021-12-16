@@ -33,6 +33,7 @@
         "@fortawesome/vue-fontawesome": "^2.0.2",
         "autoprefixer": "^10.2.4",
         "bootstrap": "^5.1.0",
+        "cropperjs": "^1.5.12",
         "datatables.net-dt": "^1.1.0",
         "jquery": "^3.6.0",
         "laravel-mix-postcss-config": "^1.4.0",
