@@ -125,7 +125,7 @@ class AccountApiController extends CoreApiController
         try {
             $aRequest = $this->validate($this->oRequest, $oRules->aAccountUpdate);
             $iId = intval($this->oRequest->input($this->oRepository->sPrimaryKey));
-            $aData = ArrayLib::filterKeys($aRequest, $this->oRepository->aSearch);
+            $aData = ArrayLib::filterKeys($aRequest, array_merge($this->oRepository->aSearch, ['acc_password']));
             $aData = $this->oRepository->encryptValues($aData, $this->oRepository->aEncryptedKeys);
             $aResponse = $this->oRepository->updateRecord($iId, $aData);
 

@@ -1,9 +1,10 @@
 <template>
 	<div :class="['sidebar', { active: active }]">
 		<div class="profile">
-			<div class="profile__image">
+			<div class="profile__image" v-if="$root.sRootUserProfPic === null">
 				<font-awesome-icon far icon="user-circle" size="2x" />
 			</div>
+            <img v-if="$root.sRootUserProfPic !== null" :src="$root.sRootUserProfPic" style="width: 50px; height: 50px; border-radius: 50%; border: 3px solid #6E6E6E" alt="Profile"/>
 			<div class="profile__container">
 				<label class="profile__label">{{ this.$root.sRootFullname }}</label>
 				<label class="profile__position">{{ this.$root.sRootAccPos }}</label>

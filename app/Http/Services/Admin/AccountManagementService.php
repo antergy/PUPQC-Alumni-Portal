@@ -42,15 +42,18 @@ class AccountManagementService extends CoreAdminService
                 return $aValidationResult;
             }
 
-            /** Check if there are duplicate /existing values in the db based on the entered params */
-            $aDuplicateResult = $this->checkDuplicateAccountDetails($aParams);
-            if ($aDuplicateResult['data'] === false) {
-                return $aDuplicateResult;
+            if ($sAction === 'update') { // Update Account details
+                $mResult = $this->updateAccount($aParams);
             } else {
-                /** Proceed to account creation / update */
-                $mResult = $sAction === 'create' ? $this->createAccount($aParams) : $this->updateAccount($aParams);
+                /** Check if there are duplicate /existing values in the db based on the entered params */
+                $aDuplicateResult = $this->checkDuplicateAccountDetails($aParams);
+                if ($aDuplicateResult['data'] === false) {
+                    return $aDuplicateResult;
+                } else {
+                    /** Proceed to account creation */
+                    $mResult = $this->createAccount($aParams);
+                }
             }
-
         } else if ($sAction === 'deactivate') {
             /** Proceed to account deactivation */
             $mResult = $this->deactivateAccount($aParams);
@@ -152,8 +155,8 @@ class AccountManagementService extends CoreAdminService
      */
     public function deactivateAccount($aParams)
     {
-        $aAllowedFields = ['acc_id'];
-        $aAllowedParams = array_merge(['acc_status' => 3], ArrayLib::filterKeys($aParams, $aAllowedFields));
+        $aAllowedFields = ['acc_id', 'acc_status'];
+        $aAllowedParams = ArrayLib::filterKeys($aParams, $aAllowedFields);
         $sApiRoute = sprintf('/v1/%s/update', self::API_MODULE);
 
         return $this->sendInternalApiRequest($sApiRoute, 'POST', $aAllowedParams);

@@ -45,6 +45,9 @@ class AccountRules
             'required',
             'exists:r_branch,branch_id'
         ],
+        'acc_picture' => [
+            'string'
+        ]
     ];
 
     /**
@@ -76,6 +79,9 @@ class AccountRules
         ],
         'acc_status'          => [
             'integer'
+        ],
+        'acc_picture'         => [
+            'string'
         ]
     ];
 }
