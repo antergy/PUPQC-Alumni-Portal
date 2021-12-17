@@ -43,7 +43,8 @@ class InboxesApiController extends CoreApiController
     {
         try {
             /** Initialize foreign key constraint */
-            $this->oRepository->joinAccountTable();
+            $this->oRepository->joinSenderAccountTable();
+            $this->oRepository->joinReceiverAccountTable();
 
             /** Initialize where clause from default table */
             $aSearch = $this->oRepository->aSearch;

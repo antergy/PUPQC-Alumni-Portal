@@ -30,9 +30,12 @@ class InboxRepository extends CoreApiRepository
      * @var string[]
      */
     public $aForeignColumns = [
-        'acc_username as sender_username' => 't_accounts',
-        'acc_name as sender_name'         => 't_accounts',
-        'acc_email as sender_email'       => 't_accounts',
+        'sender_acc_username as sender_username' => 'sender_view',
+        'sender_acc_name as sender_name' => 'sender_view',
+        'sender_acc_email as sender_email' => 'sender_view',
+        'receiver_acc_username as receiver_username' => 'receiver_view',
+        'receiver_acc_name as receiver_name' => 'receiver_view',
+        'receiver_acc_email as receiver_email' => 'receiver_view',
     ];
 
     /**
@@ -58,18 +61,30 @@ class InboxRepository extends CoreApiRepository
      * @var string[]
      */
     public $aEncryptedKeys = [
-      'in_message'
+        'in_message'
     ];
 
     /**
      * Inner join the account (sender) table
      * @param string $sType
      */
-    public function joinAccountTable($sType = 'inner')
+    public function joinSenderAccountTable($sType = 'inner')
     {
         $sReferenceKey = 't_inboxes.in_acc_id_from';
-        $sForeignKey = 't_accounts.acc_id';
+        $sForeignKey = 'sender_view.sender_acc_id';
         $sOperator = '=';
-        $this->oModel = $this->oModel->join('t_accounts', $sReferenceKey, $sOperator, $sForeignKey, $sType);
+        $this->oModel = $this->oModel->join('sender_view', $sReferenceKey, $sOperator, $sForeignKey, $sType);
+    }
+
+    /**
+     * Inner join the account (receiver) table
+     * @param string $sType
+     */
+    public function joinReceiverAccountTable($sType = 'inner')
+    {
+        $sReferenceKey = 't_inboxes.in_acc_id_to';
+        $sForeignKey = 'receiver_view.receiver_acc_id';
+        $sOperator = '=';
+        $this->oModel = $this->oModel->join('receiver_view', $sReferenceKey, $sOperator, $sForeignKey, $sType);
     }
 }
