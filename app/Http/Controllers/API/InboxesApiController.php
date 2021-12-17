@@ -116,4 +116,21 @@ class InboxesApiController extends CoreApiController
             return ResponseLib::formatErrorResponse($oException);
         }
     }
+
+    /**
+     * Changes the read status of the inbox (Update)
+     * @return array
+     */
+    public function changeReadStatus()
+    {
+        try {
+            $iId = $this->oRequest->input($this->oRepository->sPrimaryKey);
+            $iStatus = $this->oRequest->input('in_is_read');
+            $mResponse = $this->oRepository->updateRecord($iId, ['in_is_read' => $iStatus]);;
+
+            return ResponseLib::formatSuccessResponse($mResponse, 'Successfully changed the status');
+        } catch (QueryException $oException) {
+            return ResponseLib::formatErrorResponse($oException);
+        }
+    }
 }

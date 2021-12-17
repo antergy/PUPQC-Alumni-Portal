@@ -38,6 +38,9 @@ class InboxManagementService extends CoreAdminService
         } else if ($sAction === 'delete') {
             /** Proceed to message deletion */
             $mResult = $this->deleteMessage($aParams);
+        } else if ($sAction === 'change_status') {
+            /** Proceed to message changing of read status */
+            $mResult = $this->changeReadMessageStatus($aParams);
         }
 
         return $mResult;
@@ -84,6 +87,19 @@ class InboxManagementService extends CoreAdminService
     public function deleteMessage($aParams)
     {
         $sApiRoute = sprintf('/v1/%s/delete', self::API_MODULE);
+
+        return $this->sendInternalApiRequest($sApiRoute, 'POST', $aParams);
+    }
+
+    /**
+     * Change the read status of message
+     *
+     * @param array $aParams
+     * @return array|mixed
+     */
+    public function changeReadMessageStatus($aParams)
+    {
+        $sApiRoute = sprintf('/v1/%s/change_status', self::API_MODULE);
 
         return $this->sendInternalApiRequest($sApiRoute, 'POST', $aParams);
     }

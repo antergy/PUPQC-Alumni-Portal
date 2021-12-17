@@ -46,9 +46,9 @@ Route::prefix('admin')->group(function () {
      */
     Route::prefix('message')->group(function () {
         Route::get('read', 'InboxAdminController@manageRequest');
-        Route::get('readDetails', 'PostAdminController@getDetailedForm');
         Route::post('create', 'InboxAdminController@manageRequest');
         Route::post('delete', 'InboxAdminController@manageRequest');
+        Route::post('change_status', 'InboxAdminController@manageRequest');
     });
 
     /**

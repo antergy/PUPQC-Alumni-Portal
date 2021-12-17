@@ -130,5 +130,9 @@ class VerifyCsrfToken extends Middleware
         'v1/form/questions/choices/create',
         'v1/form/questions/choices/update',
         'v1/form/questions/choices/delete_by_question',
+
+        // Routes for inbox (API)
+        'v1/message/create',
+        'v1/message/change_status'
     ];
 }

@@ -24,7 +24,11 @@ $aAuthenticatedVueRoutes = [
     '/admin/sysconfig/acc_entities',
     '/admin/sysconfig/sys_entities',
     '/admin/sysconfig/form/basic',
-    'admin/sysconfig/form/questions'
+    '/admin/sysconfig/form/questions',
+    '/message/inbox',
+    '/message/sent',
+    '/message/sent/details',
+    '/message/inbox/details'
 ];
 foreach ($aAuthenticatedVueRoutes as $sRoute) {
     Route::get($sRoute, function () use ($sRoute) {

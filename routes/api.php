@@ -42,6 +42,7 @@ Route::prefix('v1')->group(function () {
         Route::get('read', "InboxesApiController@getAll");
         Route::post('create', "InboxesApiController@create");
         Route::post('delete', "InboxesApiController@delete");
+        Route::post('change_status', "InboxesApiController@changeReadStatus");
     });
 
     /**

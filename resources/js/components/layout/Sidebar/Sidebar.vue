@@ -13,7 +13,11 @@
 		<div class="section">
 			<List>
 				<ListItem text="Home" to="/home" />
-				<ListItem text="Messaging" to="/profile" />
+				<ListItem text="Messaging">
+                    <ListItem text="Create Message" />
+                    <ListItem text="Inbox" to="/message/inbox"/>
+                    <ListItem text="Sent" to="/message/sent"/>
+                </ListItem>
 				<ListItem v-if="this.$root.sRootAccPos === 'Administrator' || this.$root.sRootAccPos === 'Superadmin'" text="Alumni Directory" />
                 <ListItem v-if="this.$root.sRootAccPos === 'Administrator' || this.$root.sRootAccPos === 'Superadmin'" text="Accounts Management" to="/admin/accounts"/>
                 <ListItem v-if="this.$root.sRootAccPos === 'Administrator' || this.$root.sRootAccPos === 'Superadmin'" text="Tracer Form Management" to="/admin/tracerForm"/>

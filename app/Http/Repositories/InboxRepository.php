@@ -31,7 +31,7 @@ class InboxRepository extends CoreApiRepository
      */
     public $aForeignColumns = [
         'acc_username as sender_username' => 't_accounts',
-        'acc_name as sender_name '        => 't_accounts',
+        'acc_name as sender_name'         => 't_accounts',
         'acc_email as sender_email'       => 't_accounts',
     ];
 
@@ -46,6 +46,9 @@ class InboxRepository extends CoreApiRepository
         'in_message',
         'in_acc_id_from',
         'in_acc_id_to',
+        'in_is_reply',
+        'in_inbox_id',
+        'in_is_read',
         't_inboxes.created_at'
     ];
 
