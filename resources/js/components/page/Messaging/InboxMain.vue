@@ -6,6 +6,8 @@
             <!-- TABLE -->
             <div class="bg-white w-fullx" style="border-radius: 5px">
                 <div class="p-5">
+                    <button type="button" class="form__button info w-2/12" @click="getMainMessageList">&nbsp;Refresh Messages&nbsp;</button>
+                    <hr><br>
                     <table id="tbl_inbox_main" class="stripe m-2" style="width: 100%;">
                         <thead>
                         <tr>
@@ -21,35 +23,28 @@
         </div>
     </div>
 </template>
-
 <script>
-
 export default {
-    components: {
-
-    },
-    data() {
-        return {
-
-        };
-    },
+    name: "InboxMain",
     created() {
         this.$root.setUserInfo();
         this.initActionBtnModalTrigger();
     },
     mounted() {
         let mSelf = this;
+        /** Set a 1 second delay before retrieving */
         setTimeout(function () {
             mSelf.getMainMessageList();
         }, 1000);
     },
     methods: {
+
         /**
-         * Get messages (Main messages; non-reply)
+         * Get messages (All received messages)
          */
         getMainMessageList: function () {
             let mSelf = this;
-            let sUrl = '/admin/message/read?in_acc_id_to=' + this.$root.sRootUserId + '&in_is_reply=0';
+            let sUrl = '/admin/message/read?in_acc_id_to=' + this.$root.sRootUserId;
             $('#tbl_inbox_main').DataTable().destroy();
             $('#tbl_inbox_main').DataTable({
                 "ajax": {
@@ -58,10 +53,10 @@ export default {
                         var reformatted_data = [];
                         $.each(json.data, function (key, value) {
                             reformatted_data.push({
-                                'sender'    : mSelf.checkReadMarker(value.sender_username, value.in_is_read),
-                                'subject'   : mSelf.checkReadMarker(value.in_subject, value.in_is_read),
-                                'datetime'  : mSelf.checkReadMarker(value.created_at, value.in_is_read),
-                                'action'    : '<div style="text-align: center"><button type="button" class="form__button w-8/12 inbox_view" data-response="'+ encodeURIComponent(JSON.stringify(value)) +'" style="background-color: #0083f6; color: white; border-radius: 6px; font-size: 14px" >View Message</button></div>'
+                                'sender'   : mSelf.checkReadMarker(value.sender_username, value.in_is_read),
+                                'subject'  : mSelf.checkReadMarker(value.in_subject, value.in_is_read),
+                                'datetime' : mSelf.checkReadMarker(value.created_at, value.in_is_read),
+                                'action'   : '<div style="text-align: center"><button type="button" class="form__button w-8/12 inbox_view" data-response="' + encodeURIComponent(JSON.stringify(value)) + '" style="background-color: #0083f6; color: white; border-radius: 6px; font-size: 14px" >View Message</button></div>'
                             });
                         });
                         return reformatted_data;
@@ -77,9 +72,13 @@ export default {
             });
         },
 
+        /**
+         * Check if the message is already read or not, provide css changes
+         * [DataTable]
+         */
         checkReadMarker: function (mValue, bRead) {
             if (bRead === 0) {
-                return "<b style='color: #7F1D1D; font-size: 17px'>"+mValue+"</b>";
+                return "<b style='color: #7F1D1D; font-size: 17px'>" + mValue + "</b>";
             } else {
                 return mValue;
             }
@@ -97,19 +96,20 @@ export default {
                 let bIsRead = mData.in_is_read;
                 if (bIsRead === 0) {
                     let oParam = {
-                        'in_id'     : iMsgId,
-                        'in_is_read': 1
+                        'in_id'      : iMsgId,
+                        'in_is_read' : 1
                     };
-                    // Change the read status
-                    mSelf.$root.postRequest('admin/message/change_status', oParam, (mResponse) => {});
+                    /** Change the read status */
+                    mSelf.$root.postRequest('admin/message/change_status', oParam, (mResponse) => {
+                    });
                 }
+                /** Redirect to message details page */
                 window.location = 'inbox/details?msgId=' + iMsgId;
             });
         }
     }
 }
 </script>
-
 <style scoped>
 @import './Inbox.css';
 </style>

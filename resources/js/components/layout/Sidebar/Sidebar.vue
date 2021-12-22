@@ -14,7 +14,7 @@
 			<List>
 				<ListItem text="Home" to="/home" />
 				<ListItem text="Messaging">
-                    <ListItem text="Create Message" />
+                    <ListItem text="Create Message" to="/message/create"/>
                     <ListItem text="Inbox" to="/message/inbox"/>
                     <ListItem text="Sent" to="/message/sent"/>
                 </ListItem>

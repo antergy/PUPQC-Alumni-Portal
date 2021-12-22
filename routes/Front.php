@@ -25,6 +25,7 @@ $aAuthenticatedVueRoutes = [
     '/admin/sysconfig/sys_entities',
     '/admin/sysconfig/form/basic',
     '/admin/sysconfig/form/questions',
+    '/message/create',
     '/message/inbox',
     '/message/sent',
     '/message/sent/details',

@@ -52,7 +52,8 @@ class InboxRepository extends CoreApiRepository
         'in_is_reply',
         'in_inbox_id',
         'in_is_read',
-        't_inboxes.created_at'
+        't_inboxes.created_at',
+        't_inboxes.updated_at',
     ];
 
     /**

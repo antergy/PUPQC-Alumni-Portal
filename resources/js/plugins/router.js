@@ -14,6 +14,7 @@ import SysConfigAccEntities from "../components/page/Admin/SysConfig/AccountEnti
 import SysConfigSysEntities from "../components/page/Admin/SysConfig/SystemEntities.vue";
 import FormEntities_Basic from "../components/page/Admin/SysConfig/FormEntities/FormEntities_Basic.vue";
 import FormEntities_Questions from "../components/page/Admin/SysConfig/FormEntities/FormEntities_Questions.vue";
+import MsgCreate from "../components/page/Messaging/CreateMessage.vue";
 import InboxMain from "../components/page/Messaging/InboxMain.vue";
 import SentMain from "../components/page/Messaging/SentMain.vue";
 import InboxDetails from "../components/page/Messaging/InboxDetails.vue";
@@ -88,6 +89,11 @@ export default {
                 path: '/admin/sysconfig/form/questions',
                 name: 'FormEntities_Questions',
                 component: FormEntities_Questions
+            },
+            {
+                path: '/message/create',
+                name: 'MsgCreate',
+                component: MsgCreate
             },
             {
                 path: '/message/inbox',

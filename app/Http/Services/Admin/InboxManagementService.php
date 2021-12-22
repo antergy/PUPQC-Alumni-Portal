@@ -34,6 +34,7 @@ class InboxManagementService extends CoreAdminService
             $mResult = $this->getMessages($aParams);
         } else if ($sAction === 'create') {
             /** Proceed to message creation / update */
+            $aParams = array_merge($aParams, ['in_acc_id_from' => session()->get('acc_id')]);
             $mResult = $this->createMessage($aParams);
         } else if ($sAction === 'delete') {
             /** Proceed to message deletion */

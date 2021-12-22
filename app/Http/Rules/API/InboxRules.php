@@ -32,5 +32,11 @@ class InboxRules
             'required',
             'integer'
         ],
+        'in_is_reply' => [
+            'integer'
+        ],
+        'in_inbox_id' => [
+            'integer'
+        ],
     ];
 }
