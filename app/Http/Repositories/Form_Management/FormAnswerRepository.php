@@ -46,8 +46,8 @@ class FormAnswerRepository extends CoreApiRepository
         'fa_id',
         'fa_answer',
         'fa_fq_id',
-        'fa_acc_id',
-        'fa_is_secondary_answer'
+        'fa_is_secondary_answer',
+        'fa_fag_id'
     ];
 
 

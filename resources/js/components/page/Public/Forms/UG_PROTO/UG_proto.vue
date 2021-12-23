@@ -287,8 +287,7 @@
                         oThis.answered_form.push({
                             fa_fq_id : iQuestionId,
                             fa_answer : mAnswer,
-                            fa_is_secondary_answer : bIsSecondary,
-                            fa_acc_id  : 1
+                            fa_is_secondary_answer : bIsSecondary
                         });
                         oElement.siblings('.form_error_handler').addClass('exclude').css('color', '');
                         oElement.closest('.form__choices').siblings('.form_error_handler').addClass('exclude').css('color', '');
@@ -307,14 +306,17 @@
                     return $(oThis.answered_error[0])[0].scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'start' });
                 }
 
-                this.$root.postRequest('v1/form/questions/answers/create/multiple', { oData : oThis.answered_form}, (mResult) => {
-                    Swal.fire({
-                        title: "Success",
-                        text: mResult.message,
-                        icon: "success",
-                        showDenyButton: false,
-                        backdrop: `rgba(128, 128, 128, 0.4)`,
-                    });
+                this.$root.postRequest('v1/form/questions/answers/create/multiple', { oData : {
+                        oAnsweredForm : oThis.answered_form,
+                        sEmail : window.localStorage.getItem('tracer.email')
+                    }}, (mResult) => {
+                        Swal.fire({
+                            title: "Success",
+                            text: mResult.message,
+                            icon: "success",
+                            showDenyButton: false,
+                            backdrop: `rgba(128, 128, 128, 0.4)`,
+                        });
                 });
             }
         }

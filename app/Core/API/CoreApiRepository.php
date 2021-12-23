@@ -173,13 +173,13 @@ abstract class CoreApiRepository
     /**
      * Method for creating/inserting rows
      *
-     * @param array $aData
+     * @param array $aAnsweredForm
      * @return mixed
      */
-    public function createMultipleRecord($aData)
+    public function createMultipleRecord($aAnsweredForm)
     {
-        $sSql = $this->oModel->getGrammar()->compileInsert($this->oModel, $aData);
-        foreach ($aData as $mRows) {
+        $sSql = $this->oModel->getGrammar()->compileInsert($this->oModel, $aAnsweredForm);
+        foreach ($aAnsweredForm as $mRows) {
             foreach ($mRows as $mData) {
                 $sSql = preg_replace('/\?/', $mData, $sSql, 1);
             }
@@ -190,16 +190,16 @@ abstract class CoreApiRepository
 
         $iLastIdInsertedId = $this->oModel->max($this->sPrimaryKey);
         /** Execute query */
-        $bResult = $this->oModel->insert($aData);
+        $bResult = $this->oModel->insert($aAnsweredForm);
         $aInsertedIds = [];
         if ($bResult === true) {
-            for ($iIncr = 1; $iIncr <= count($aData); $iIncr ++) {
+            for ($iIncr = 1; $iIncr <= count($aAnsweredForm); $iIncr ++) {
                 array_push($aInsertedIds, $iLastIdInsertedId + $iIncr);
             }
         }
         /** Logs after executing query */
         $aProcessInfo[LogLib::REQUEST_TYPE_KEY] = 'Result';
-        LogLib::LogAPI($aProcessInfo, $sSql, 'Done executing query', $aData);
+        LogLib::LogAPI($aProcessInfo, $sSql, 'Done executing query', $aAnsweredForm);
 
         return $aInsertedIds;
     }

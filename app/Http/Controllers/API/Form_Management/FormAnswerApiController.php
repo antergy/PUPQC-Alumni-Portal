@@ -11,6 +11,9 @@ use App\Libraries\Common\LogLib;
 use App\Libraries\Common\ResponseLib;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 /**
@@ -102,10 +105,28 @@ class FormAnswerApiController extends CoreApiController
     public function createMultiple(Request $oRequest)
     {
         try {
-            $aData = array_filter($oRequest->get('oData'), function($aRequestData) {
+            $aData = $oRequest->get('oData');
+            $aAnsweredForm = Arr::get($aData, 'oAnsweredForm', []);
+            $sEmail = Arr::get($aData, 'sEmail', '');
+            $mAccountId = Auth::id() ?? null;
+            $aAnswerGroup = [
+                'fag_reference_no'  => '',
+                'fag_name'          => '',
+                'fag_acc_id'        => $mAccountId,
+                'fag_email'         => $sEmail,
+                'fag_remarks'       => '',
+            ];
+            $mGroupAnswerId = DB::table('r_form_answer_group')->insertGetId($aAnswerGroup);
+            if (intval($mGroupAnswerId) <= 0) {
+                throw new ValidationException('Group Answer Form not inserted!');
+            }
+            $aAnsweredForm = array_filter($aAnsweredForm, function($aRequestData) use ($mGroupAnswerId) {
                 return array_diff_key(array_flip($this->oRepository->aSearch), $aRequestData);
             });
-            $aResponse = $this->oRepository->createMultipleRecord($aData);
+            foreach ($aAnsweredForm as $mKey => $mValue) {
+                $aAnsweredForm[$mKey] = array_merge([ 'fa_fag_id' => $mGroupAnswerId ], $mValue);
+            }
+            $aResponse = $this->oRepository->createMultipleRecord($aAnsweredForm);
 
             return ResponseLib::formatSuccessResponse($aResponse, ResponseLib::SUCCESS_CREATE_MESSAGE);
         } catch (QueryException | ValidationException $oException) {
