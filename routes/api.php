@@ -203,4 +203,5 @@ Route::prefix('v1')->group(function () {
             Route::post('switch', "{$sModuleController}@switchUpdate");
         });
     }
+    Route::get('tracer/form/{iId}', );
 });

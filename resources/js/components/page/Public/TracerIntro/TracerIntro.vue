@@ -94,11 +94,7 @@
             },
             redirectForm: function () {
                 if (this.validateEmail(this.sEmail) !== null) {
-                    if (this.selectedDegree === 1) {
-                        this.$root.redirect('ug_tracerForm')
-                    } else if (this.selectedDegree === 2) {
-                        this.$root.redirect('tracerForm')
-                    }
+                    (this.selectedDegree > 0) && this.$root.redirect('tracerForm/' + this.selectedDegree);
                 } else {
                     Swal.fire({
                         title: "Error",

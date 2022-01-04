@@ -49,7 +49,7 @@ class FormAnswerApiController extends CoreApiController
         try {
             /** Initialize foreign key constraint */
             $this->oRepository->joinFormQuestionTable('left');
-            $this->oRepository->joinAccountTable('left');
+            $this->oRepository->joinFormAnswerGroupTable('left');
 
             /** Initialize where clause from default table */
             $aSearch = $this->oRepository->aSearch;
@@ -108,13 +108,15 @@ class FormAnswerApiController extends CoreApiController
             $aData = $oRequest->get('oData');
             $aAnsweredForm = Arr::get($aData, 'oAnsweredForm', []);
             $sEmail = Arr::get($aData, 'sEmail', '');
+            $iFormId = Arr::get($aData, 'iFormId', null);
             $mAccountId = Auth::id() ?? null;
             $aAnswerGroup = [
-                'fag_reference_no'  => '',
+                'fag_reference_no'  => md5(time()),
                 'fag_name'          => '',
                 'fag_acc_id'        => $mAccountId,
                 'fag_email'         => $sEmail,
                 'fag_remarks'       => '',
+                'fag_form_id'       => $iFormId
             ];
             $mGroupAnswerId = DB::table('r_form_answer_group')->insertGetId($aAnswerGroup);
             if (intval($mGroupAnswerId) <= 0) {

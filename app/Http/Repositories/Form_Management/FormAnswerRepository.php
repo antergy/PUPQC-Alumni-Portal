@@ -47,7 +47,8 @@ class FormAnswerRepository extends CoreApiRepository
         'fa_answer',
         'fa_fq_id',
         'fa_is_secondary_answer',
-        'fa_fag_id'
+        'fa_fag_id',
+        'fag_form_id',
     ];
 
 
@@ -85,11 +86,11 @@ class FormAnswerRepository extends CoreApiRepository
      *
      * @param string $sType
      */
-    public function joinAccountTable($sType = 'inner')
+    public function joinFormAnswerGroupTable($sType = 'inner')
     {
-        $sReferenceKey = 'r_form_answers.fa_acc_id';
-        $sForeignKey = 't_accounts.acc_id';
+        $sReferenceKey = 'r_form_answers.fa_fag_id';
+        $sForeignKey = 'r_form_answer_group.fag_id';
         $sOperator = '=';
-        $this->oModel = $this->oModel->join('t_accounts', $sReferenceKey, $sOperator, $sForeignKey, $sType);
+        $this->oModel = $this->oModel->join('r_form_answer_group', $sReferenceKey, $sOperator, $sForeignKey, $sType);
     }
 }
