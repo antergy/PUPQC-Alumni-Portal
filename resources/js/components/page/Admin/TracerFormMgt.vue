@@ -51,7 +51,7 @@ export default {
                         $.each(json.data, function (key, value) {
                             reformatted_data.push({
                                 'reference_no' : value.fag_reference_no,
-                                'name'         : (value.fag_name !== null && value.fag_name.length > 0) ? value.fag_name : '-',
+                                'name'         : (value.fag_name !== null && value.fag_name.length > 0) ? value.fag_name : 'Anonymous',
                                 'form_desc'    : value.form_desc,
                                 'email'        : (value.acc_email !== null) ? value.acc_email : value.fag_email,
                                 'remarks'      : value.fag_remarks,
