@@ -40,8 +40,9 @@
                 </tbody>
             </table>
         </div>
-        <div class="form outline">
-            <span id="form_description" class="form__title"></span>
+
+        <div class="form outline" style="pointer-events: none">
+            <a type="button" class="form__button  sys_ent_modify" style="pointer-events: auto; text-align:center; width:20%; background-color: salmon; color: white;"  href="/admin/tracerForm"> Back (Tracer Management)</a><span id="form_description" class="form__title"></span>
             <span class="form__subtitle">Please answer the following:</span>
             <br>
             <div class="form__input-group">
