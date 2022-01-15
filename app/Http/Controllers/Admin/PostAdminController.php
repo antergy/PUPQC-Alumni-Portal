@@ -166,6 +166,21 @@ class PostAdminController extends Controller
      *
      * @return array
      */
+    public function getAllLikes()
+    {
+        try {
+            $mResult = $this->oPostManageService->retrieveAllLikes($this->oRequest->all());
+            return ResponseLib::formatSuccessResponse($mResult[AppConstants::DATA], $mResult[AppConstants::MESSAGE]);
+        } catch (\Throwable $oException) {
+            return ResponseLib::formatErrorResponse($oException);
+        }
+    }
+
+    /**
+     * Retrieves the post's likes
+     *
+     * @return array
+     */
     public function getLikes()
     {
         try {

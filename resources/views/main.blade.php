@@ -6,8 +6,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>{{ config('app.name') }}</title>
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel=stylesheet href="{{ asset('css/sweetalert2@9.min.css')}} ">
     <!-- Styles -->
     <style>

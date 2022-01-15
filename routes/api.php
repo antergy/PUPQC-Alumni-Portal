@@ -125,6 +125,7 @@ Route::prefix('v1')->group(function () {
         });
 
         Route::prefix('comments')->group(function () use ($sParentNamespace) {
+            Route::get('count', "{$sParentNamespace}\CommentApiController@getCount");
             Route::get('read', "{$sParentNamespace}\CommentApiController@getAll");
             Route::post('create', "{$sParentNamespace}\CommentApiController@create");
             Route::post('update', "{$sParentNamespace}\CommentApiController@update");

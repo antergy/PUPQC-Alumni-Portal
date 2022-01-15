@@ -30,7 +30,8 @@ class CommentRepository extends CoreApiRepository
      * @var string[]
      */
     public $aForeignColumns = [
-        'acc_username as commented_by' => 't_accounts'
+        'acc_username as commented_by'  => 't_accounts',
+        'acc_picture  as commenter_pic' => 't_accounts'
     ];
 
     /**

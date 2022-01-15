@@ -23,7 +23,7 @@ class LikeRules
         ],
         'lk_post_id'   => [
             'required',
-            'exists:t_posts,p_id'
+            'exists:t_posts,post_id'
         ]
     ];
 

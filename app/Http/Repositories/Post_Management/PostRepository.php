@@ -31,6 +31,8 @@ class PostRepository extends CoreApiRepository
      */
     public $aForeignColumns = [
         'acc_username' => 't_accounts',
+        'acc_picture'  => 't_accounts',
+        'acc_name'     => 't_accounts',
         'post_desc'    => 'r_post_types',
     ];
 
@@ -41,9 +43,7 @@ class PostRepository extends CoreApiRepository
      */
     public $aSearch = [
         'post_id',
-        'post_title',
         'post_desc',
-        'post_picture',
         'post_acc_id',
         'post_pt_id',
         'post_degree_id',

@@ -37,17 +37,14 @@ class PostValidator extends BaseValidator
     private static function rules()
     {
         return [
-            'p_id'        => ['integer'],
-            'p_title'     => ['required',
-                              'string'],
-            'p_desc'      => ['required',
-                              'string'],
-            'p_picture'   => ['string'],
-            'p_acc_id'    => ['required',
-                              'numeric'],
-            'p_type_id'   => ['required',
-                              'numeric'],
-            'p_course_id' => ['numeric'],
+            'post_desc'      => ['required',
+                                 'string'],
+            'post_acc_id'    => ['required',
+                                 'numeric'],
+            'post_pt_id'     => ['required',
+                                 'numeric'],
+            'post_degree_id' => ['numeric'],
+            'post_course_id' => ['numeric'],
         ];
     }
 

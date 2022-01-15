@@ -72,15 +72,16 @@ class PostManagementService extends CoreAdminService
         $aPosts = $this->sendInternalApiRequest($sApiRoute, 'GET', $aParams);
 
         /** Include the post's like(s) count */
-        $aPostsWithLikeCount = [];
+        $aPostsWithCount = [];
         foreach ($aPosts[AppConstants::DATA] as $aPost) {
-            $iCount = data_get($this->getLikeCount($aPost['p_id']), 'count');
-            $aPostWithCount = array_merge($aPost, ['like_count' => $iCount]);
-            array_push($aPostsWithLikeCount, $aPostWithCount);
+            $iLikeCount = data_get($this->getLikeCount($aPost['post_id']), 'count');
+            $iCommentCount = data_get($this->getCommentCount($aPost['post_id']), 'count');
+            $aPostWithCount = array_merge($aPost, ['like_count' => $iLikeCount, 'comment_count' => $iCommentCount]);
+            array_push($aPostsWithCount, $aPostWithCount);
         }
 
         /** Replace the data value of the posts variable */
-        $aPosts[AppConstants::DATA] = $aPostsWithLikeCount;
+        $aPosts[AppConstants::DATA] = $aPostsWithCount;
 
         return $aPosts;
     }
@@ -122,6 +123,7 @@ class PostManagementService extends CoreAdminService
     public function createPost(array $aParams)
     {
         /** Validates parameters */
+        $aParams = array_merge($aParams, ['post_acc_id' => session()->get('acc_id')]);
         $aValidationResult = PostValidator::validate($aParams);
         if ($aValidationResult[AppConstants::DATA] === false) {
             $mResult = $aValidationResult;
@@ -214,6 +216,19 @@ class PostManagementService extends CoreAdminService
     }
 
     /**
+     * Retrieves the all likes
+     *
+     * @param array $aParameters
+     * @return array|mixed
+     */
+    public function retrieveAllLikes(array $aParameters)
+    {
+        /** Build request url then executes it */
+        $sApiRoute = sprintf('/%s/posts/%s/read', self::API_VERSION, self::LIKES_API_MODULE);
+        return $this->sendInternalApiRequest($sApiRoute, 'GET', $aParameters);
+    }
+
+    /**
      * Retrieves the like records of a particular post
      *
      * @param int $iPostId
@@ -226,6 +241,7 @@ class PostManagementService extends CoreAdminService
         return $this->sendInternalApiRequest($sApiRoute, 'GET', ['lk_post_id' => $iPostId]);
     }
 
+
     /**
      * Manages a post's like records
      * - Includes creating and updating
@@ -236,21 +252,25 @@ class PostManagementService extends CoreAdminService
     public function manageLikes(array $aParams)
     {
         /** Validates the parameters */
+        $aParams = array_merge($aParams, ['lk_acc_id' => session()->get('acc_id')]);
         $aValidationResult = LikeValidator::validate($aParams);
         if ($aValidationResult[AppConstants::DATA] === false) {
             $mResult = $aValidationResult;
         } else {
             /** Determine the request action  */
-            $iLkStatus = data_get($aParams, 'lk_status', null);
-            $sAction = $iLkStatus === null ? 'create' : 'update';
+            $aOrigParams = $aParams;
+            unset($aParams['lk_status']);
+            unset($aParams['lk_id']);
+            $sApiRoute = sprintf('/%s/posts/%s/read', self::API_VERSION, self::LIKES_API_MODULE);
+            $aGetLike = $this->sendInternalApiRequest($sApiRoute, 'GET', $aParams);
+            $sAction = empty($aGetLike['data']) === true ? 'create' : 'update';
             if ($sAction === 'update') {
-                $aParams['lk_status'] = (int)$aParams['lk_status'] === 1 ? 0 : 1;
-                unset($aParams['lk_post_id']);
-                unset($aParams['lk_acc_id']);
+                $aOrigParams = array_merge($aOrigParams, ['lk_id' => data_get($aGetLike, 'data.0.lk_id')]);
             }
+
             /** Build request url then executes it */
             $sLikeApiRoute = sprintf('/%s/posts/%s/%s', self::API_VERSION, self::LIKES_API_MODULE, $sAction);
-            $mResult = $this->sendInternalApiRequest($sLikeApiRoute, 'POST', $aParams);
+            $mResult = $this->sendInternalApiRequest($sLikeApiRoute, 'POST', $aOrigParams);
         }
 
         return $mResult;
@@ -270,6 +290,21 @@ class PostManagementService extends CoreAdminService
     }
 
     /**
+     * Retrieves the comments count of a particular post
+     *
+     * @param int $iPostId
+     * @return array|mixed
+     */
+    public function getCommentCount(int $iPostId)
+    {
+        /** Build request url then executes it */
+        $sApiRoute = sprintf('/%s/posts/%s/count', self::API_VERSION, self::COMMENTS_API_MODULE);
+        $mResult = $this->sendInternalApiRequest($sApiRoute, 'GET', ['cm_post_id' => $iPostId]);
+
+        return data_get($mResult, AppConstants::DATA);
+    }
+
+    /**
      * Manages a post's like records
      * - Includes creating, updating, and deleting
      *
@@ -280,6 +315,7 @@ class PostManagementService extends CoreAdminService
     public function manageComments(array $aParams, string $sAction)
     {
         /** Determine the request action  */
+        $aParams = array_merge($aParams, ['cm_acc_id' => session()->get('acc_id')]);
         if ($sAction === 'create' || 'update') {
             $aValidationResult = CommentValidator::validate($aParams);
             if ($aValidationResult[AppConstants::DATA] === false) {

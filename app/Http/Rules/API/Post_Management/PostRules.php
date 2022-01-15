@@ -17,26 +17,21 @@ class PostRules
      * @var \string[][]
      */
     public $aPostCreate = [
-        'p_title'     => [
-            'required',
-            'max:225'
-        ],
-        'p_desc'      => [
+        'post_desc'      => [
             'required'
         ],
-        'p_picture'   => [
-            'string',
-            'max:225'
-        ],
-        'p_acc_id'    => [
+        'post_acc_id'    => [
             'required',
             'exists:t_accounts,acc_id'
         ],
-        'p_type_id'   => [
+        'post_pt_id'     => [
             'required',
             'exists:r_post_types,pt_id'
         ],
-        'p_course_id' => [
+        'post_degree_id' => [
+            'exists:r_degree,degree_id'
+        ],
+        'post_course_id' => [
             'exists:r_courses,course_id'
         ],
     ];

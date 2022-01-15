@@ -35,6 +35,54 @@ class CommentApiController extends CoreApiController
     }
 
     /**
+     * Initialize repository
+     *
+     * @return array
+     */
+    public function initRepository()
+    {
+        /** Initialize foreign key constraint */
+        $this->oRepository->joinPostTable();
+        $this->oRepository->joinAccountTable();
+
+        /** Initialize where clause from default table */
+        $aSearch = $this->oRepository->aSearch;
+        $aMainWhere = $this->oRequest->only($aSearch);
+
+        /** $Included fields from reference table to the where clause */
+        $aForeignSearch = array_keys($this->oRepository->aForeignColumns);
+        $aForeignWhere = $this->oRequest->only($aForeignSearch);
+        $aWhere = array_merge($aMainWhere, $aForeignWhere);
+
+        /** Arrange where clause values */
+        $aWhere = WhereLib::makeArray($aWhere);
+        $this->oRepository->searchParams($aWhere);
+        $aSelect = array_merge($aForeignSearch, $aSearch);
+        array_unshift($aSelect, $this->oRepository->sPrimaryKey);
+
+        return $aSelect;
+    }
+
+    /**
+     * Retrieves the comments record count only
+     *
+     * @return array
+     */
+    public function getCount()
+    {
+        try {
+            /** initialize repository */
+            $this->initRepository();
+            /** Execute get query */
+            $aResponse = $this->oRepository->getCount();
+
+            return ResponseLib::formatSuccessResponse($aResponse, ResponseLib::SUCCESS_RETRIEVE_MESSAGE);
+        } catch (QueryException $oException) {
+            return ResponseLib::formatErrorResponse($oException);
+        }
+    }
+
+    /**
      * Retrieves comment record(s)
      *
      * @return array
@@ -42,26 +90,10 @@ class CommentApiController extends CoreApiController
     public function getAll()
     {
         try {
-            /** Initialize foreign key constraint */
-            $this->oRepository->joinPostTable();
-            $this->oRepository->joinAccountTable();
-
-            /** Initialize where clause from default table */
-            $aSearch = $this->oRepository->aSearch;
-            $aMainWhere = $this->oRequest->only($aSearch);
-
-            /** $Included fields from reference table to the where clause */
-            $aForeignSearch = array_keys($this->oRepository->aForeignColumns);
-            $aForeignWhere = $this->oRequest->only($aForeignSearch);
-            $aWhere = array_merge($aMainWhere, $aForeignWhere);
-
-            /** Arrange where clause values */
-            $aWhere = WhereLib::makeArray($aWhere);
-            $this->oRepository->searchParams($aWhere);
-            $aSelect = array_merge($aForeignSearch, $aSearch);
-            array_unshift($aSelect, $this->oRepository->sPrimaryKey);
-
+            /** Initialize repository */
+            $aSelect = $this->initRepository();
             /** Execute get query */
+            $this->oRepository->orderBy('asc', 't_comments.created_at');
             $aResponse = $this->oRepository->getAll($aSelect);
             /** Decrypt encrypted values */
             $aDecryptedResponse = $this->oRepository->decryptValues((json_decode(json_encode($aResponse), true)), $this->oRepository->aEncryptedKeys);

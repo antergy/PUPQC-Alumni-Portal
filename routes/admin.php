@@ -116,6 +116,7 @@ Route::prefix('admin')->group(function () {
         /** Route group for post's likes management */
         Route::prefix('likes')->group(function () {
             Route::get('read', 'PostAdminController@getLikes');
+            Route::get('readAll', 'PostAdminController@getAllLikes');
             Route::post('manage', 'PostAdminController@manageLikes');
         });
 

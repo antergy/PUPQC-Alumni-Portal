@@ -70,6 +70,7 @@ class PostApiController extends CoreApiController
             array_unshift($aSelect, $this->oRepository->sPrimaryKey);
 
             /** Execute get query */
+            $this->oRepository->orderBy('desc', 'created_at');
             $aResponse = $this->oRepository->getAll($aSelect);
             /** Decrypt encrypted values */
             $aDecryptedResponse = $this->oRepository->decryptValues((json_decode(json_encode($aResponse), true)), $this->oRepository->aEncryptedKeys);

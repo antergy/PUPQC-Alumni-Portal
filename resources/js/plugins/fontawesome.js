@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { 
+import {
   faUser,
   faHome,
   faSignOutAlt,
@@ -10,6 +10,8 @@ import {
   faComment,
   faChevronDown,
   faChevronUp,
+    faEye,
+
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
@@ -22,7 +24,8 @@ const aIconList = [
   faLightbulb,
   faComment,
   faChevronDown,
-  faChevronUp
+  faChevronUp,
+    faEye
 ]
 
 aIconList.forEach(oIcon => {

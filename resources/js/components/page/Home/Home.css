@@ -59,6 +59,10 @@
     }
   }
 
+  &separator {
+     @apply border border-gray-400 mt-6 mb-6;
+  }
+
   &__action-item {
     @apply flex justify-center items-center px-4 py-2 rounded-lg outline-none box-border;
 
