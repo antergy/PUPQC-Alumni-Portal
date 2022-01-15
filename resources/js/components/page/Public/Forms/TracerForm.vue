@@ -25,23 +25,23 @@
             </div>
             <table class="form__generated table_rank template hidden">
                 <thead>
-                    <tr class="th_rank">
-                        <th class="th_desc">Description</th>
-                        <th class="th_rank_desc template hidden"></th>
-                    </tr>
+                <tr class="th_rank">
+                    <th class="th_desc">Description</th>
+                    <th class="th_rank_desc template hidden"></th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr class="tr_rank template hidden">
-                        <td class="td_rank_desc form_error_handler"></td>
-                        <td class="td_rank_button template hidden">
-                            <input type="radio" class="form__input">
-                        </td>
-                    </tr>
+                <tr class="tr_rank template hidden">
+                    <td class="td_rank_desc form_error_handler"></td>
+                    <td class="td_rank_button template hidden">
+                        <input type="radio" class="form__input">
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>
         <div class="form outline">
-            <span class="form__title">General Undergraduate Tracer Survey Form</span>
+            <span id="form_description" class="form__title"></span>
             <span class="form__subtitle">Please answer the following:</span>
             <br>
             <div class="form__input-group">
@@ -75,8 +75,7 @@
 </template>
 
 <script lang="js">
-    import QuestionHelper from "../../../../../plugins/mixins/QuestionHelper";
-
+    import QuestionHelper from "../../../../plugins/mixins/QuestionHelper";
     export default {
         mixins : [
             QuestionHelper
@@ -88,6 +87,7 @@
                 choices: [],
                 answered_form: [],
                 answered_error: [],
+                form_id: this.$route.params.id ?? 0,
             }
         },
         created() {
@@ -108,6 +108,27 @@
             },
         },
         methods: {
+            initForm: function () {
+                /** Get the form question groups by given form id */
+                this.$root.getRequest('admin/form/questions/group/read', (mResult) => {
+                    this.question_groups = mResult.data
+                }, {fqg_form_id: this.form_id})
+
+                /** Get the form questions by active status = 1 */
+                this.$root.getRequest('admin/form/questions/read', (mResult) => {
+                    this.questions = mResult.data
+                }, {fq_active_status: 1, fqg_form_id: this.form_id});
+
+                /** Get the form question choices */
+                this.$root.getRequest('admin/form/questions/choices/read', (mResult) => {
+                    this.choices = mResult.data
+                });
+
+                /** Get the form description */
+                this.$root.getRequest('v1/form/read', (mResult) => {
+                    $('#form_description').text(mResult.data[0].form_desc);
+                }, {form_id: this.form_id});
+            },
             initGeneration() {
                 $('#form_questions').html('');
                 let oThis = this;
@@ -239,24 +260,7 @@
             generateTextForQuestionLabel(sQuestionDesc, bIsRequired) {
                 return (bIsRequired === true) ? sQuestionDesc + '*' : sQuestionDesc;
             },
-            initForm: function () {
-                /** Get the form question groups by given form id */
-                this.$root.getRequest('admin/form/questions/group/read', (mResult) => {
-                    this.question_groups = mResult.data
-                }, {fqg_form_id: 1})
-
-                /** Get the form questions by active status = 1 */
-                this.$root.getRequest('admin/form/questions/read', (mResult) => {
-                    this.questions = mResult.data
-                }, {fq_active_status: 1})
-
-                /** Get the form question choices */
-                this.$root.getRequest('admin/form/questions/choices/read', (mResult) => {
-                    this.choices = mResult.data
-                });
-            },
             doCancel: function () {
-                let mSelf = this;
                 Swal.fire({
                     title: "Are you sure you want to cancel answering the form?",
                     text: "By cancelling, all your inputs will be reset and you will be redirected to homepage.",
@@ -287,8 +291,7 @@
                         oThis.answered_form.push({
                             fa_fq_id : iQuestionId,
                             fa_answer : mAnswer,
-                            fa_is_secondary_answer : bIsSecondary,
-                            fa_acc_id  : 1
+                            fa_is_secondary_answer : bIsSecondary
                         });
                         oElement.siblings('.form_error_handler').addClass('exclude').css('color', '');
                         oElement.closest('.form__choices').siblings('.form_error_handler').addClass('exclude').css('color', '');
@@ -307,14 +310,20 @@
                     return $(oThis.answered_error[0])[0].scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'start' });
                 }
 
-                this.$root.postRequest('v1/form/questions/answers/create/multiple', { oData : oThis.answered_form}, (mResult) => {
-                    Swal.fire({
-                        title: "Success",
-                        text: mResult.message,
-                        icon: "success",
-                        showDenyButton: false,
-                        backdrop: `rgba(128, 128, 128, 0.4)`,
-                    });
+                this.$root.postRequest('v1/form/questions/answers/create/multiple', { oData : {
+                        oAnsweredForm : oThis.answered_form,
+                        sEmail  : window.localStorage.getItem('tracer.email'),
+                        iFormId : this.form_id
+                    }}, (mResult) => {
+                        Swal.fire({
+                            title: "Success",
+                            text: mResult.message,
+                            icon: "success",
+                            showDenyButton: false,
+                            backdrop: `rgba(128, 128, 128, 0.4)`,
+                        }).then((result) => {
+                            this.$router.push('/home');
+                        });
                 });
             }
         }
@@ -322,5 +331,5 @@
 </script>
 
 <style scoped>
-@import './UG_proto.css';
+@import 'TracerForm.css';
 </style>

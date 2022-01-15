@@ -57,7 +57,8 @@ foreach ($aAuthenticatedVueRoutes as $sRoute) {
 $aPublicVueRoutes = [
   '/register',
   '/tracerIntro',
-  '/tracerForm',
+  '/tracerForm/{id}',
+  '/tracerForm/answer/{id}',
   '/ug_tracerForm'
 ];
 foreach ($aPublicVueRoutes as $sRoute) {

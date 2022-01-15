@@ -12,14 +12,14 @@ use App\Core\API\CoreApiRepository;
  * @since   05/01/2021
  * @version 1.0
  */
-class FormAnswerRepository extends CoreApiRepository
+class FormAnswerGroupRepository extends CoreApiRepository
 {
     /**
      * Table name
      *
      * @var string
      */
-    public $sTableName = 'r_form_answers';
+    public $sTableName = 'r_form_answer_group';
 
     /**
      * Foreign table columns to displayed in the result
@@ -35,7 +35,7 @@ class FormAnswerRepository extends CoreApiRepository
      *
      * @var string
      */
-    public $sPrimaryKey = 'fa_id';
+    public $sPrimaryKey = 'fag_id';
 
     /**
      * Columns that are allowed to be used as search parameters
@@ -43,12 +43,17 @@ class FormAnswerRepository extends CoreApiRepository
      * @var string[]
      */
     public $aSearch = [
-        'fa_id',
-        'fa_answer',
-        'fa_fq_id',
-        'fa_is_secondary_answer',
-        'fa_fag_id',
+        'fag_id',
         'fag_form_id',
+        'fag_reference_no',
+        'fag_name',
+        'fag_email',
+        'fag_acc_id',
+        'fag_status',
+        'fag_remarks',
+        'form_desc',
+        'acc_username',
+        'acc_email',
     ];
 
 
@@ -73,12 +78,12 @@ class FormAnswerRepository extends CoreApiRepository
      *
      * @param string $sType
      */
-    public function joinFormQuestionTable($sType = 'inner')
+    public function joinFormTable($sType = 'inner')
     {
-        $sReferenceKey = 'r_form_answers.fa_fq_id';
-        $sForeignKey = 'r_form_questions.fq_id';
+        $sReferenceKey = 'r_form_answer_group.fag_form_id';
+        $sForeignKey = 'r_form.form_id';
         $sOperator = '=';
-        $this->oModel = $this->oModel->join('r_form_questions', $sReferenceKey, $sOperator, $sForeignKey, $sType);
+        $this->oModel = $this->oModel->join('r_form', $sReferenceKey, $sOperator, $sForeignKey, $sType);
     }
 
     /**
@@ -86,11 +91,11 @@ class FormAnswerRepository extends CoreApiRepository
      *
      * @param string $sType
      */
-    public function joinFormAnswerGroupTable($sType = 'inner')
+    public function joinAccountTable($sType = 'inner')
     {
-        $sReferenceKey = 'r_form_answers.fa_fag_id';
-        $sForeignKey = 'r_form_answer_group.fag_id';
+        $sReferenceKey = 'r_form_answer_group.fag_acc_id';
+        $sForeignKey = 't_accounts.acc_id';
         $sOperator = '=';
-        $this->oModel = $this->oModel->join('r_form_answer_group', $sReferenceKey, $sOperator, $sForeignKey, $sType);
+        $this->oModel = $this->oModel->join('t_accounts', $sReferenceKey, $sOperator, $sForeignKey, $sType);
     }
 }

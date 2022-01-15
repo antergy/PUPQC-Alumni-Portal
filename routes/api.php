@@ -84,6 +84,14 @@ Route::prefix('v1')->group(function () {
                 Route::post('create/multiple', "{$sParentNamespace}\FormAnswerApiController@createMultiple");
                 Route::post('update', "{$sParentNamespace}\FormAnswerApiController@update");
                 Route::post('delete', "{$sParentNamespace}\FormAnswerApiController@delete");
+
+                Route::prefix('group')->group(function() use ($sParentNamespace) {
+                    Route::get('read', "{$sParentNamespace}\FormAnswerGroupApiController@getAll");
+                    Route::post('create', "{$sParentNamespace}\FormAnswerGroupApiController@create");
+                    Route::post('update', "{$sParentNamespace}\FormAnswerGroupApiController@update");
+                    Route::post('delete', "{$sParentNamespace}\FormAnswerGroupApiController@delete");
+                    Route::post('switch', "{$sParentNamespace}\FormAnswerGroupApiController@switchUpdate");
+                });
             });
 
             Route::prefix('group')->group(function() use ($sParentNamespace) {
@@ -204,4 +212,5 @@ Route::prefix('v1')->group(function () {
             Route::post('switch', "{$sModuleController}@switchUpdate");
         });
     }
+    Route::get('tracer/form/{iId}', );
 });

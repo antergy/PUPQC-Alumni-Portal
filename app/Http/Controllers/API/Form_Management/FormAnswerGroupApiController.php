@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API\Form_Management;
 
 use App\Core\API\CoreApiController;
-use App\Http\Repositories\Form_Management\FormAnswerRepository;
+use App\Http\Repositories\Form_Management\FormAnswerGroupRepository;
 use App\Http\Rules\API\Form_Management\FormRules;
 use App\Libraries\API\ArrayLib;
 use App\Libraries\API\WhereLib;
@@ -24,15 +24,15 @@ use Illuminate\Validation\ValidationException;
  * @since   05/01/2021
  * @version 1.0
  */
-class FormAnswerApiController extends CoreApiController
+class FormAnswerGroupApiController extends CoreApiController
 {
     /**
      * FormAnswerApiController constructor.
      *
      * @param Request $oRequest
-     * @param FormAnswerRepository $oFormRepository
+     * @param FormAnswerGroupRepository $oFormRepository
      */
-    public function __construct(Request $oRequest, FormAnswerRepository $oFormRepository)
+    public function __construct(Request $oRequest, FormAnswerGroupRepository $oFormRepository)
     {
         $this->oRequest = $oRequest;
         LogLib::$sTraceId = $this->oRequest->input(LogLib::TRACE_ID, LogLib::DEFAULT_TRACE_ID);
@@ -48,8 +48,8 @@ class FormAnswerApiController extends CoreApiController
     {
         try {
             /** Initialize foreign key constraint */
-            $this->oRepository->joinFormQuestionTable('left');
-            $this->oRepository->joinFormAnswerGroupTable('left');
+            $this->oRepository->joinFormTable('left');
+            $this->oRepository->joinAccountTable('left');
 
             /** Initialize where clause from default table */
             $aSearch = $this->oRepository->aSearch;
@@ -91,71 +91,6 @@ class FormAnswerApiController extends CoreApiController
             $aResponse = $this->oRepository->createRecord($aData);
 
             return ResponseLib::formatSuccessResponse($aResponse, ResponseLib::SUCCESS_CREATE_MESSAGE);
-        } catch (QueryException | ValidationException $oException) {
-            return ResponseLib::formatErrorResponse($oException);
-        }
-    }
-
-    /**
-     * Creates a form answer record
-     *
-     * @param Request $oRequest
-     * @return array
-     */
-    public function createMultiple(Request $oRequest)
-    {
-        try {
-            $aData = $oRequest->get('oData');
-            $aAnsweredForm = Arr::get($aData, 'oAnsweredForm', []);
-            $sEmail = Arr::get($aData, 'sEmail', '');
-            $iFormId = Arr::get($aData, 'iFormId', null);
-            $mAccountId = Auth::id() ?? null;
-            $aAnswerGroup = [
-                'fag_reference_no'  => md5(time()),
-                'fag_name'          => '',
-                'fag_acc_id'        => $mAccountId,
-                'fag_email'         => $sEmail,
-                'fag_remarks'       => '',
-                'fag_form_id'       => $iFormId
-            ];
-            $mGroupAnswerId = DB::table('r_form_answer_group')->insertGetId($aAnswerGroup);
-            if (intval($mGroupAnswerId) <= 0) {
-                throw new ValidationException('Group Answer Form not inserted!');
-            }
-            $aAnsweredForm = array_filter($aAnsweredForm, function($aRequestData) use ($mGroupAnswerId) {
-                return array_diff_key(array_flip($this->oRepository->aSearch), $aRequestData);
-            });
-            foreach ($aAnsweredForm as $mKey => $mValue) {
-                $aAnsweredForm[$mKey] = array_merge([ 'fa_fag_id' => $mGroupAnswerId ], $mValue);
-            }
-            $aResponse = $this->oRepository->createMultipleRecord($aAnsweredForm);
-
-            return ResponseLib::formatSuccessResponse($aResponse, ResponseLib::SUCCESS_CREATE_MESSAGE);
-        } catch (QueryException | ValidationException $oException) {
-            return ResponseLib::formatErrorResponse($oException);
-        }
-    }
-
-    /**
-     * Updates a form answer record
-     *
-     * @param FormRules $oRules
-     * @return array
-     * @throws QueryException|ValidationException
-     */
-    public function update(FormRules $oRules)
-    {
-        try {
-            $aRequest = $this->validate($this->oRequest, $oRules->aFormAnswerUpdate);
-            $iId = intval($this->oRequest->input($this->oRepository->sPrimaryKey));
-            $aData = ArrayLib::filterKeys($aRequest, $this->oRepository->aSearch);
-            $aResponse = $this->oRepository->updateRecord($iId, $aData);
-            $sMessage = ResponseLib::SUCCESS_UPDATE_MESSAGE;
-            if ($aResponse === 0) {
-                $sMessage = 'There is nothing to update';
-            }
-
-            return ResponseLib::formatSuccessResponse($aResponse, $sMessage);
         } catch (QueryException | ValidationException $oException) {
             return ResponseLib::formatErrorResponse($oException);
         }
