@@ -72,7 +72,7 @@
                                 <label class="post__date">{{ post.created_at }}</label>
                             </div>
                         </div>
-                        <button class="post__option-toggle">
+                        <button v-if="post.post_acc_id === $root.sRootUserId" class="post__option-toggle">
                             <font-awesome-icon far icon="ellipsis-h" size="lg" />
                         </button>
                     </div>
@@ -90,16 +90,30 @@
                         </p>
                     </div>
                     <div class="post__action">
+                        <!-- UNLIKE BUTTON [START] -->
                         <button
+                            v-if="checkLikeStatus(post.post_id) === true"
+                            @click="likeUnlike(0, post.post_id)"
                             :class="['post__action-item', { active: checkLikeStatus(post.post_id) }]"
                         >
 						<span :class="['post__action-icon', { active: checkLikeStatus(post.post_id) }]">
 							<font-awesome-icon far icon="lightbulb" size="lg"/>
 						</span>
-                            <label @click="likeUnlike(0, post.post_id)" v-if="checkLikeStatus(post.post_id) === true"
-                                   :class="['post__action-label', { active: true }]">Liked</label>
-                            <label @click="likeUnlike(1, post.post_id)" v-else :class="['post__action-label', { active: false }]">Like</label>
+                            <label :class="['post__action-label', { active: true }]">Liked</label>
                         </button>
+                        <!-- UNLIKE BUTTON [END] -->
+                        <!-- LIKE BUTTON [START] -->
+                        <button
+                            v-else
+                            @click="likeUnlike(1, post.post_id)"
+                            :class="['post__action-item', { active: checkLikeStatus(post.post_id) }]"
+                        >
+						<span :class="['post__action-icon', { active: checkLikeStatus(post.post_id) }]">
+							<font-awesome-icon far icon="lightbulb" size="lg"/>
+						</span>
+                            <label :class="['post__action-label', { active: false }]">Like</label>
+                        </button>
+                        <!-- LIKE BUTTON [END] -->
                         &nbsp;
                         <button class="post__action-item" @click="showCommentEntry(post.post_id)">
                             <span class="post__action-icon">
@@ -109,7 +123,7 @@
                         </button>
                     </div>
                     <!-- Display comments -->
-                    <div :id="'disp_comments_'+post.post_id" style="display: none">
+                    <div :id="'disp_comments_'+post.post_id" class="disp_comments" style="display: none">
                         <div class="post__profile" v-for="comment in aComments"
                              style="font-size: 14px !important; background-color: #ececec; border-radius: 10px; margin: 10px;">
                                 <div class="post__image" v-if="comment.commenter_pic === null" style="margin: 5px">
@@ -207,6 +221,8 @@ export default {
         },
 
         displayComments: function (iPostId) {
+            this.aComments = [];
+            $('.disp_comments').css('display', 'none');
             this.$root.getRequest('admin/posts/comments/read', (mResponse) => {
                 this.aComments = mResponse.data;
             }, {cm_post_id : iPostId})
@@ -266,7 +282,12 @@ export default {
             };
             this.$root.postRequest('admin/posts/likes/manage', oParam, (mResponse) => {
                 if (mResponse.code === 200) {
-                   console.log(mResponse.data);
+                    this.aPostList.filter(function(obj) {
+                        if (obj.post_id === iPostId) {
+                            obj.like_count =  status === 1 ? obj.like_count + 1 : obj.like_count - 1;
+                        }
+                    });
+                    this.getLikeStatus();
                 } else {
                     this.$root.showErrorToast('Error', mResponse.message);
                 }
@@ -300,7 +321,18 @@ export default {
                 if (mResponse.code === 200) {
                     this.$root.showSuccessToast('Success', 'Successfully posted your comment');
                     $('#pt_comment_' + iPostId).val('');
-                    this.displayComments(iPostId);
+                    // Get Comment (Start)
+                    this.$root.getRequest('admin/posts/comments/read', (mResponse) => {
+                        this.aComments = mResponse.data;
+                    }, {cm_post_id : iPostId})
+                    let divId = '#disp_comments_' + iPostId;
+                    $(divId).css('display', '');
+                    // Get Comment (End)
+                    this.aPostList.filter(function(obj) {
+                        if (obj.post_id === iPostId) {
+                            obj.comment_count = obj.comment_count + 1;
+                        }
+                    });
                 } else {
                     this.$root.showErrorToast('Error', mResponse.message);
                 }

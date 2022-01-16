@@ -146,6 +146,26 @@ class LikeApiController extends CoreApiController
     }
 
     /**
+     * Deletes a like record
+     *
+     * @return array
+     */
+    public function delete()
+    {
+        try {
+            $iId = $this->oRequest->input($this->oRepository->sPrimaryKey);
+            $mResponse = $this->oRepository->deleteRecord($iId);
+            $sMessage = ResponseLib::SUCCESS_DELETE_MESSAGE;
+            if ($mResponse === 0) {
+                $sMessage = ResponseLib::NO_RECORD_DELETE_MESSAGE;
+            }
+            return ResponseLib::formatSuccessResponse($mResponse, $sMessage);
+        } catch (QueryException $oException) {
+            return ResponseLib::formatErrorResponse($oException);
+        }
+    }
+
+    /**
      * Deletes a like records by post
      *
      * @return array

@@ -258,19 +258,19 @@ class PostManagementService extends CoreAdminService
             $mResult = $aValidationResult;
         } else {
             /** Determine the request action  */
-            $aOrigParams = $aParams;
-            unset($aParams['lk_status']);
-            unset($aParams['lk_id']);
-            $sApiRoute = sprintf('/%s/posts/%s/read', self::API_VERSION, self::LIKES_API_MODULE);
-            $aGetLike = $this->sendInternalApiRequest($sApiRoute, 'GET', $aParams);
-            $sAction = empty($aGetLike['data']) === true ? 'create' : 'update';
-            if ($sAction === 'update') {
-                $aOrigParams = array_merge($aOrigParams, ['lk_id' => data_get($aGetLike, 'data.0.lk_id')]);
+            if ($aParams['lk_status'] === 1) {
+                $sAction = 'create';
+            } else {
+                $sAction = 'delete';
+                unset($aParams['lk_status']);
+                $sApiRoute = sprintf('/%s/posts/%s/read', self::API_VERSION, self::LIKES_API_MODULE);
+                $aGetLike = $this->sendInternalApiRequest($sApiRoute, 'GET', $aParams);
+                $aParams = array_merge($aParams, ['lk_id' => data_get($aGetLike, 'data.0.lk_id')]);
             }
 
             /** Build request url then executes it */
             $sLikeApiRoute = sprintf('/%s/posts/%s/%s', self::API_VERSION, self::LIKES_API_MODULE, $sAction);
-            $mResult = $this->sendInternalApiRequest($sLikeApiRoute, 'POST', $aOrigParams);
+            $mResult = $this->sendInternalApiRequest($sLikeApiRoute, 'POST', $aParams);
         }
 
         return $mResult;
