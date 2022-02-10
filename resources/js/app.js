@@ -8,6 +8,9 @@ import './plugins/fontawesome'
 import "tailwindcss/tailwind.css"
 import DataTable from 'laravel-vue-datatable';
 
+import VueApexCharts from 'vue-apexcharts'
+Vue.use(VueApexCharts);
+Vue.component('apexchart', VueApexCharts);
 Vue.use(DataTable);
 
 const app = new Vue({

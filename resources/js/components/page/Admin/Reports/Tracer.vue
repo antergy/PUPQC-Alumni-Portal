@@ -3,7 +3,6 @@
         <div class="w-full mx-auto mt-4 ml-20 rounded">
             <p class="text-2xl">Alumni Tracer Study</p>
             <div class="separator"></div>
-
         </div>
     </div>
 </template>
@@ -22,4 +21,12 @@
 
 <style scoped>
     @import './reports.css';
+    .charts .charts-object {
+        text-align: -webkit-center;
+        margin-top: 10px;
+    }
+    .charts .charts-label {
+        font-weight: bold;
+        font-size: 20px;
+    }
 </style>
