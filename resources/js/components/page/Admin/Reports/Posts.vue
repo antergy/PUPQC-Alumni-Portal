@@ -3,23 +3,23 @@
         <div class="w-full mx-auto mt-4 ml-20 rounded">
             <p class="text-2xl">Post Activities</p>
             <div class="separator"></div>
-            <div class="bg-white w-full" style="border-radius: 5px; padding: 10px">
+            <div class="bg-white w-full" style="border-radius: 5px; padding: 10px; ">
                 <div style="display: flex">
-                    <div class="charts" style="width: 30%">
-<!--                        <label class="charts-label">Count of Posts Per Post Types </label>-->
-                        <apexchart width="100%" height="500" type="polarArea" :options="CountPostsPerPostType.options" :series="CountPostsPerPostType.series" class="charts-object"></apexchart>
-                    </div>
-                    <div class="charts" style="width: 70%">
+                    <div class="charts" style="width: 100%">
 <!--                        <label class="charts-label">Count of Created Posts Per Day </label>-->
                         <apexchart width="100%" height="500" type="line" :options="CountCreatedPostPerDay.options" :series="CountCreatedPostPerDay.series" class="charts-object"></apexchart>
                     </div>
                 </div>
                 <div style="display: flex">
-                    <div class="charts" style="width: 50%">
+                    <div class="charts" style="width: 33%">
+                        <!--                        <label class="charts-label">Count of Posts Per Post Types </label>-->
+                        <apexchart width="100%" height="500" type="bar" :options="CountPostsPerPostType.options" :series="CountPostsPerPostType.series" class="charts-object"></apexchart>
+                    </div>
+                    <div class="charts" style="width: 33%">
 <!--                        <label class="charts-label">Count of Posts Per Post Types </label>-->
                         <apexchart width="100%" height="500" type="bar" :options="NumberOfLikesPerPostType.options" :series="NumberOfLikesPerPostType.series" class="charts-object"></apexchart>
                     </div>
-                    <div class="charts" style="width: 50%">
+                    <div class="charts" style="width: 33%">
 <!--                        <label class="charts-label">Count of Created Posts Per Day </label>-->
                         <apexchart width="100%" height="500" type="bar" :options="NumberOfCommentsPerPostType.options" :series="NumberOfCommentsPerPostType.series" class="charts-object"></apexchart>
                     </div>
@@ -33,55 +33,72 @@
         name: "PostActivities",
         data() {
             return {
-                CountPostsPerPostType: {
-                    series: [42, 47, 52, 58],
+                report_data: {
+                    created_posts_per_day : {},
+                    all_posts : {},
+                    comments : {},
+                    likes : {}
+                },
+            }
+        },
+        computed: {
+            CountPostsPerPostType() {
+                return {
+                    series: [{
+                        name: 'Count of Posts Per Post Type',
+                        data: Object.values(this.report_data.all_posts ?? {}),
+                    }],
                     options: {
                         title: {
-                            text: 'Count of Posts Per Post Types',
+                            text: 'Count of Posts Per Post Type',
                             align: 'left'
                         },
                         chart: {
-                            width: 380,
-                            type: 'polarArea'
+                            type: 'bar',
+                            height: 350
                         },
-                        labels: ['Public', 'Private', 'Organization', 'Confidential'],
+                        plotOptions: {
+                            bar: {
+                                horizontal: false,
+                                columnWidth: '55%',
+                                endingShape: 'rounded'
+                            },
+                        },
+                        dataLabels: {
+                            enabled: false
+                        },
+                        stroke: {
+                            show: true,
+                            width: 2,
+                            colors: ['transparent']
+                        },
+                        xaxis: {
+                            categories: Object.keys(this.report_data.all_posts ?? {}),
+                        },
+                        yaxis: {
+                            title: {
+                                text: 'Number of Posts'
+                            }
+                        },
                         fill: {
                             opacity: 1
                         },
-                        stroke: {
-                            width: 1,
-                            colors: undefined
-                        },
-                        yaxis: {
-                            show: false
-                        },
-                        legend: {
-                            position: 'bottom'
-                        },
-                        plotOptions: {
-                            polarArea: {
-                                rings: {
-                                    strokeWidth: 0
-                                },
-                                spokes: {
-                                    strokeWidth: 0
-                                },
-                            }
-                        },
-                        theme: {
-                            monochrome: {
-                                enabled: true,
-                                shadeTo: 'light',
-                                shadeIntensity: 0.6
+                        tooltip: {
+                            y: {
+                                formatter: function (val) {
+                                    return "Total Post: " + val
+                                }
                             }
                         }
-                    },
-                },
-                CountCreatedPostPerDay: {
+                    }
+                }
+            },
+            CountCreatedPostPerDay() {
+                return {
                     series: [
                         {
                             name: "Created Post Per Day",
-                            data: [12, 11, 14]
+                            data: Object.values(this.report_data.created_posts_per_day ?? {}),
                         }
                     ],
                     options: {
@@ -122,9 +139,14 @@
                             size: 1
                         },
                         xaxis: {
-                            categories: ['2022-02-08', '2022-02-09', '2022-02-10'],
+                            categories: Object.keys(this.report_data.created_posts_per_day ?? {}),
                             title: {
-                                text: 'Day'
+                                text: 'Date'
+                            },
+                            labels: {
+                                formatter: function (val) {
+                                    return new Date(val).toDateString();
+                                },
                             }
                         },
                         yaxis: {
@@ -140,11 +162,13 @@
                             offsetX: -5
                         }
                     },
-                },
-                NumberOfLikesPerPostType: {
+                }
+            },
+            NumberOfLikesPerPostType() {
+                return {
                     series: [{
                         name: 'Count of Likes',
-                        data: [58, 63, 60, 66]
+                        data: Object.values(this.report_data.likes ?? {}),
                     }],
                     options: {
                         title: {
@@ -171,7 +195,7 @@
                             colors: ['transparent']
                         },
                         xaxis: {
-                            categories: ['Public', 'Private', 'Organization', 'Confidential'],
+                            categories: Object.keys(this.report_data.likes ?? {}),
                         },
                         yaxis: {
                             title: {
@@ -189,11 +213,13 @@
                             }
                         }
                     }
-                },
-                NumberOfCommentsPerPostType: {
+                }
+            },
+            NumberOfCommentsPerPostType() {
+                return {
                     series: [{
                         name: 'Count of Comments',
-                        data: [44, 55, 57, 56]
+                        data: Object.values(this.report_data.comments ?? {}),
                     }],
                     options: {
                         title: {
@@ -220,7 +246,7 @@
                             colors: ['transparent']
                         },
                         xaxis: {
-                            categories: ['Public', 'Private', 'Organization', 'Confidential'],
+                            categories: Object.keys(this.report_data.comments ?? {}),
                         },
                         yaxis: {
                             title: {
@@ -240,6 +266,11 @@
                     }
                 }
             }
+        },
+        beforeCreate() {
+            this.$root.getRequest('v1/reports/posts', (mResult) => {
+                this.report_data = mResult
+            });
         },
         created() {
             this.$root.setUserInfo();

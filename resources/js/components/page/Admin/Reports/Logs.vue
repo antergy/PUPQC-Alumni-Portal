@@ -13,7 +13,7 @@
                         </li>
                         <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
                             <a class=" font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal" v-on:click="toggleTabs(2)" v-bind:class="{'text-indigo-600 bg-white': openTab !== 2, 'text-white bg-indigo-600': openTab === 2}">
-                                <i class="fas fa-cog text-base mr-1"></i> By Weeks Measured By Days
+                                <i class="fas fa-cog text-base mr-1"></i> By Week Measured By Days
                             </a>
                         </li>
                         <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
@@ -60,11 +60,22 @@
         data() {
             return {
                 openTab: 1,
-                LoginPerDay: {
+                report_data: {
+                    day: {},
+                    week: {},
+                    month: {},
+                }
+            }
+        },
+        beforeCreate() {
+        },
+        computed: {
+            LoginPerDay() {
+                return {
                     series: [
                         {
                             name: "Frequency of log-ins per day measured by time",
-                            data: [12, 11, 14]
+                            data: Object.values(this.report_data.day ?? {})
                         }
                     ],
                     options: {
@@ -105,9 +116,14 @@
                             size: 1
                         },
                         xaxis: {
-                            categories: ['2022-02-08', '2022-02-09', '2022-02-10'],
+                            categories: Object.keys(this.report_data.day ?? {}),
                             title: {
                                 text: 'Time'
+                            },
+                            labels: {
+                                formatter: function (val) {
+                                    return new Date(val).toLocaleTimeString();
+                                },
                             }
                         },
                         yaxis: {
@@ -123,12 +139,14 @@
                             offsetX: -5
                         }
                     },
-                },
-                LoginPerWeek: {
+                }
+            },
+            LoginPerWeek() {
+                return {
                     series: [
                         {
                             name: "Frequency of log-ins per week measured by day",
-                            data: [12, 11, 14]
+                            data: Object.values(this.report_data.week ?? {})
                         }
                     ],
                     options: {
@@ -169,7 +187,7 @@
                             size: 1
                         },
                         xaxis: {
-                            categories: ['2022-02-08', '2022-02-09', '2022-02-10'],
+                            categories: Object.keys(this.report_data.week ?? {}),
                             title: {
                                 text: 'Day'
                             }
@@ -187,12 +205,14 @@
                             offsetX: -5
                         }
                     },
-                },
-                LoginPerMonth: {
+                }
+            },
+            LoginPerMonth() {
+                return {
                     series: [
                         {
                             name: "Frequency of log-ins per month measured by week",
-                            data: [55, 21, 75, 3]
+                            data: Object.values(this.report_data.month ?? {})
                         }
                     ],
                     options: {
@@ -233,9 +253,14 @@
                             size: 1
                         },
                         xaxis: {
-                            categories: ['1st week', '2nd week', '3rd week', '4th week'],
+                            categories: Object.keys(this.report_data.month ?? {}),
                             title: {
                                 text: 'Week'
+                            },
+                            labels: {
+                                formatter: function (val) {
+                                    return 'Week no. ' + val;
+                                },
                             }
                         },
                         yaxis: {
@@ -251,18 +276,27 @@
                             offsetX: -5
                         }
                     },
-                },
-            }
+                }
+            },
         },
         created() {
             this.$root.setUserInfo();
         },
         mounted() {
+            this.callReportsData();
         },
         methods: {
             toggleTabs: function(tabNumber){
+                if (this.openTab !== tabNumber) {
+                    window.dispatchEvent(new Event('resize'));
+                    this.callReportsData();
+                }
                 this.openTab = tabNumber;
-                window.dispatchEvent(new Event('resize'));
+            },
+            callReportsData: function() {
+                this.$root.getRequest('v1/reports/logs', (mResult) => {
+                    this.report_data = mResult
+                });
             }
         }
     }
@@ -270,6 +304,9 @@
 
 <style scoped>
     @import './reports.css';
+    li a {
+        cursor: pointer;
+    }
     .charts .charts-object {
         text-align: -webkit-center;
         margin-top: 10px;
