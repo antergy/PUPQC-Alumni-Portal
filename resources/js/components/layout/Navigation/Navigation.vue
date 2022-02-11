@@ -7,15 +7,16 @@
 		<div class="navigation__container">
 			<div class="navigation__item">
 				<button
-					@click="currentTab = 'Home'"
+					@click="changePage('home')"
 					:class="['navigation__button', { active: currentTab === 'Home' }]"
+
 				>
 					<font-awesome-icon fas icon="home" size="sm" />
 				</button>
 			</div>
 			<div class="navigation__item">
 				<button
-					@click="currentTab = 'Profile'"
+					@click="changePage('profile')"
 					:class="['navigation__button', { active: currentTab === 'Profile' }]"
 				>
 					<font-awesome-icon fas icon="user" size="sm" />
@@ -44,6 +45,15 @@ export default {
 		};
 	},
 	methods: {
+
+	    /**
+         * Change Page
+         */
+	    changePage: function (sPage) {
+            this.currentTab = sPage;
+            window.location.href = "/" + sPage;
+        },
+
 		/**
 		 * Prompts user logout
 		 */

@@ -1,11 +1,11 @@
 <template>
         <div class="login">
-           <div style="width: 100%; height: 100%; display: flex">
+           <div style="width: 100%; height: 100%; display: flex;">
                <div style="width: 70%; display: inline-block; box-shadow: 5px 10px 8px #888888; background-color: #ffffff">
                    <img src="/img/wallpaper.jpg" style="width: 100%; height: 100%"/>
                </div>
                <div style="width: 30%; display: inline-block; text-align: left; background-color: #lightgrey;">
-                   <div class="login__panel" style="width: 60%; margin: 20%">
+                   <div class="login__panel" style="width: 60%; margin-left: 20%; margin-top: 15%">
                        <div class="login__header">
                            <label class="login__header-label">Login</label>
                        </div>
@@ -28,7 +28,10 @@
 <!--                           <label class="login__footer-label">Developed by: ANTERGY | All rights reserved</label>-->
                        </div>
                    </div>
-                   <div style="margin: 10%">
+                   <div style="display: flex; justify-content: center; margin-top: 5%;">
+                       <img id="buffer_img" src="/img/loading-buffering.gif" style="width: 70px; height: 70px; display: none">
+                   </div>
+                   <div style="margin: 5%">
                        <p style="text-align: center">Are you an alumni and don't have an account?<br>
                            Register now by creating an account so you can be updated to the latest happenings of your <br> alma matter!</p>
                        <br>
@@ -61,6 +64,7 @@ export default {
        } else if (sPassword === '') {
            this.$root.showErrorToast('Error', 'Password is empty', 'slow');
        } else {
+           $('#buffer_img').css('display', '');
            let oParam = {
                username : sUsername,
                password : sPassword
@@ -69,6 +73,7 @@ export default {
            this.$root.postRequest('login', oParam, (mResponse) => {
                let sMessage = mResponse.message
                if (mResponse.bResult === true) {
+                   $('#buffer_img').css('display', 'none');
                    mSelf.$root.showSuccessToast('Success', sMessage, 'slow');
                    let sUser = mResponse.data;
                    mSelf.$root.sRootUserId = sUser.acc_id;
@@ -79,6 +84,7 @@ export default {
                    mSelf.$root.sRootUserProfPic = sUser.acc_picture;
                    this.$router.push('/home');
                } else {
+                   $('#buffer_img').css('display', 'none');
                    mSelf.$root.showErrorToast('Error', sMessage, 'slow');
                }
            });

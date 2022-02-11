@@ -13,7 +13,7 @@
           <!-- Tab Contents -->
           <div id="tab-contents" class="bg-white w-full">
               <div id="first" class="p-4">
-                  <button type="button" id="btnRefresh" class="form__button info w-1/12 mb-5" @click="getAccountsList">&nbsp;&nbsp;Refresh Table&nbsp; &nbsp; </button>
+                  <button type="button" id="btnRefresh" class="form__button info w-2/12 mb-5" @click="getAccountsList">&nbsp;&nbsp;Refresh Table&nbsp; &nbsp; </button>
                   <table id="tbl_account_list" class="cell-border m-2">
                       <thead>
                       <tr>

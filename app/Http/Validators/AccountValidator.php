@@ -37,8 +37,7 @@ class AccountValidator extends BaseValidator
         return [
             'acc_username'        => ['required',
                                       'string'],
-            'acc_password'        => ['required',
-                                      'string'],
+            'acc_password'        => ['string'],
             'acc_name'            => ['required',
                                       'string'],
             'acc_email'           => ['required',
