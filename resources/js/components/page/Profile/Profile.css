@@ -2,19 +2,32 @@
     @apply transition-all;
 }
 
-.profile {
-    @apply px-4 mt-4;
+table, td, th {
+    border: 1px solid black;
+}
+
+.admin {
+    @apply px-4 mt-4 ml-20 w-10/12;
+}
+
+.separator {
+    @apply border border-gray-400 mt-6 mb-6;
 }
 
 .form {
-    @apply flex flex-col p-2 w-full box-border;
+    @apply flex flex-col p-2 box-border w-full bg-white;
 
 &.outline {
      @apply border border-gray-300 rounded;
  }
 
 &__title {
-     @apply flex p-1 items-center text-lg font-medium border-b border-gray-300;
+     @apply flex p-1 items-center text-2xl font-bold border-b border-gray-300;
+ }
+
+
+&__subtitle {
+     @apply flex p-1 items-center text-lg font-medium;
  }
 
 &__group {
@@ -46,6 +59,14 @@
 
 &.lg {
      @apply w-80;
+ }
+
+&.x-lg {
+     @apply w-6/12;
+ }
+
+&.xx-lg {
+     @apply w-9/12;
  }
 }
 

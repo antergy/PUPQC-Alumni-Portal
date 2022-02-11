@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 $aAuthenticatedVueRoutes = [
     '/',
     '/home',
+    '/profile',
     '/admin/accounts',
     '/admin/tracerForm',
     '/admin/sysconfig/acc_entities',

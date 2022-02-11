@@ -40,7 +40,6 @@ const app = new Vue({
     },
     methods: {
 
-
         redirect: function (sRoute) {
             window.location.href = '/' + sRoute;
         },
@@ -139,6 +138,7 @@ const app = new Vue({
             this.oToast.fire({
                 icon: sType,
                 html: sHtml,
+                timer: 2000,
                 customClass: {
                     popup: 'toast__popup',
                     header: 'toast__header',
@@ -154,6 +154,20 @@ const app = new Vue({
                     popup: 'toast__popup fadeOutUp animated ' + sTransitionSpeed,
                 }
             });
+
+            /** Check if there is a swal container active */
+            this.checkSwalIfActive();
+        },
+
+        /**
+         * Remove swal container if active
+         */
+        checkSwalIfActive: function () {
+            if ($('.swal2-container').length === 1) {
+                setTimeout(function () {
+                    $('.swal2-container').hide();
+                }, 3000);
+            }
         },
     }
 });

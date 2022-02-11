@@ -18,7 +18,7 @@
                     <ListItem text="Inbox" to="/message/inbox"/>
                     <ListItem text="Sent" to="/message/sent"/>
                 </ListItem>
-				<ListItem v-if="this.$root.sRootAccPos === 'Administrator' || this.$root.sRootAccPos === 'Superadmin'" text="Alumni Directory" />
+<!--				<ListItem v-if="this.$root.sRootAccPos === 'Administrator' || this.$root.sRootAccPos === 'Superadmin'" text="Alumni Directory" />-->
                 <ListItem v-if="this.$root.sRootAccPos === 'Administrator' || this.$root.sRootAccPos === 'Superadmin'" text="Accounts Management" to="/admin/accounts"/>
                 <ListItem v-if="this.$root.sRootAccPos === 'Administrator' || this.$root.sRootAccPos === 'Superadmin'" text="Tracer Form Management" to="/admin/tracerForm"/>
 				<ListItem v-if="this.$root.sRootAccPos === 'Administrator' || this.$root.sRootAccPos === 'Superadmin'" text="Reports" >
@@ -27,7 +27,6 @@
 					<ListItem v-if="this.$root.sRootAccPos === 'Superadmin'" text="System Logs" to="/admin/reports/logs"/>
 				</ListItem>
 				<ListItem v-if="this.$root.sRootAccPos === 'Administrator' || this.$root.sRootAccPos === 'Superadmin'" text="System Configuration">
-                    <ListItem text="Account Entities" to="/admin/sysconfig/acc_entities" />
                     <ListItem text="Form Entities">
                         <ListItem text="Basic Components" to="/admin/sysconfig/form/basic"/>
                         <ListItem text="Questions and Choices" to="/admin/sysconfig/form/questions"/>
