@@ -43,7 +43,19 @@ class TracerReportData
      */
     public function generateReportData()
     {
-        return $this->getLikertScaleAnswerData();
+        return [
+            'answered_per_day' => $this->getAnsweredFormPerDay(),
+            'tracer'           => $this->getLikertScaleAnswerData(),
+        ];
+    }
+
+    private function getAnsweredFormPerDay() {
+        $aResult = DB::table('r_form_answer_group')
+            ->select(DB::raw('(created_at) as type'), DB::raw('count(fag_id) as value'))
+            ->groupBy(DB::raw('DATE(created_at)'))
+            ->orderBy('created_at', 'asc')
+            ->get()->toArray();
+        return $this->flattenData($aResult);
     }
 
     private function getLikertScaleAnswerData()
@@ -89,5 +101,14 @@ class TracerReportData
         if ($sQuestionType === 'Ranking, Relevance') {
             return self::RELEVANCE;
         }
+    }
+
+    private function flattenData(array $aData)
+    {
+        $aResult = [];
+        foreach ($aData as $aValue) {
+            $aResult[$aValue->type] = $aValue->value;
+        }
+        return $aResult;
     }
 }

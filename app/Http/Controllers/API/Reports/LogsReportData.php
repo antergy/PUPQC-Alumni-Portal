@@ -31,7 +31,7 @@ class LogsReportData {
             ->where(DB::raw('DATE(created_at)'), Carbon::now()->toDateString())
             ->orderBy('created_at', 'asc')
             ->get()->toArray();
-        return $this->flattenData($aResult)->first();
+        return $this->flattenData($aResult);
     }
     private function getByWeek()
     {
