@@ -19,6 +19,9 @@ import InboxMain from "../components/page/Messaging/InboxMain.vue";
 import SentMain from "../components/page/Messaging/SentMain.vue";
 import InboxDetails from "../components/page/Messaging/InboxDetails.vue";
 import AnsweredTracerForm from "../components/page/Public/Forms/AnsweredTracerForm/AnsweredTracerForm";
+import Posts from "../components/page/Admin/Reports/Posts";
+import Tracer from "../components/page/Admin/Reports/Tracer";
+import Logs from "../components/page/Admin/Reports/Logs";
 
 
 Vue.use(VueRouter);
@@ -121,6 +124,21 @@ export default {
                 path: '/message/sent/details',
                 name: 'InboxDetails',
                 component: InboxDetails
+            },
+            {
+                path: '/admin/reports/posts',
+                name: 'PostActivities',
+                component: Posts
+            },
+            {
+                path: '/admin/reports/tracer',
+                name: 'AlumniTracerStudy',
+                component: Tracer
+            },
+            {
+                path: '/admin/reports/logs',
+                name: 'Logs',
+                component: Logs
             }
         ]
     })

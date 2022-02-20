@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\API\Reports\LogsReportData;
+use App\Http\Controllers\API\Reports\PostsReportData;
+use App\Http\Controllers\API\Reports\TracerReportData;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -214,5 +217,10 @@ Route::prefix('v1')->group(function () {
             Route::post('switch', "{$sModuleController}@switchUpdate");
         });
     }
+    Route::prefix('reports')->group(function () {
+        Route::get('posts', [PostsReportData::class, 'generateReportData']);
+        Route::get('tracer', [TracerReportData::class, 'generateReportData']);
+        Route::get('logs', [LogsReportData::class, 'generateReportData']);
+    });
     Route::get('tracer/form/{iId}', );
 });
