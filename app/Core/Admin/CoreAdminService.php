@@ -32,6 +32,7 @@ class CoreAdminService
     {
         $sHost = config('app.app_route');
         $sApiUrl = "{$sHost}{$sApiRoute}";
+
         $aParams = ['json' => array_merge($aParams, ['trace_id' => LogLib::$sTraceId])];
         $mResult = GuzzleLib::guzzleRequest($sApiUrl, $sMethod, $aParams);
 

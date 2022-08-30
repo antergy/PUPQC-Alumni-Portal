@@ -62,6 +62,7 @@ class AuthController extends Controller
 
         /** 1st Validation Process: Check if params are empty */
         $aVerifyResult = $this->oAuthService->checkIfParamsAreEmpty($sUsername, $sPassword);
+
         if($aVerifyResult[AppConstants::B_RESULT] === false) {
             $aFinalResult = $aVerifyResult;
         } else {

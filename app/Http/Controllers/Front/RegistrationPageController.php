@@ -7,7 +7,9 @@ use App\Http\Services\Admin\AccountManagementService;
 use App\Http\Services\Front\AuthService;
 use App\Libraries\Common\LogLib;
 use App\Libraries\Common\ResponseLib;
+use Google\Service\Gmail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 /**
  * Class RegistrationPageController
@@ -63,13 +65,14 @@ class RegistrationPageController extends Controller
         try {
             /** Prepare the parameters, request route and method to be used */
             $aParams = $this->oRequest->all();
+
             /** Execute request */
             $mResult = $this->oAccountAdminService->actionDivider($sAction, $aParams);
             if ($mResult['code'] === 200) {
                 $oAuthController = new AuthController($this->oRequest->merge([
-                        'username' => $aParams['acc_username'],
-                        'password' => $aParams['acc_password']
-                    ]), $this->oAuthService);
+                    'username' => $aParams['acc_username'],
+                    'password' => $aParams['acc_password']
+                ]), $this->oAuthService);
                 $oAuthController->login();
             }
             return ResponseLib::formatSuccessResponse($mResult['data'], $mResult['message']);

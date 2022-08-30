@@ -25,7 +25,7 @@
                     <select id="acc_branch" name="branch" class="form__input">
                         <option selected disabled value="0">-- Select Campus/Branch --</option>
                         <option value="1">PUP Main Campus</option>
-                        <option value="2">PUP Quezon City</option>
+                        <option value="5">PUP Quezon City</option>
                     </select>
                 </div>
                 <div class="form__input-group xx-lg">

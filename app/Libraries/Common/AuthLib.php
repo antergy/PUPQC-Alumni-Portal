@@ -62,7 +62,8 @@ class AuthLib
             self::USER_POSITION_KEY       => SessionLib::getSession(self::USER_POSITION_KEY),
             self::USER_PROFILE_PIC_KEY    => SessionLib::getSession(self::USER_PROFILE_PIC_KEY),
             self::USER_SESSION_ACTIVE_KEY => SessionLib::getSession(self::USER_SESSION_ACTIVE_KEY),
-            self::USER_APP_KEY            => SessionLib::getSession(self::SECURITY_KEY_1)
+            self::USER_APP_KEY            => SessionLib::getSession(self::SECURITY_KEY_1),
+//            'google_token'                => SessionLib::getSession('google_token')
         ];
     }
 

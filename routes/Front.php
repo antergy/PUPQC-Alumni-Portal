@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Redirect;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,7 @@ $aAuthenticatedVueRoutes = [
     '/profile',
     '/admin/accounts',
     '/admin/tracerForm',
+    '/admin/tracerFormGoogle',
     '/admin/sysconfig/acc_entities',
     '/admin/sysconfig/sys_entities',
     '/admin/sysconfig/form/basic',
@@ -46,11 +48,11 @@ foreach ($aAuthenticatedVueRoutes as $sRoute) {
             if ($sRoute === '/') { // If the session is dead and attempts to go to main home page or other page
                 return view('main');
             } else {
-                return redirect('/');
+                return Redirect::to('/');
             }
         } else { // If the session is active and attempted to return to login page
             if ($sRoute === '/') {
-                return redirect('/home');
+                return Redirect::to('/home');
             } else {
                 return view('main');
             }
@@ -75,4 +77,7 @@ Route::post('/login', 'AuthController@login');
 Route::post('/logout', 'AuthController@logout');
 Route::post('/alumni/account/create', 'RegistrationPageController@register');
 Route::get('/getSession', 'AuthController@getSession');
+Route::get('/google', 'FormGoogleController@checkGoogleAuth');
+Route::get('/checkGoogleAuth', 'FormGoogleController@checkGoogleAuth');
+Route::get('/getForms', 'FormGoogleController@getForms');
 

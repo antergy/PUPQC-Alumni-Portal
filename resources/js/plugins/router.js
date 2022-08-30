@@ -10,6 +10,7 @@ import TracerFormMS from "../components/page/Public/Forms/MSIT_PROTO/MSIT_proto.
 import TracerForm from "../components/page/Public/Forms/TracerForm.vue";
 import AdminMgt from "../components/page/Admin/AccountMgt.vue";
 import TracerFormMgt from "../components/page/Admin/TracerFormMgt.vue";
+import TracerFormMgtGoogle from "../components/page/Admin/TracerFormGoogle.vue";
 import SysConfigAccEntities from "../components/page/Admin/SysConfig/AccountEntities.vue";
 import SysConfigSysEntities from "../components/page/Admin/SysConfig/SystemEntities.vue";
 import FormEntities_Basic from "../components/page/Admin/SysConfig/FormEntities/FormEntities_Basic.vue";
@@ -79,6 +80,11 @@ export default {
                 path: '/admin/tracerForm',
                 name: 'TracerFormMgt',
                 component: TracerFormMgt
+            },
+            {
+                path: '/admin/tracerFormGoogle',
+                name: 'TracerFormMgtGoogle',
+                component: TracerFormMgtGoogle
             },
             {
                 path: '/admin/sysconfig/acc_entities',

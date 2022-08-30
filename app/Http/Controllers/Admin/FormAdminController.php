@@ -19,9 +19,9 @@ use Illuminate\Http\Request;
 class FormAdminController extends Controller
 {
     /**
- * Holds the instance of Illuminate\Http\Request
- * @var Request
- */
+     * Holds the instance of Illuminate\Http\Request
+     * @var Request
+     */
     public $oRequest;
 
     /**
