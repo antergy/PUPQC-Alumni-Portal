@@ -4,6 +4,7 @@
             <p class="text-2xl">Form Entities (Basic Components)</p>
             <div class="separator"></div>
             <!-- Tabs -->
+
             <ul id="tabs" class="inline-flex w-full mt-4 ">
                 <li class="px-4 py-2 -mb-px font-semibold text-gray-800 border-b-2 border-blue-400 rounded-t opacity-50">
                     <a id="default-tab" href="#first">Form General Setup</a>

@@ -2,7 +2,7 @@
 	<div class="navigation">
 		<div class="navigation__container">
 			<div class="profile__image"></div>
-			<span class="navigation__title" style="font-size: 20px">PUP Alumni Portal</span>
+			<span class="navigation__title" style="font-size: 20px">PUPQC Alumni Portal</span>
 		</div>
 	</div>
 </template>

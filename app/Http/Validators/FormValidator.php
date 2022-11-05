@@ -43,6 +43,9 @@ class FormValidator extends BaseValidator
             ],
             'form_course_id'     => [
                 'required'
+            ],
+            'form_google_embed_url' => [
+                'string'
             ]
         ];
     }
@@ -57,7 +60,8 @@ class FormValidator extends BaseValidator
         return [
             'form_desc.required'      => 'Form description is required',
             'form_degree_id.required' => 'Degree ID is required',
-            'form_course_id.required' => 'Course ID is required'
+            'form_course_id.required' => 'Course ID is required',
+            'form_google_embed_url'   => 'Google form embedded url must be a string'
         ];
     }
 }

@@ -27,6 +27,9 @@ class FormRules
         ],
         'form_course_id'     => [
             'integer'
+        ],
+        'form_google_embed_url'     => [
+            'string'
         ]
     ];
 
@@ -49,6 +52,9 @@ class FormRules
         ],
         'form_course_id'     => [
             'integer'
+        ],
+        'form_google_embed_url'     => [
+            'string'
         ]
     ];
 

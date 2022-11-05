@@ -5,6 +5,7 @@ import {
   faHome,
   faSignOutAlt,
   faUserCircle,
+    faInfo,
   faEllipsisH,
   faLightbulb,
   faComment,
@@ -25,7 +26,8 @@ const aIconList = [
   faComment,
   faChevronDown,
   faChevronUp,
-    faEye
+    faEye,
+    faInfo
 ]
 
 aIconList.forEach(oIcon => {

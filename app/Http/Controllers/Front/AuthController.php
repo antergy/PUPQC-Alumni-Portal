@@ -4,10 +4,14 @@ namespace App\Http\Controllers\Front;
 
 use App\Constants\AppConstants;
 use App\Http\Controllers\Controller;
+use App\Http\Services\Admin\AccountManagementService;
 use App\Http\Services\Front\AuthService;
+use App\Http\Services\Front\GoogleService;
 use App\Libraries\Common\AuthLib;
+use App\Libraries\Common\ResponseLib;
 use App\Libraries\Common\SessionLib;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 /**
  * Class AuthController
@@ -30,6 +34,8 @@ class AuthController extends Controller
      */
     public $oAuthService;
 
+    public $oGoogleClient;
+
     /**
      * AuthController constructor.
      *
@@ -39,7 +45,114 @@ class AuthController extends Controller
     public function __construct(Request $oRequest, AuthService $oAuthService)
     {
        $this->oRequest = $oRequest;
+       $this->oGoogleClient = new GoogleService();
        $this->oAuthService = $oAuthService;
+    }
+
+    public function signUpGoogleByForm()
+    {
+
+        $sUrl = 'https://pupqc.alumni-portal.com/tracerIntro';
+        $sGoogleToken = SessionLib::getSession('google_access_token');
+        $sRedirectUri = 'https://pupqc.alumni-portal.com/signUpGoogleByForm';
+
+        if (empty($sGoogleToken)) {
+            if ($this->oGoogleClient->authenticate(2, $sRedirectUri) === true) {
+                return Redirect::to($sRedirectUri);
+            } else {
+                return $this->oGoogleClient->authenticate(2, $sRedirectUri);
+            }
+        } else {
+            // Get google user client
+            $client = $this->oGoogleClient->getUserClient($sRedirectUri);
+            $res = new \Google\Service\Oauth2($client);
+            $aUserDetails = [
+                'name' => $res->userinfo->get()->name,
+                'email' => $res->userinfo->get()->email,
+            ];
+
+            // check if user's email is existing
+            $aDataSession = [];
+            $aResult = $this->oAuthService->checkIfAccountExistByEmail($aUserDetails['email']);
+            if ($aResult['bResult'] === false) {
+                $oAccMgtService = new AccountManagementService();
+                $aParams = [
+                    'acc_username'        => str_replace(' ', '_', $aUserDetails['name']),
+                    'acc_name'            => $aUserDetails['name'],
+                    'acc_email'           => $aUserDetails['email'],
+                    'acc_at_id'           => 2,
+                    'acc_google_account'  => 1,
+                    'acc_ans_tracer_form' => 0,
+                    'at_desc'             => 'Alumni',
+                ];
+
+                $aResult = $oAccMgtService->createAccount($aParams);
+                $aDataSession = array_merge(['acc_id' => $aResult['data']], $aParams);
+            } else {
+                $aDataSession = $aResult['data'];
+            }
+            AuthLib::saveUserSession($aDataSession);
+            $aAccountInfo = data_get($this->oAuthService->removeSensitiveInfo($aResult), 'data', []);
+            $aAccountInfo['acc_status'] = 1;
+//            $aAccountInfo = array_merge($aAccountInfo, ['user_app_key' => SessionLib::getSession(AuthLib::SECURITY_KEY_1)]);
+            $this->oAuthService->setAccStatusToOnline();
+
+
+            return Redirect::to('/tracerIntro'); // This is working as of 5:02pm
+        }
+    }
+    public function loginGoogle()
+    {
+        $sUrl = 'https://pupqc.alumni-portal.com/home' ;
+        $sGoogleToken = SessionLib::getSession('google_access_token');
+        $sRedirectUri = 'https://pupqc.alumni-portal.com/loginGoogle';
+
+        if (empty($sGoogleToken)) {
+            if ($this->oGoogleClient->authenticate(2, $sRedirectUri) === true) {
+                return Redirect::to('https://pupqc.alumni-portal.com/loginGoogle');
+            } else {
+                return $this->oGoogleClient->authenticate(2, $sRedirectUri);
+            }
+        } else {
+            // Get google user client
+            $client = $this->oGoogleClient->getUserClient($sRedirectUri);
+            $res = new \Google\Service\Oauth2($client);
+            $aUserDetails = [
+              'name' => $res->userinfo->get()->name,
+              'email' => $res->userinfo->get()->email,
+              'pic' => $res->userinfo->get()->getPicture()
+            ];
+
+            // check if user's email is existing
+            $aDataSession = [];
+            $aResult = $this->oAuthService->checkIfAccountExistByEmail($aUserDetails['email']);
+            if ($aResult['bResult'] === false) {
+                $oAccMgtService = new AccountManagementService();
+                $aParams = [
+                    'acc_username'        => str_replace(' ', '_', $aUserDetails['name']),
+                    'acc_name'            => $aUserDetails['name'],
+                    'acc_email'           => $aUserDetails['email'],
+                    'acc_at_id'           => 2,
+                    'acc_google_account'  => 1,
+                    'acc_ans_tracer_form' => 0,
+                    'at_desc'             => 'Alumni',
+                    'acc_picture'         => $aUserDetails['pic']
+                 ];
+
+                $aResult = $oAccMgtService->createAccount($aParams);
+                $aDataSession = array_merge(['acc_id' => $aResult['data']], $aParams);
+            } else {
+                $aDataSession = $aResult['data'];
+            }
+
+            AuthLib::saveUserSession($aDataSession);
+            $aAccountInfo = data_get($this->oAuthService->removeSensitiveInfo($aResult), 'data', []);
+            $aAccountInfo['acc_status'] = 1;
+            $aAccountInfo = array_merge($aAccountInfo, ['user_app_key' => SessionLib::getSession(AuthLib::SECURITY_KEY_1)]);
+            $this->oAuthService->setAccStatusToOnline();
+
+            return Redirect::to('/home'); // This is working as of 5:02pm
+        }
     }
 
     /**
@@ -116,12 +229,13 @@ class AuthController extends Controller
     /**
      * Destroy the user's current and session and logs out
      *
-     * @return \Illuminate\Routing\Redirector
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function logout()
     {
         $this->oAuthService->setAccStatusToOffline();
         AuthLib::deleteUserSession();
-        return redirect('/');
+
+        return Redirect::to('/');
     }
 }

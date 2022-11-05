@@ -3,54 +3,54 @@
 		<div class="home__feed">
             <!-- Create Post -->
             <div class="post">
-                <div class="form__input-group w-12/12">
-                    <div class="p-3">
-                        <label class="form__label" style="font-size: 17px; margin-bottom: 20px">Write and share something...</label>
-                        <br><br>
-                        <vue-editor id="sample1" v-model="content"></vue-editor>
-                        <div class="form__input-group w-7/12">
-                            <label class="form__label">Visibility: </label>
-                            <select id="branch" v-model="selectedPostType" name="postype" class="form__input place-self-center">
-                                <option selected disabled value="0">-- Select Visibility Type --</option>
-                                <option v-for="pt in aPostTypes" v-bind:value="pt.pt_id">
-                                    {{ pt.pt_desc }}
-                                </option>
-                            </select>
-                        </div>
-                        <div v-if="selectedPostType > 1" >
+                    <div class="form__input-group w-12/12">
+                        <div class="p-3">
+                            <label class="form__label" style="font-size: 17px; margin-bottom: 20px">Write and share something...</label>
+                            <br><br>
+                            <vue-editor id="sample1" v-model="content"></vue-editor>
                             <div class="form__input-group w-7/12">
-                                <label class="form__label">Associated Degree: </label>
-                                <select id="degree" v-model="selectedDegree" name="degree" class="form__input place-self-center">
-                                    <option selected value="0">-- Select Degree --</option>
-                                    <option v-for="degree in aDegree" v-bind:value="degree.degree_id">
-                                        {{ degree.degree_desc }}
+                                <label class="form__label">Visibility: </label>
+                                <select id="branch" v-model="selectedPostType" name="postype" class="form__input place-self-center">
+                                    <option selected disabled value="0">-- Select Visibility Type --</option>
+                                    <option v-for="pt in aPostTypes" v-bind:value="pt.pt_id">
+                                        {{ pt.pt_desc }}
                                     </option>
                                 </select>
                             </div>
-                            <div v-if="selectedDegree > 0" >
+                            <div v-if="selectedPostType > 1" >
                                 <div class="form__input-group w-7/12">
-                                    <label class="form__label">Associated Course / Program: </label>
-                                    <select id="course" v-model="selectedCourse" name="course" class="form__input place-self-center">
-                                        <option selected value="0">-- Select Course / Program --</option>
-                                        <option v-for="course in aCourse" v-bind:value="course.course_id">
-                                            {{ course.course_desc }}
+                                    <label class="form__label">Associated Degree: </label>
+                                    <select id="degree" v-model="selectedDegree" name="degree" class="form__input place-self-center">
+                                        <option selected value="0">-- Select Degree --</option>
+                                        <option v-for="degree in aDegree" v-bind:value="degree.degree_id">
+                                            {{ degree.degree_desc }}
                                         </option>
                                     </select>
                                 </div>
+                                <div v-if="selectedDegree > 0" >
+                                    <div class="form__input-group w-7/12">
+                                        <label class="form__label">Associated Course / Program: </label>
+                                        <select id="course" v-model="selectedCourse" name="course" class="form__input place-self-center">
+                                            <option selected value="0">-- Select Course / Program --</option>
+                                            <option v-for="course in aCourse" v-bind:value="course.course_id">
+                                                {{ course.course_desc }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="grid grid-flow-col auto-cols-max" style="margin-top: 10px">
-                            <button type="button" class="form__button w-full" style="margin-right: 20px" @click="clearPostForm">
-                                <span style="margin: 5px; font-size: 15px">Clear All</span>&nbsp;
-                            </button>&nbsp;&nbsp;
-                            <button type="button" class="form__button success w-full" @click="savePost">
-                                <span style="margin: 5px; font-size: 15px">Post</span>
-                            </button>
+                            <div class="grid grid-flow-col auto-cols-max" style="margin-top: 10px">
+                                <button type="button" class="form__button w-full" style="margin-right: 20px" @click="clearPostForm">
+                                    <span style="margin: 5px; font-size: 15px">Clear All</span>&nbsp;
+                                </button>&nbsp;&nbsp;
+                                <button type="button" class="form__button success w-full" @click="savePost">
+                                    <span style="margin: 5px; font-size: 15px">Post</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             <!-- Container if post is retrieved -->
             <div v-if="aPostList === ''" style="display: flex; justify-content: center; margin-top: 20px">
                 <img src="/img/loading-buffering.gif" style="width: 100px; height: 100px">
@@ -66,7 +66,7 @@
                             <div class="post__image" v-if="post.acc_picture === null">
                                 <font-awesome-icon far icon="user-circle" size="2x" />
                             </div>
-                            <img v-if="$root.sRootUserProfPic !== null" :src="post.acc_picture" style="width: 45px; height: 45px; border-radius: 50%; border: 3px solid #6E6E6E" alt="Profile"/>
+                            <img v-else :src="post.acc_picture" style="width: 45px; height: 45px; border-radius: 50%; border: 3px solid #6E6E6E" alt="Profile"/>
                             <div class="post__info">
                                 <label class="post__name">{{ post.acc_username }}</label>
                                 <label class="post__date">{{ post.created_at }}</label>
@@ -84,7 +84,7 @@
                             <span v-if="post.like_count > 1">{{ post.like_count }} Likes</span>
                             <span v-if="post.like_count <= 1">{{ post.like_count }} Like</span>
                             &nbsp;&nbsp;&nbsp;
-                                <button @click="displayComments(post.post_id)" v-if="post.comment_count > 1"><u>{{ post.comment_count }} Comments</u></button>
+                            <button @click="displayComments(post.post_id)" v-if="post.comment_count > 1"><u>{{ post.comment_count }} Comments</u></button>
                             <button @click="displayComments(post.post_id)" v-if="post.comment_count === 1"><u>{{ post.comment_count }} Comment</u></button>
                             <span v-if="post.comment_count === 0"><u>{{ post.comment_count }} Comment</u></span>
                         </p>
@@ -126,17 +126,17 @@
                     <div :id="'disp_comments_'+post.post_id" class="disp_comments" style="display: none">
                         <div class="post__profile" v-for="comment in aComments"
                              style="font-size: 14px !important; background-color: #ececec; border-radius: 10px; margin: 10px;">
-                                <div class="post__image" v-if="comment.commenter_pic === null" style="margin: 5px">
-                                    <font-awesome-icon far icon="user-circle" size="2x"/>
-                                </div>
-                                <img v-else :src="comment.commenter_pic"
-                                     style="width: 45px; height: 45px; border-radius: 50%; border: 3px solid #6E6E6E; margin: 5px;"
-                                     alt="Profile"/>
-                                <div class="post__info" style="margin: 5px;">
-                                    <label class="post__name">{{ comment.commented_by }}</label>
-                                    <label class="post__date">{{ comment.updated_at }}</label>
-                                    <p>{{ comment.cm_desc }}</p>
-                                </div>
+                            <div class="post__image" v-if="comment.commenter_pic === null" style="margin: 5px">
+                                <font-awesome-icon far icon="user-circle" size="2x"/>
+                            </div>
+                            <img v-else :src="comment.commenter_pic"
+                                 style="width: 45px; height: 45px; border-radius: 50%; border: 3px solid #6E6E6E; margin: 5px;"
+                                 alt="Profile"/>
+                            <div class="post__info" style="margin: 5px;">
+                                <label class="post__name">{{ comment.commented_by }}</label>
+                                <label class="post__date">{{ comment.updated_at }}</label>
+                                <p>{{ comment.cm_desc }}</p>
+                            </div>
                         </div>
                     </div>
                     <!-- Display comment section -->

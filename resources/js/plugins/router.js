@@ -57,7 +57,7 @@ export default {
                 component: TracerIntro
             },
             {
-                path: '/tracerForm/:id',
+                path: '/tracerForm',
                 name: 'TracerForm',
                 component: TracerForm
             },

@@ -27,10 +27,6 @@
 					<ListItem v-if="this.$root.sRootAccPos === 'Superadmin'" text="System Logs" to="/admin/reports/logs"/>
 				</ListItem>
 				<ListItem v-if="this.$root.sRootAccPos === 'Administrator' || this.$root.sRootAccPos === 'Superadmin'" text="System Configuration">
-                    <ListItem text="Form Entities">
-                        <ListItem text="Basic Components" to="/admin/sysconfig/form/basic"/>
-                        <ListItem text="Questions and Choices" to="/admin/sysconfig/form/questions"/>
-                    </ListItem>
                     <ListItem  v-if="this.$root.sRootAccPos === 'Superadmin'" text="System Entities" to="/admin/sysconfig/sys_entities"/>
                 </ListItem>
 			</List>

@@ -3,7 +3,7 @@
         <!-- FORM -->
         <div class="mt-6 w-full ">
             <div class="form outline w-full">
-                <h1 style="font-size: 18px; font-weight: bold">Add new form:</h1><br>
+                <h1 style="font-size: 18px; font-weight: bold">Add new system form:</h1><br>
                 <div class="form__input-group w-7/12">
                     <label class="form__label">Form Description</label>
                     <input id="form_desc_new" type="text" class="form__input">
@@ -26,6 +26,15 @@
                         </option>
                     </select>
                 </div>
+                <div class="form__input-group w-7/12">
+                    <label class="form__label">Google form to be used: </label>
+                    <select id="googleForm" v-model="selectedGoogleFormUrl" name="googleForm" class="form__input place-self-center">
+                        <option selected value="">-- Select Google Form --</option>
+                        <option v-for="gForm in aGoogleForms" v-bind:value="gForm.webViewLink">
+                            {{ gForm.name }}
+                        </option>
+                    </select>
+                </div>
                 <div class="grid grid-flow-col auto-cols-max">
                     <div class="m-1">
                         <button type="button" class="form__button w-full" @click="resetForm"> Clear All Entries&nbsp;</button>
@@ -37,11 +46,13 @@
             </div>
         </div>
         <br>
+        <button type="button" class="form__button info w-2/12" @click="getFormList"> Refresh Table&nbsp;</button>
+        <br>
         <!-- TABLE -->
-        <table id="tbl_form_list" class="cell-border m-2">
+        <table id="tbl_form_list" class="cell-border m-2" style="width: 100%">
             <thead>
             <tr>
-                <th style="width: 5%">Sequence Id</th>
+                <th style="width: 5%">Id</th>
                 <th style="width: 25%">Form Description</th>
                 <th style="width: 20%">Assoc. Degree</th>
                 <th style="width: 25%">Assoc. Course</th>
@@ -90,6 +101,15 @@
                                                 <option selected value="0">-- Select Course --</option>
                                                 <option v-for="course in aCourses" v-bind:value="course.course_id">
                                                     {{ course.course_desc }}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="form__input-group w-11/12">
+                                            <label class="form__label">Google Form in use:</label>
+                                            <select id="googleFormToUpdate" v-model="selectedToUpdateGoogleForm" name="googleFormToUpdate" class="form__input place-self-center">
+                                                <option selected value="">-- Select Google Form --</option>
+                                                <option v-for="gForm in aGoogleForms" v-bind:value="gForm.webViewLink">
+                                                    {{ gForm.name }}
                                                 </option>
                                             </select>
                                         </div>
@@ -162,6 +182,7 @@
 </template>
 
 <script>
+import {AppBus} from "../../../../../appBus";
 import FormEntitiesFunctions from "../../../../../plugins/Modular/FormEntities/FormEntitiesFunctions";
 export default {
     name: "FE_Basic_General",
@@ -179,18 +200,35 @@ export default {
             iRecordStatus          : 0,
             selectedToUpdateDegree : 0,
             selectedToUpdateCourse : 0,
+            selectedToUpdateGoogleForm : '',
+            aGoogleForms           : [],
+            selectedGoogleFormUrl  : '',
         };
     },
     created() {
         this.initActionBtnModalTrigger();
+        AppBus.$on('refresh',() => {
+           this.getGoogleForms();
+        });
     },
     mounted() {
         this.initDegree();
         this.initCourse();
         this.getFormList();
+        this.getGoogleForms();
+        // this.getGoogleFormResponse();
     },
     methods: {
-
+        getGoogleFormResponse: function () {
+            this.$root.getRequest('getFormResponse', (mResult) => {
+               console.log(mResult);
+            });
+        },
+        getGoogleForms: function () {
+            this.$root.getRequest('getForms', (mResult) => {
+                this.aGoogleForms = mResult;
+            });
+        },
         /**
          * Initialize degree details
          */
@@ -223,7 +261,7 @@ export default {
                         var reformatted_data = [];
                         $.each(json.data, function (key, value) {
                             reformatted_data.push({
-                                'sequence'    : value.form_id,
+                                'id'    : value.form_id,
                                 'form_desc'   : value.form_desc,
                                 'form_degree' : value.degree_desc,
                                 'form_course' : value.course_desc !== null ? value.course_desc : 'N/A',
@@ -234,7 +272,7 @@ export default {
                     }
                 },
                 "columns": [
-                    {data: 'sequence'},
+                    {data: 'id'},
                     {data: 'form_desc'},
                     {data: 'form_degree'},
                     {data: 'form_course'},
@@ -251,6 +289,7 @@ export default {
             $('#form_desc_new').val('');
             this.selectedDegree = 0;
             this.selectedCourse = 0;
+            this.selectedGoogleFormUrl = '';
         },
 
         /**
@@ -258,9 +297,10 @@ export default {
          */
         addForm: function () {
             let oParam = {
-                'form_desc'      : $('#form_desc_new').val(),
-                'form_degree_id' : this.selectedDegree,
-                'form_course_id' : this.selectedCourse
+                'form_desc'            : $('#form_desc_new').val(),
+                'form_degree_id'       : this.selectedDegree,
+                'form_course_id'       : this.selectedCourse,
+                'form_google_embed_url': this.selectedGoogleFormUrl.replace('/edit?usp=drivesdk','')
             };
             this.$root.postRequest('admin/form/create', oParam, (mResponse) => {
                 if (mResponse.code === 200) {
@@ -278,10 +318,11 @@ export default {
          */
         updateForm: function () {
             let oParam = {
-                'form_id'        : this.iId,
-                'form_desc'      : $('#form_desc').val(),
-                'form_degree_id' : $("#selectToUpdateDegree :selected").val(),
-                'form_course_id' : $("#selectToUpdateCourse :selected").val(),
+                'form_id'               : this.iId,
+                'form_desc'             : $('#form_desc').val(),
+                'form_degree_id'        : $("#selectToUpdateDegree :selected").val(),
+                'form_course_id'        : $("#selectToUpdateCourse :selected").val(),
+                'form_google_embed_url' : $("#googleFormToUpdate   :selected").val().replace('/edit?usp=drivesdk',''),
             };
             this.$root.postRequest('admin/form/update', oParam, (mResponse) => {
                 if (mResponse.code === 200) {
@@ -327,8 +368,10 @@ export default {
                 mSelf.oModalData = JSON.parse(decodeURIComponent(this.dataset.response));
                 mSelf.iId = mSelf.oModalData.data.form_id;
                 $('#form_desc').val(mSelf.oModalData.data.form_desc);
-                mSelf.selectedToUpdateDegree = mSelf.oModalData.data.form_degree_id
-                mSelf.selectedToUpdateCourse = mSelf.oModalData.data.form_course_id
+                mSelf.selectedToUpdateDegree = mSelf.oModalData.data.form_degree_id;
+                mSelf.selectedToUpdateCourse = mSelf.oModalData.data.form_course_id;
+                mSelf.selectedToUpdateGoogleForm = mSelf.oModalData.data.form_google_embed_url + '/edit?usp=drivesdk';
+                console.log(mSelf.selectedToUpdateGoogleForm);
             });
             /** Init behavior for enable button */
             $(document).on('click', '.sys_entenable', function () {

@@ -29,7 +29,18 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
 <script type="text/javascript" charset="utf8" src="<?php echo e(asset('js/plugins/cropzee.js')); ?>"></script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script src="<?php echo e(asset('js/app.js')); ?>"></script>
+<script>
+    function onSubmit(token) {
+        $('#btnRedirect').attr('disabled', false);
+        $('#btnRedirect').css('background-color', '#3B82F6');
+    }
+    function onExpire(){
+        $('#btnRedirect').attr('disabled', true);
+        $('#btnRedirect').css('background-color', '#b5b5b5');
+    }
+</script>
 </body>
 </html>
 <?php /**PATH D:\Projects\External Projects\PUPQC Alumni Portal\System\pupqc_alumni_portal\resources\views/main.blade.php ENDPATH**/ ?>

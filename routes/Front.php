@@ -63,7 +63,7 @@ foreach ($aAuthenticatedVueRoutes as $sRoute) {
 $aPublicVueRoutes = [
   '/register',
   '/tracerIntro',
-  '/tracerForm/{id}',
+  '/tracerForm',
   '/tracerForm/answer/{id}',
   '/ug_tracerForm'
 ];
@@ -74,10 +74,14 @@ foreach ($aPublicVueRoutes as $sRoute) {
 }
 
 Route::post('/login', 'AuthController@login');
+Route::get('/loginGoogle', 'AuthController@loginGoogle');
+Route::get('/signUpGoogleByForm', 'AuthController@signUpGoogleByForm');
 Route::post('/logout', 'AuthController@logout');
 Route::post('/alumni/account/create', 'RegistrationPageController@register');
 Route::get('/getSession', 'AuthController@getSession');
 Route::get('/google', 'FormGoogleController@checkGoogleAuth');
 Route::get('/checkGoogleAuth', 'FormGoogleController@checkGoogleAuth');
 Route::get('/getForms', 'FormGoogleController@getForms');
+Route::get('/getFormResponse', 'FormGoogleController@getFormResponses');
+Route::post('/google/form/create', "FormGoogleController@createForm");
 

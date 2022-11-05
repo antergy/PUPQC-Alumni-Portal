@@ -80,6 +80,8 @@ class AuthLib
         SessionLib::deleteSession(self::SECURITY_KEY_1);
         SessionLib::deleteSession(self::SECURITY_KEY_2);
         SessionLib::deleteSession(self::SECURITY_KEY_FULL);
+        SessionLib::deleteSession('google_access_token');
+        SessionLib::deleteSession('google_refresh_token');
     }
 
 }

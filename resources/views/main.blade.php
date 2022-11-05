@@ -29,6 +29,17 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
 <script type="text/javascript" charset="utf8" src="{{ asset('js/plugins/cropzee.js') }}"></script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script src="{{ asset('js/app.js') }}"></script>
+<script>
+    function onSubmit(token) {
+        $('#btnRedirect').attr('disabled', false);
+        $('#btnRedirect').css('background-color', '#3B82F6');
+    }
+    function onExpire(){
+        $('#btnRedirect').attr('disabled', true);
+        $('#btnRedirect').css('background-color', '#b5b5b5');
+    }
+</script>
 </body>
 </html>

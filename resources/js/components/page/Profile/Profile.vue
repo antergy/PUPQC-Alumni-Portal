@@ -3,69 +3,76 @@
         <div class="w-full mx-auto mt-4 ml-20 rounded">
             <p class="text-2xl">My Profile</p>
             <div class="separator"></div>
+            <div v-if="$root.sRootAccPos === 'Alumni'">
+                <div class="form_outline">
+                    <p>Alumni</p>
+                </div>
+            </div>
             <!-- PROFILE FORM  -->
-            <div class="form outline">
-                <p class="text-2xl">Update Profile Details</p>
-                <div class="separator"></div>
-                <div class="form__input-group x-lg">
-                    <label class="form__label">Account Name</label>
-                    <input id="acc_name" type="text" class="form__input" v-model="sName">
-                </div>
-                <div class="form__input-group x-lg">
-                    <label class="form__label">Username</label>
-                    <input id="acc_uname" type="text" class="form__input" v-model="sUsername">
-                </div>
-                <div class="form__input-group x-lg">
-                    <label class="form__label">Email</label>
-                    <input id="acc_email" type="email" class="form__input" v-model="sEmail">
-                </div>
-                <div class="form__input-group x-lg">
-                    <label class="form__label">Profile Picture (Optional): </label>
-                    <input id="cropzee-input" type="file" class="form__input" @click="resetImg()">
-                    <br>
-                    <div id="img-previewer" class="image-previewer" data-cropzee="cropzee-input"
-                         style="max-height: 500px; max-width: 700px;"></div>
-                </div>
-                <div class="form__input-group w-8/12">
-                    <div class="grid grid-flow-col auto-cols-max">
-                        <div class="m-1">
-                            <button type="button" id="btnClear" class="form__button w-full">&nbsp; &nbsp;
-                                Clear Entries&nbsp; &nbsp;
-                            </button>
-                        </div>
-                        <div class="m-1">
-                            <button type="button" id="btnSave" class="form__button success w-full">&nbsp;&nbsp;Save&nbsp;Changes
-                            </button>
+            <div v-else>
+                <div class="form outline">
+                    <p class="text-2xl">Update Profile Details</p>
+                    <div class="separator"></div>
+                    <div class="form__input-group x-lg">
+                        <label class="form__label">Account Name</label>
+                        <input id="acc_name" type="text" class="form__input" v-model="sName">
+                    </div>
+                    <div class="form__input-group x-lg">
+                        <label class="form__label">Username</label>
+                        <input id="acc_uname" type="text" class="form__input" v-model="sUsername">
+                    </div>
+                    <div class="form__input-group x-lg">
+                        <label class="form__label">Email</label>
+                        <input id="acc_email" type="email" class="form__input" v-model="sEmail">
+                    </div>
+                    <div class="form__input-group x-lg">
+                        <label class="form__label">Profile Picture (Optional): </label>
+                        <input id="cropzee-input" type="file" class="form__input" @click="resetImg()">
+                        <br>
+                        <div id="img-previewer" class="image-previewer" data-cropzee="cropzee-input"
+                             style="max-height: 500px; max-width: 700px;"></div>
+                    </div>
+                    <div class="form__input-group w-8/12">
+                        <div class="grid grid-flow-col auto-cols-max">
+                            <div class="m-1">
+                                <button type="button" id="btnClear" class="form__button w-full">&nbsp; &nbsp;
+                                    Clear Entries&nbsp; &nbsp;
+                                </button>
+                            </div>
+                            <div class="m-1">
+                                <button type="button" id="btnSave" class="form__button success w-full">&nbsp;&nbsp;Save&nbsp;Changes
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <br>
-            <div class="form outline">
-                <p class="text-2xl">Change Password</p>
-                <div class="separator"></div>
-                <div class="form__input-group x-lg">
-                    <label class="form__label">Current Password</label>
-                    <input id="acc_old_password" type="password" class="form__input">
-                </div>
-                <div class="form__input-group x-lg">
-                    <label class="form__label">New Password</label>
-                    <input id="acc_new_password" type="password" class="form__input">
-                </div>
-                <div class="form__input-group x-lg">
-                    <label class="form__label">Confirm Password</label>
-                    <input id="acc_confirm_password" type="password" class="form__input">
-                </div>
-                <div class="form__input-group w-8/12">
-                    <div class="grid grid-flow-col auto-cols-max">
-                        <div class="m-1">
-                            <button type="button" id="btnPassClear" class="form__button w-full">&nbsp; &nbsp;
-                                Clear Entries&nbsp; &nbsp;
-                            </button>
-                        </div>
-                        <div class="m-1">
-                            <button type="button" id="btnPassSave" class="form__button success w-full">&nbsp;&nbsp;Change Password
-                            </button>
+                <br>
+                <div class="form outline">
+                    <p class="text-2xl">Change Password</p>
+                    <div class="separator"></div>
+                    <div class="form__input-group x-lg">
+                        <label class="form__label">Current Password</label>
+                        <input id="acc_old_password" type="password" class="form__input">
+                    </div>
+                    <div class="form__input-group x-lg">
+                        <label class="form__label">New Password</label>
+                        <input id="acc_new_password" type="password" class="form__input">
+                    </div>
+                    <div class="form__input-group x-lg">
+                        <label class="form__label">Confirm Password</label>
+                        <input id="acc_confirm_password" type="password" class="form__input">
+                    </div>
+                    <div class="form__input-group w-8/12">
+                        <div class="grid grid-flow-col auto-cols-max">
+                            <div class="m-1">
+                                <button type="button" id="btnPassClear" class="form__button w-full">&nbsp; &nbsp;
+                                    Clear Entries&nbsp; &nbsp;
+                                </button>
+                            </div>
+                            <div class="m-1">
+                                <button type="button" id="btnPassSave" class="form__button success w-full">&nbsp;&nbsp;Change Password
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -45,9 +45,9 @@ class AccountRepository extends CoreApiRepository
         'acc_email',
         'acc_picture',
         'acc_at_id',
-        'acc_status',
-        'acc_assoc_degree_id',
-        'acc_assoc_branch_id',
+        'acc_google_account',
+        'acc_ans_tracer_form',
+        'acc_status'
     ];
 
     /**
@@ -84,29 +84,5 @@ class AccountRepository extends CoreApiRepository
         $sForeignKey = 'r_account_types.at_id';
         $sOperator = '=';
         $this->oModel = $this->oModel->join('r_account_types', $sReferenceKey, $sOperator, $sForeignKey, $sType);
-    }
-
-    /**
-     * Inner join the degree table
-     * @param string $sType
-     */
-    public function joinDegreeTable($sType = 'inner')
-    {
-        $sReferenceKey = 't_accounts.acc_assoc_degree_id';
-        $sForeignKey = 'r_degree.degree_id';
-        $sOperator = '=';
-        $this->oModel = $this->oModel->join('r_degree', $sReferenceKey, $sOperator, $sForeignKey, $sType);
-    }
-
-    /**
-     * Inner join the branch table
-     * @param string $sType
-     */
-    public function joinBranchTable($sType = 'inner')
-    {
-        $sReferenceKey = 't_accounts.acc_assoc_branch_id';
-        $sForeignKey = 'r_branch.branch_id';
-        $sOperator = '=';
-        $this->oModel = $this->oModel->join('r_branch', $sReferenceKey, $sOperator, $sForeignKey, $sType);
     }
 }

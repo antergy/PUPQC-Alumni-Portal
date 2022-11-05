@@ -67,17 +67,6 @@ class FormManagementService extends CoreAdminService
         $sApiRoute = sprintf('/%s/%s/read', self::API_VERSION, self::FORM_API_MODULE);
         $aForms = $this->sendInternalApiRequest($sApiRoute, 'GET', $aParams);
 
-        /** Include the form's questions */
-        $aResult = [];
-        foreach ($aForms[AppConstants::DATA] as $aForm) {
-            $aQuestionGroups = $this->getFormQuestionGroups($aForm['form_id']);
-            $aFormWithQuestionGroups = array_merge($aForm, ['question_groups' => $aQuestionGroups]);
-            array_push($aResult, $aFormWithQuestionGroups);
-        }
-
-        /** Replace the data value of the posts variable */
-        $aForms[AppConstants::DATA] = $aResult;
-
         return $aForms;
     }
 

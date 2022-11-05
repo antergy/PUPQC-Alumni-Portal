@@ -47,6 +47,7 @@ class FormRepository extends CoreApiRepository
         'form_desc',
         'form_degree_id',
         'form_course_id',
+        'form_google_embed_url',
         'form_active_status',
         'degree_desc',
         'course_desc'

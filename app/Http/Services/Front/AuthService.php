@@ -80,6 +80,39 @@ class AuthService extends CoreAdminService
     }
 
     /**
+     * Check if the account email exist
+     *
+     * @param string $sEmail
+     * @return array
+     */
+    public function checkIfAccountExistByEmail($sEmail)
+    {
+        $bResult = true;
+        $oAccMgtService = new AccountManagementService();
+        $aParams = [
+            'acc_email'     => $sEmail,
+            'password_visible' => 'true'
+        ];
+        $aResult = $oAccMgtService->getAccounts($aParams);
+        $aResultData = data_get($aResult, AppConstants::DATA, []);
+        $aResultMsg = data_get($aResult, AppConstants::MESSAGE, '');
+        if (empty($aResultData) === true) {
+            $bResult = false;
+            $sMessage = "Account Doesn't Exists";
+            $aData = [];
+        } else {
+            $sMessage = $aResultMsg;
+            $aData = $aResultData[0];
+        }
+
+        return [
+            AppConstants::B_RESULT => $bResult,
+            AppConstants::MESSAGE  => $sMessage,
+            AppConstants::DATA     => $aData
+        ];
+    }
+
+    /**
      * Removes sensitive info from the returning user details array
      * - Can be modified
      *
@@ -124,4 +157,5 @@ class AuthService extends CoreAdminService
         ];
         $oAccMgtService->updateAccount($aParams);
     }
+
 }

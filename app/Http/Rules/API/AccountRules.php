@@ -22,7 +22,7 @@ class AccountRules
             'max:50'
         ],
         'acc_password'        => [
-            'required',
+            'string',
             'max:50'
         ],
         'acc_name'            => [
@@ -37,13 +37,11 @@ class AccountRules
             'required',
             'exists:r_account_types,at_id'
         ],
-        'acc_assoc_degree_id' => [
-            'required',
-            'exists:r_degree,degree_id'
+        'acc_google_account' => [
+            'integer'
         ],
-        'acc_assoc_branch_id' => [
-            'required',
-            'exists:r_branch,branch_id'
+        'acc_ans_tracer_form' => [
+            'integer'
         ],
         'acc_picture' => [
             'string'
@@ -71,11 +69,11 @@ class AccountRules
         'acc_at_id'           => [
             'exists:r_account_types,at_id'
         ],
-        'acc_assoc_degree_id' => [
-            'exists:r_degree,degree_id'
+        'acc_google_account' => [
+            'string'
         ],
-        'acc_assoc_branch_id' => [
-            'exists:r_branch,branch_id'
+        'acc_ans_tracer_form' => [
+            'string'
         ],
         'acc_status'          => [
             'integer'
